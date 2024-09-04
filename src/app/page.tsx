@@ -1,9 +1,10 @@
 import { Button } from "@/shared/ui/button";
+import { Container } from "@/shared/ui/container";
 
 export default function Home() {
   return (
-    <div>
+    <Container>
       <Button>123</Button>
-    </div>
+    </Container>
   );
 }

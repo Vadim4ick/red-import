@@ -62,6 +62,11 @@ const config: Config = {
         },
       },
     },
+    screens: {
+      mobileSmall: "450px",
+      mobile: "768px",
+      tablet: "991px",
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };
