@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geologica } from "next/font/google";
 import "@/shared/style/globals.css";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const geologica = Geologica({
   subsets: ["cyrillic"],
@@ -20,11 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={geologica.variable}>
-        <Header />
+    <html lang="en" className="h-full">
+      <body className={`${geologica.variable} h-full`}>
+        <div className="flex h-full flex-col">
+          <Header />
 
-        {children}
+          <main className="flex-1">{children}</main>
+
+          <Footer />
+        </div>
       </body>
     </html>
   );

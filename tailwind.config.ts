@@ -21,6 +21,7 @@ const config: Config = {
         buttonColor: "#D32E23",
         defaultTextColor: "#181818",
         bgBody: "#F6F6F6",
+        bgFooter: "#343434",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
