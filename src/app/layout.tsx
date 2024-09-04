@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geologica } from "next/font/google";
 import "@/shared/style/globals.css";
+import { Header } from "@/components/Header";
 
 const geologica = Geologica({
   subsets: ["cyrillic"],
@@ -20,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={geologica.variable}>{children}</body>
+      <body className={geologica.variable}>
+        <Header />
+
+        {children}
+      </body>
     </html>
   );
 }

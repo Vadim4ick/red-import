@@ -18,6 +18,9 @@ const config: Config = {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        buttonColor: "#D32E23",
+        defaultTextColor: "#181818",
+        bgBody: "#F6F6F6",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
