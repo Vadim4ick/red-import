@@ -48,3 +48,17 @@
 .skew-burger {
   transform: skew(30deg);
 }
+
+.custom-scrollbar {
+  padding-bottom: 20px;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+  scrollbar-width: 1px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #a6a6a6;
+  border-radius: 1px;
+  scrollbar-color: #a6a6a6 transparent;
+}

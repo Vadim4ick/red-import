@@ -2,7 +2,7 @@ import { AdvantagesSlide } from "../model/mockData";
 
 const AdvantagesScrollSlide = ({ item }: { item: AdvantagesSlide }) => {
   return (
-    <article className="pt-[32px ] w-[440px] flex-shrink-0 flex-grow-0 bg-[#F3F3F3] pl-[32px] pr-[39px]">
+    <article className="w-[440px] flex-shrink-0 flex-grow-0 bg-[#F3F3F3] pb-[30px] pl-[32px] pr-[39px] pt-[32px]">
       <img src={item.icon} alt="advantages" />
 
       <div className="flex flex-col gap-6 pt-6">
