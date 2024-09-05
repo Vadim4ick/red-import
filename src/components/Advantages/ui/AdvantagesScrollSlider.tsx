@@ -4,22 +4,33 @@ import { AdvantagesScrollSlide } from "./AdvantagesScrollSlide";
 import { motion, useInView } from "framer-motion";
 
 const AdvantagesScrollSlider = () => {
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const [isScrollLocked, setIsScrollLocked] = useState(true);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+
+  const [isScrollLocked, setIsScrollLocked] = useState(true); // Заблокирован (Да, нет)
+  const [hasScrolled, setHasScrolled] = useState(false); // Проскроллен (Да, нет)
+
   const isInView = useInView(sliderRef, {
     amount: "all",
   });
 
-  // Блокировка вертикального скролла и автоматический горизонтальный скролл
+  useEffect(() => {
+    // Если проскролен, то удаляем элемент и больше не дергаем
+    if (hasScrolled) {
+      sliderRef.current = null;
+    }
+  }, [hasScrolled]);
+
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (isScrollLocked && sliderRef.current && isInView) {
-        e.preventDefault(); // предотвращаем стандартное поведение
-        sliderRef.current.scrollLeft += e.deltaY; // прокрутка горизонтально при вертикальном скролле
+      if (isScrollLocked && !hasScrolled && sliderRef.current && isInView) {
+        e.preventDefault();
+        sliderRef.current.scrollLeft += e.deltaY;
       }
     };
 
-    if (isScrollLocked && isInView) {
+    console.log(isInView);
+
+    if (isScrollLocked && !hasScrolled && isInView) {
       document.body.style.overflow = "hidden";
       window.addEventListener("wheel", handleWheel);
     } else {
@@ -30,15 +41,28 @@ const AdvantagesScrollSlider = () => {
       document.body.style.overflow = "auto";
       window.removeEventListener("wheel", handleWheel);
     };
-  }, [isInView, isScrollLocked]);
+  }, [isScrollLocked, isInView, hasScrolled]);
 
   const handleScroll = () => {
-    if (sliderRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+    if (!sliderRef.current) return;
 
-      if (scrollLeft + clientWidth >= scrollWidth) {
-        setIsScrollLocked(false);
+    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+
+    if (scrollLeft === 0 || scrollLeft + clientWidth >= scrollWidth) {
+      setIsScrollLocked(false);
+      document.body.style.overflow = "auto";
+      setHasScrolled(true);
+
+      if (scrollLeft === 0) {
+        setIsScrollLocked(true);
       }
+
+      if (scrollLeft + clientWidth < scrollWidth) {
+        setHasScrolled(false);
+      }
+    } else {
+      setIsScrollLocked(true);
+      document.body.style.overflow = "hidden";
     }
   };
 
