@@ -3,9 +3,9 @@ import { MainSlider } from "./MainSlider";
 
 const MainSection = () => {
   return (
-    <section>
+    <section className="pt-[61px]">
       <Container>
-        <div className="flex flex-col gap-6 pb-[57px]">
+        <div className="flex flex-col gap-6 pb-[90px]">
           <h1 className="max-w-[600px] text-[48px] font-medium leading-[48px]">
             Надежная спецтехника для вашего бизнеса
           </h1>
@@ -24,7 +24,7 @@ const MainSection = () => {
       </Container>
 
       <div className="bg-[#D3961F]">
-        <Container className="w-full max-w-[1150px] pl-[25px]">
+        <Container className="w-full max-w-[1200px] pl-[55px]">
           <p className="w-full py-2 text-[13px] leading-[15px] text-white">
             Спецтехника для любых задач — от экскаваторов до бульдозеров.
             Импортируем напрямую, исключая посредников. Высокое качество и
