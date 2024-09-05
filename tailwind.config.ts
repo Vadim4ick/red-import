@@ -66,6 +66,7 @@ const config: Config = {
       mobileSmall: "450px",
       mobile: "768px",
       tablet: "991px",
+      desktop: "1200px",
     },
   },
   plugins: [require("tailwindcss-animate")],
