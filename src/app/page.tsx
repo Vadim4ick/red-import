@@ -1,4 +1,5 @@
-import { Advantages } from "@/components/Advantages/ui/Advantages";
+import { Advantages } from "@/components/Advantages";
+import { Catalog } from "@/components/Catalog";
 import { MainSection } from "@/components/MainSection";
 
 export default function Home() {
@@ -7,6 +8,8 @@ export default function Home() {
       <MainSection />
 
       <Advantages />
+
+      <Catalog />
     </>
   );
 }

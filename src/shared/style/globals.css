@@ -4,6 +4,16 @@
 
 @import url("swiper/css");
 
+@layer components {
+  .heading-two {
+    @apply text-[36px] font-medium leading-[43px];
+  }
+
+  .heading-three {
+    @apply text-[20px] font-medium leading-[24px];
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -5,9 +5,9 @@ import { AdvantagesScrollSlider } from "./AdvantagesScrollSlider";
 
 const Advantages = () => {
   return (
-    <section className="pb-[104px] pt-[88px]">
+    <section className="bg-white pb-[104px] pt-[88px]">
       <Container className="ml-auto mr-0 max-w-[1440px]">
-        <h2 className="text-[36px] font-medium leading-[43px]">
+        <h2 className="heading-two">
           Почему выбирают <span className="text-buttonColor">Red</span>Import?
         </h2>
 
