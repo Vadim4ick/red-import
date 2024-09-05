@@ -23,12 +23,9 @@ const AdvantagesScrollSlider = () => {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (isScrollLocked && !hasScrolled && sliderRef.current && isInView) {
-        e.preventDefault();
         sliderRef.current.scrollLeft += e.deltaY;
       }
     };
-
-    console.log(isInView);
 
     if (isScrollLocked && !hasScrolled && isInView) {
       document.body.style.overflow = "hidden";
