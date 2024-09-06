@@ -6,7 +6,7 @@
 
 @layer components {
   .heading-two {
-    @apply text-[36px] font-medium leading-[43px];
+    @apply text-[36px] font-medium leading-[43px] max-mobile:text-[32px] max-mobile:leading-[38px];
   }
 
   .heading-three {
@@ -59,16 +59,18 @@
   transform: skew(30deg);
 }
 
-.custom-scrollbar {
-  padding-bottom: 20px;
-}
-.custom-scrollbar::-webkit-scrollbar {
-  height: 4px;
-  scrollbar-width: 1px;
-}
+@media (min-width: 768px) {
+  .custom-scrollbar {
+    padding-bottom: 20px;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 4px;
+    scrollbar-width: 1px;
+  }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #a6a6a6;
-  border-radius: 1px;
-  scrollbar-color: #a6a6a6 transparent;
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #a6a6a6;
+    border-radius: 1px;
+    scrollbar-color: #a6a6a6 transparent;
+  }
 }
