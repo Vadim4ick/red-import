@@ -2,6 +2,7 @@ import { Container } from "@/shared/ui/container";
 import { Filters } from "./Filters";
 import { mockDataItems } from "@/shared/const";
 import { CatalogItem } from "./CatalogItem";
+import { Button } from "@/shared/ui/button";
 
 const Catalog = () => {
   return (
@@ -13,10 +14,17 @@ const Catalog = () => {
           <Filters />
         </div>
 
-        <div>
+        <div className="flex w-full flex-col items-center gap-[48px]">
           {mockDataItems.map((item) => (
             <CatalogItem key={item.id} item={item} />
           ))}
+
+          <Button
+            className="flex h-[42px] w-[210px] text-[13px] leading-[16px]"
+            variant={"secondary"}
+          >
+            Показать еще
+          </Button>
         </div>
       </Container>
     </section>

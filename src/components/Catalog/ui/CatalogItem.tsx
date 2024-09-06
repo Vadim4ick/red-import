@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const CatalogItem = ({ item }: { item: MockDataItem }) => {
   return (
-    <article className="grid grid-cols-[336px_1fr] gap-[30px] border-b border-[#8F8F8F] py-[32px]">
+    <article className="grid w-full grid-cols-[336px_1fr] gap-[30px] border-b border-[#8F8F8F] py-[32px]">
       <div className="relative h-[264px]">
         <Image src={item.imgCatalog} alt={item.title} fill />
       </div>
