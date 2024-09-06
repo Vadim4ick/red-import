@@ -13,6 +13,8 @@ const buttonVariants = cva(
           "text-primary-foreground hover:bg-white bg-buttonColor font-medium hover:text-buttonColor ring-buttonColor ring-[1px]",
         secondary:
           "bg-[#ECECEC] border border-[#DCDCDC] hover:bg-white font-light",
+        reverseDefault:
+          "hover:bg-white bg-white border border-buttonColor hover:bg-buttonColor font-medium hover:text-white text-buttonColor ring-buttonColor",
       },
     },
     defaultVariants: {
@@ -26,13 +28,17 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   addonLeft?: React.ReactNode;
+  addonRight?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, addonLeft, asChild = false, ...props }, ref) => {
+  (
+    { className, variant, addonLeft, addonRight, asChild = false, ...props },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : "button";
 
-    if (!addonLeft) {
+    if (!addonLeft && !addonRight) {
       return (
         <Comp
           className={cn(buttonVariants({ variant, className }))}
@@ -52,6 +58,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {addonLeft && addonLeft}
 
           {props.children}
+
+          {addonRight && addonRight}
         </Comp>
       </>
     );

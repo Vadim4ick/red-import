@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/shared/ui/button";
-import { sliderData } from "../model/mockData";
 import { Phone } from "@/shared/icons/Phone";
 import { Swiper as SwiperContainer, SwiperSlide } from "swiper/react";
 
@@ -12,6 +11,7 @@ import Swiper from "swiper";
 import { numberSlide } from "@/shared/lib/numberSlide";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { Container } from "@/shared/ui/container";
+import { mockDataItems } from "@/shared/const";
 
 const MainSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(1); // Индекс текущего слайда (начинается с 1)
@@ -44,7 +44,7 @@ const MainSlider = () => {
           }}
           speed={800}
         >
-          {sliderData.map((slide) => {
+          {mockDataItems.map((slide) => {
             return (
               <SwiperSlide key={slide.id}>
                 <article className="rounded:rounded-t-[6px] relative grid h-full bg-white pl-[57px] max-tablet:pl-[20px] mobile:grid-cols-[352px_1fr]">

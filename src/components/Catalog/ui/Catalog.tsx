@@ -1,5 +1,7 @@
 import { Container } from "@/shared/ui/container";
 import { Filters } from "./Filters";
+import { mockDataItems } from "@/shared/const";
+import { CatalogItem } from "./CatalogItem";
 
 const Catalog = () => {
   return (
@@ -9,6 +11,12 @@ const Catalog = () => {
 
         <div className="pt-[64px]">
           <Filters />
+        </div>
+
+        <div>
+          {mockDataItems.map((item) => (
+            <CatalogItem key={item.id} item={item} />
+          ))}
         </div>
       </Container>
     </section>
