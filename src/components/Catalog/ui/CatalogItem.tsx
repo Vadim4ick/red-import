@@ -5,22 +5,29 @@ import Image from "next/image";
 
 const CatalogItem = ({ item }: { item: MockDataItem }) => {
   return (
-    <article className="grid w-full grid-cols-[336px_1fr] gap-[30px] border-b border-[#8F8F8F] py-[32px]">
-      <div className="relative h-[264px]">
-        <Image src={item.imgCatalog} alt={item.title} fill />
+    <article className="grid w-full grid-cols-[336px_1fr] gap-[30px] object-cover py-[32px] max-mobile:mt-[38px] max-mobile:grid-cols-1 max-mobile:gap-3 max-mobile:rounded-[4px] max-mobile:bg-white max-mobile:p-[6px] mobile:border-b mobile:border-[#8F8F8F]">
+      <div className="relative h-[264px] max-mobile:h-[231px]">
+        <Image
+          src={item.imgCatalog}
+          className="object-cover"
+          alt={item.title}
+          fill
+        />
       </div>
 
-      <div className="flex flex-col justify-between gap-2">
-        <div className="flex justify-between gap-2">
-          <div className="flex flex-col gap-[6px]">
-            <h3 className="heading-three">{item.title}</h3>
+      <div className="flex flex-col justify-between gap-2 max-mobile:gap-4">
+        <div className="flex items-center justify-between gap-2 max-mobile:flex-col max-mobile:gap-[20px]">
+          <div className="flex flex-col gap-[6px] max-mobile:items-center max-mobile:gap-[2px]">
+            <h3 className="heading-three max-mobile:text-[18px] max-mobile:leading-[22px]">
+              {item.title}
+            </h3>
 
             <p className="text-[14px] leading-[16px] text-[#5A5A5A]">
               {item.subtitle}
             </p>
           </div>
 
-          <div className="flex flex-col items-end gap-[6px]">
+          <div className="flex flex-col gap-[6px] max-mobile:items-center max-mobile:gap-[2px] mobile:items-end">
             <div className="heading-three">
               {item.price}{" "}
               <span className="text-[14px] leading-[16px]">руб.</span>
@@ -35,7 +42,7 @@ const CatalogItem = ({ item }: { item: MockDataItem }) => {
         </div>
 
         <div className="flex w-full items-end justify-between gap-2">
-          <div className="flex w-full flex-col gap-2 pt-[27px] max-mobile:pt-[31px]">
+          <div className="flex w-full flex-col gap-2 pt-[27px] max-tablet:hidden max-mobile:pt-[31px]">
             {item.parameters.map((param) => {
               return (
                 <p
@@ -51,7 +58,7 @@ const CatalogItem = ({ item }: { item: MockDataItem }) => {
             })}
           </div>
 
-          <div className="flex w-full flex-col items-end justify-end gap-2">
+          <div className="flex w-full flex-col items-end justify-end gap-2 max-mobile:items-center">
             <Button
               addonRight={<Arrow className="mt-0.5 size-[6.5px] rotate-180" />}
               className="h-[42px] w-[220px] items-center gap-[7px] text-[13px] leading-[15px]"

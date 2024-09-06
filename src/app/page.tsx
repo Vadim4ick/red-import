@@ -10,9 +10,9 @@ export default function Home() {
 
       <Advantages />
 
-      {/* <Catalog />
+      <Catalog />
 
-      <About /> */}
+      {/*    <About /> */}
     </>
   );
 }

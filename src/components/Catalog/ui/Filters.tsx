@@ -19,8 +19,8 @@ const Filters = () => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4 border-b border-[#8F8F8F] pb-[36px]">
-      <div className="flex flex-col gap-[12px]">
+    <div className="grid grid-cols-3 gap-x-4 gap-y-6 border-b border-[#8F8F8F] pb-[36px] max-tablet:grid-cols-2 max-mobile:grid-cols-1">
+      <div className="flex flex-col gap-[12px] max-tablet:col-span-full">
         <h3 className="heading-three">Марка</h3>
 
         <div className="flex flex-wrap gap-[6px]">
