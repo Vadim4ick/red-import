@@ -14,7 +14,6 @@ const useScroll = () => {
   });
 
   useEffect(() => {
-    // Если проскролен, то удаляем элемент и больше не дергаем
     if (hasScrolled) {
       sliderRef.current = null;
     }
@@ -39,6 +38,17 @@ const useScroll = () => {
       window.removeEventListener("wheel", handleWheel);
     };
   }, [isScrollLocked, isInView, hasScrolled]);
+
+  // Проверка, находится ли элемент вне видимой области при загрузке
+  useEffect(() => {
+    const rect = sliderRef.current?.getBoundingClientRect();
+
+    if (!rect) return;
+
+    if (rect.y < 0) {
+      setHasScrolled(true);
+    }
+  }, []);
 
   const handleScroll = () => {
     if (!sliderRef.current) return;
