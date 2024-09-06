@@ -69,11 +69,11 @@ const RangeSlider = React.forwardRef(
                 left: `calc(${((value - min) / (max - min)) * 100}% + 0px)`,
                 top: `10px`,
               }}
-            >
-              <span className="text-sm">
+            />
+            {/* <span className="text-sm">
                 {formatLabel ? formatLabel(value) : value}
               </span>
-            </div>
+            </div> */}
 
             <SliderPrimitive.Thumb className="relative block size-[13px] cursor-pointer rounded-full bg-[#D32E23] outline-none transition-colors after:absolute after:left-1/2 after:top-1/2 after:size-[5px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-white disabled:pointer-events-none disabled:opacity-50" />
           </React.Fragment>
