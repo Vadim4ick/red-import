@@ -3,16 +3,24 @@ import Image from "next/image";
 
 const About = () => {
   return (
-    <section className="bg-white pb-[96px] pt-[88px]">
+    <section className="bg-white pb-[96px] pt-[88px] max-tablet:pt-[32px] max-mobile:pb-[64px]">
       <Container>
         <div className="flex items-end gap-[2px]">
-          <div className="flex flex-col gap-[42px]">
-            <h2 className="heading-two">
+          <div className="flex flex-col tablet:gap-[42px]">
+            <h2 className="heading-two max-tablet:pb-[24px] max-mobileSmall:max-w-[248px]">
               <span className="text-buttonColor">Red</span>Import — ваш надежный
               партнер в мире спецтехники
             </h2>
 
-            <p className="text-[17px] leading-[23.8px] text-[#5A5A5A]">
+            <div className="flex-shrink-0 max-tablet:pb-[16px] tablet:hidden">
+              <Image
+                src={"/img/about/1.png"}
+                alt="about"
+                width={360}
+                height={258}
+              />
+            </div>
+            <p className="text-[17px] font-light leading-[23.8px] text-[#5A5A5A]">
               Компания ООО «РЭД ИМПОРТ» входит в состав Уральского
               горнопромышленного холдинга (далее – УГПХ) - крупной
               многоотраслевой компании, которая объединяет горнодобывающие
@@ -31,7 +39,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="w-[495px] flex-shrink-0">
+          <div className="w-[495px] flex-shrink-0 max-tablet:hidden">
             <Image
               src={"/img/about/1.png"}
               alt="about"
