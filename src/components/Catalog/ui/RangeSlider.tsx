@@ -11,7 +11,7 @@ type SliderProps = {
   max: number;
   step: number;
   formatLabel?: (value: number) => string;
-  value?: number[] | readonly number[];
+  value?: number[] | undefined;
   onValueChange?: (values: number[]) => void;
 };
 
@@ -52,21 +52,26 @@ const RangeSlider = React.forwardRef(
         value={localValues}
         onValueChange={handleValueChange}
         className={cn(
-          "relative flex w-full touch-none select-none items-center",
+          "relative mb-6 flex w-full touch-none select-none items-center",
           className,
         )}
         {...props}
       >
-        <SliderPrimitive.Track className="relative h-[1px] w-full grow overflow-hidden rounded-full bg-[#DCDCDC]">
-          <SliderPrimitive.Range className="absolute h-full bg-[#D32E23]" />
+        <SliderPrimitive.Track className="relative h-[1px] w-full grow cursor-pointer overflow-hidden rounded-full bg-[#DCDCDC]">
+          <SliderPrimitive.Range
+            className={cn(
+              "absolute h-full",
+              !value ? "bg-[#7B7B7B]" : "bg-[#D32E23]",
+            )}
+          />
         </SliderPrimitive.Track>
 
-        {localValues.map((value, index) => (
+        {localValues.map((localValue, index) => (
           <React.Fragment key={index}>
             <div
               className="absolute text-center"
               style={{
-                left: `calc(${((value - min) / (max - min)) * 100}% + 0px)`,
+                left: `calc(${((localValue - min) / (max - min)) * 100}% + 0px)`,
                 top: `10px`,
               }}
             />
@@ -75,7 +80,12 @@ const RangeSlider = React.forwardRef(
               </span>
             </div> */}
 
-            <SliderPrimitive.Thumb className="relative block size-[13px] cursor-pointer rounded-full bg-[#D32E23] outline-none transition-colors after:absolute after:left-1/2 after:top-1/2 after:size-[5px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-white disabled:pointer-events-none disabled:opacity-50" />
+            <SliderPrimitive.Thumb
+              className={cn(
+                "relative block size-[13px] cursor-pointer rounded-full outline-none transition-colors after:absolute after:left-1/2 after:top-1/2 after:size-[5px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-white disabled:pointer-events-none disabled:opacity-50",
+                !value ? "bg-[#7B7B7B]" : "bg-[#D32E23]",
+              )}
+            />
           </React.Fragment>
         ))}
       </SliderPrimitive.Root>

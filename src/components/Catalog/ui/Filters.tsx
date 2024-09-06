@@ -9,8 +9,8 @@ const MAX_PRICE = 14900000;
 
 const Filters = () => {
   const [prices, setPrices] = useState({
-    priceFrom: MIN_PRICE,
-    priceTo: MAX_PRICE,
+    priceFrom: 0,
+    priceTo: 0,
   });
 
   const updatePrices = (prices: number[]) => {
@@ -50,7 +50,7 @@ const Filters = () => {
 
         <div className="flex items-center gap-[3px] pb-[13px]">
           <Input
-            value={prices.priceFrom}
+            value={prices.priceFrom || ""}
             type="tel"
             min={MIN_PRICE}
             placeholder="3 500 000"
@@ -65,7 +65,7 @@ const Filters = () => {
           <p className="text-[#999999]">-</p>
 
           <Input
-            value={prices.priceTo}
+            value={prices.priceTo || ""}
             type="tel"
             placeholder="14 900 000"
             onChange={(e) =>
@@ -81,7 +81,11 @@ const Filters = () => {
           min={MIN_PRICE}
           max={MAX_PRICE}
           step={100000}
-          value={[prices.priceFrom || MIN_PRICE, prices.priceTo || MAX_PRICE]}
+          value={
+            Boolean(prices.priceFrom) && Boolean(prices.priceTo)
+              ? [prices.priceFrom, prices.priceTo]
+              : undefined
+          }
           onValueChange={updatePrices}
         />
       </div>
