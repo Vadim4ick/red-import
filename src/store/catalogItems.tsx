@@ -1,6 +1,6 @@
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import { combine, createDomain } from "effector";
-import { $prices, $years } from "./filters";
+import { $activeBrands, $prices, $years } from "./filters";
 
 export const catalogItems = createDomain();
 
@@ -14,13 +14,21 @@ export const $catalogItems = catalogItems
   });
 
 export const $filteredCatalogItems = combine(
-  [$catalogItems, $prices, $years],
-  ([catalogItems, prices, years]) => {
+  [$catalogItems, $prices, $years, $activeBrands],
+  ([catalogItems, prices, years, activeBrands]) => {
+    let filtredData = catalogItems;
+
+    if (activeBrands.length > 0) {
+      filtredData = catalogItems.filter((item) => {
+        return activeBrands.includes(item.brand);
+      });
+    }
+
     // Проверяем, нужно ли фильтровать
     const isPriceRangeDefault = prices.priceFrom === 0 && prices.priceTo === 0;
     const isYearRangeDefault = years.from === 0 && years.to === 0;
 
-    return catalogItems.filter((item) => {
+    const filteredCatalogItems = filtredData.filter((item) => {
       const isInPriceRange =
         isPriceRangeDefault ||
         (item.price >= prices.priceFrom && item.price <= prices.priceTo);
@@ -30,5 +38,7 @@ export const $filteredCatalogItems = combine(
 
       return isInPriceRange && isInYearRange;
     });
+
+    return filteredCatalogItems;
   },
 );

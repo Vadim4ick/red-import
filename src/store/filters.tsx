@@ -10,6 +10,10 @@ export const setMaxYears = filters.createEvent<number>();
 
 export const setBrands = filters.createEvent<string[]>();
 
+export const setActiveBrands = filters.createEvent<string[]>();
+
+export const setShowMore = filters.createEvent<boolean>();
+
 export const setYears = filters.createEvent<{
   from?: number;
   to?: number;
@@ -52,6 +56,16 @@ export const $brands = filters
     }
 
     return updatedBrands;
+  });
+
+export const $showMore = filters
+  .createStore<boolean>(false)
+  .on(setShowMore, (_, val) => val);
+
+export const $activeBrands = filters
+  .createStore<string[]>([])
+  .on(setActiveBrands, (_, newBrands) => {
+    return newBrands;
   });
 
 export const $years = filters

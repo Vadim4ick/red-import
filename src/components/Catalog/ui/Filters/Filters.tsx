@@ -5,8 +5,9 @@ import { RangeSlider } from "../RangeSlider";
 import { useEffect } from "react";
 import { useGetGoodsQuery } from "@/graphql/__generated__";
 import { SkeletonFilters } from "./SkeletonFilters";
-import { calculateRangePrice } from "@/shared/lib/utils";
+import { calculateRangePrice, cn } from "@/shared/lib/utils";
 import {
+  $activeBrands,
   $brands,
   $maxPrice,
   $maxYears,
@@ -14,6 +15,7 @@ import {
   $minYears,
   $prices,
   $years,
+  setActiveBrands,
   setBrands,
   setMaxPrice,
   setMaxYears,
@@ -23,20 +25,30 @@ import {
   setYears,
 } from "@/store/filters";
 import { useUnit } from "effector-react";
+import { Checkbox } from "@/shared/ui/checkbox";
 
 const Filters = () => {
   const { isLoading, data } = useGetGoodsQuery();
 
-  const [maxPrice, maxYears, minPrice, minYears, prices, years, brands] =
-    useUnit([
-      $maxPrice,
-      $maxYears,
-      $minPrice,
-      $minYears,
-      $prices,
-      $years,
-      $brands,
-    ]);
+  const [
+    maxPrice,
+    maxYears,
+    minPrice,
+    minYears,
+    prices,
+    years,
+    brands,
+    activeBrands,
+  ] = useUnit([
+    $maxPrice,
+    $maxYears,
+    $minPrice,
+    $minYears,
+    $prices,
+    $years,
+    $brands,
+    $activeBrands,
+  ]);
 
   const updatePrices = (prices: number[]) => {
     setPrices({
@@ -86,12 +98,36 @@ const Filters = () => {
 
         <div className="flex flex-wrap gap-[6px]">
           {brands.map((brand) => (
-            <span
-              key={brand}
-              className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] uppercase leading-[18px] text-[#5A5A5A]"
-            >
-              {brand}
-            </span>
+            <label key={brand}>
+              <Checkbox
+                className="hidden"
+                checked={activeBrands.includes(brand)}
+                onCheckedChange={(checked) => {
+                  if (checked) {
+                    setActiveBrands([...activeBrands, brand]);
+                  } else {
+                    const newActiveBrands = activeBrands.filter(
+                      (activeBrand) => activeBrand !== brand,
+                    );
+
+                    setActiveBrands(newActiveBrands);
+                  }
+                }}
+                id={brand}
+              />
+
+              <span
+                className={cn(
+                  "cursor-pointer rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] uppercase leading-[18px] text-[#5A5A5A]",
+                  {
+                    "bg-defaultTextColor text-white":
+                      activeBrands.includes(brand),
+                  },
+                )}
+              >
+                {brand}
+              </span>
+            </label>
           ))}
         </div>
       </div>

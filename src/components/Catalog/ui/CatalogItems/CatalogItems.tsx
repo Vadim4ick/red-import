@@ -11,6 +11,7 @@ import {
   setCatalogItems,
 } from "@/store/catalogItems";
 import { useUnit } from "effector-react";
+import { $showMore, setShowMore } from "@/store/filters";
 
 const SkeletonCatalogItems = () => {
   return Array.from({ length: 3 }).map((_, index) => (
@@ -21,9 +22,10 @@ const SkeletonCatalogItems = () => {
 const CatalogItems = () => {
   const { data, isLoading } = useGetGoodsQuery();
 
-  const [catalogItems, filteredCatalogItems] = useUnit([
+  const [catalogItems, filteredCatalogItems, showMore] = useUnit([
     $catalogItems,
     $filteredCatalogItems,
+    $showMore,
   ]);
 
   useEffect(() => {
@@ -32,22 +34,31 @@ const CatalogItems = () => {
     }
   }, [data, isLoading]);
 
+  const first = filteredCatalogItems.slice(0, 3);
+  const other = filteredCatalogItems.slice(3);
+  // const items = [...first, ...other];
+
   return (
     <div className="flex w-full flex-col items-center mobile:gap-[48px]">
       {catalogItems.length > 0 &&
         !isLoading &&
-        filteredCatalogItems.map((item) => (
+        (showMore ? filteredCatalogItems : first).map((item) => (
           <CatalogItem key={item.id} item={item} />
         ))}
 
       {isLoading && <SkeletonCatalogItems />}
 
-      <Button
-        className="flex h-[42px] w-[210px] text-[13px] leading-[16px] max-mobile:mt-[32px]"
-        variant={"secondary"}
-      >
-        Показать еще
-      </Button>
+      {!showMore && other.length > 0 && (
+        <Button
+          onClick={() => {
+            setShowMore(true);
+          }}
+          className="flex h-[42px] w-[210px] text-[13px] leading-[16px] max-mobile:mt-[32px]"
+          variant={"secondary"}
+        >
+          Показать еще
+        </Button>
+      )}
     </div>
   );
 };
