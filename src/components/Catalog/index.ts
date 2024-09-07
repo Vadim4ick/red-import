@@ -1,3 +1,3 @@
-export { CatalogModal } from "./ui/CatalogModal";
+export { CatalogModal } from "./ui/modal/CatalogModal";
 
 export { Catalog } from "./ui/Catalog";

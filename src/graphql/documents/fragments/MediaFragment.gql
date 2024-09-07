@@ -1,0 +1,5 @@
+fragment MediaFragment on directus_files {
+  id
+  width
+  height
+}

@@ -1,5 +1,4 @@
-import { GraphQLClient, RequestOptions } from 'graphql-request';
-import gql from 'graphql-tag';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T;
 export type InputMaybe<T> = T;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -7,7 +6,26 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
+
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
+  return async (): Promise<TData> => {
+    const res = await fetch("http://0.0.0.0:8055/graphql", {
+    method: "POST",
+    ...({"headers":{"Content-Type":"application/json"}}),
+      body: JSON.stringify({ query, variables }),
+    });
+
+    const json = await res.json();
+
+    if (json.errors) {
+      const { message } = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  }
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -355,8 +373,17 @@ export type GetGoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
+export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
-export const GetGoodsDocument = gql`
+
+export const MediaFragmentFragmentDoc = `
+    fragment MediaFragment on directus_files {
+  id
+  width
+  height
+}
+    `;
+export const GetGoodsDocument = `
     query GetGoods {
   goods {
     id
@@ -365,26 +392,45 @@ export const GetGoodsDocument = gql`
     price
     nds
     mainImage {
-      id
-      width
-      height
+      ...MediaFragment
     }
     description
     dopDescription
   }
 }
-    `;
+    ${MediaFragmentFragmentDoc}`;
 
-export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
+export const useGetGoodsQuery = <
+      TData = GetGoodsQuery,
+      TError = unknown
+    >(
+      variables?: GetGoodsQueryVariables,
+      options?: UseQueryOptions<GetGoodsQuery, TError, TData>
+    ) => {
+    
+    return useQuery<GetGoodsQuery, TError, TData>(
+      variables === undefined ? ['GetGoods'] : ['GetGoods', variables],
+      fetcher<GetGoodsQuery, GetGoodsQueryVariables>(GetGoodsDocument, variables),
+      options
+    )};
+
+useGetGoodsQuery.getKey = (variables?: GetGoodsQueryVariables) => variables === undefined ? ['GetGoods'] : ['GetGoods', variables];
+
+export const useInfiniteGetGoodsQuery = <
+      TData = GetGoodsQuery,
+      TError = unknown
+    >(
+      variables?: GetGoodsQueryVariables,
+      options?: UseInfiniteQueryOptions<GetGoodsQuery, TError, TData>
+    ) => {
+    
+    return useInfiniteQuery<GetGoodsQuery, TError, TData>(
+      variables === undefined ? ['GetGoods.infinite'] : ['GetGoods.infinite', variables],
+      (metaData) => fetcher<GetGoodsQuery, GetGoodsQueryVariables>(GetGoodsDocument, {...variables, ...(metaData.pageParam ?? {})})(),
+      options
+    )};
+
+useInfiniteGetGoodsQuery.getKey = (variables?: GetGoodsQueryVariables) => variables === undefined ? ['GetGoods.infinite'] : ['GetGoods.infinite', variables];
 
 
-const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
-
-export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-  return {
-    GetGoods(variables?: GetGoodsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetGoodsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetGoodsQuery>(GetGoodsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetGoods', 'query', variables);
-    }
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;
+useGetGoodsQuery.fetcher = (variables?: GetGoodsQueryVariables) => fetcher<GetGoodsQuery, GetGoodsQueryVariables>(GetGoodsDocument, variables);

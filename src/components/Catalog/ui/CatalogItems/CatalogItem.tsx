@@ -1,6 +1,6 @@
 "use client";
 
-import { Goods } from "@/graphql/__generated__";
+import { GetGoodsQuery } from "@/graphql/__generated__";
 import { Arrow } from "@/shared/icons/Arrow";
 import { pathImage } from "@/shared/lib/utils";
 import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useContext } from "react";
 import ReactMarkdown from "react-markdown";
 
-const CatalogItem = ({ item }: { item: Goods }) => {
+const CatalogItem = ({ item }: { item: GetGoodsQuery["goods"][0] }) => {
   const { setOpen, setSelectedItem } = useContext(CatalogModalProviderContext);
 
   return (
@@ -90,7 +90,7 @@ const CatalogItem = ({ item }: { item: Goods }) => {
             <Button
               onClick={() => {
                 setOpen(true);
-                // setSelectedItem(item);
+                setSelectedItem(item);
               }}
               addonRight={<Arrow className="mt-0.5 size-[6.5px] rotate-180" />}
               className="h-[42px] w-[220px] items-center gap-[7px] text-[13px] leading-[15px]"

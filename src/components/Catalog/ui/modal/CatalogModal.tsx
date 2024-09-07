@@ -1,5 +1,6 @@
 "use client";
 
+import { pathImage } from "@/shared/lib/utils";
 import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
 import { Button } from "@/shared/ui/button";
 import {
@@ -10,6 +11,7 @@ import {
 } from "@/shared/ui/dialog";
 import Image from "next/image";
 import { useContext } from "react";
+import ReactMarkdown from "react-markdown";
 
 const CatalogModal = () => {
   const { open, onClickCatalogModal, selectedItem } = useContext(
@@ -27,7 +29,7 @@ const CatalogModal = () => {
           <DialogHeader className="flex flex-row gap-[18px] pb-[16px]">
             <div>
               <Image
-                src={selectedItem.imgCatalog}
+                src={pathImage(selectedItem.mainImage.id)}
                 alt={selectedItem.title}
                 width={169}
                 height={101}
@@ -65,39 +67,66 @@ const CatalogModal = () => {
               <div className="sticky top-0 h-[18px] w-full bg-[#F5F5F5]"></div>
 
               <div className="flex w-full flex-col gap-2">
-                {selectedItem.parameters.map((param) => {
-                  return (
-                    <p
-                      key={param.id}
-                      className="flex gap-2 text-[14px] leading-[16px]"
-                    >
-                      <span className="font-light text-[#7B7B7B]">
-                        {param.text}
-                      </span>
-                      <span>{param.value}</span>
-                    </p>
-                  );
-                })}
+                <ReactMarkdown
+                  components={{
+                    li: ({ children }) => {
+                      return (
+                        <li>
+                          <div className="text-[#5A5A5A]">
+                            <p className="flex gap-2 text-[14px] font-light leading-[16px]">
+                              {children}
+                            </p>
+                          </div>
+                        </li>
+                      );
+                    },
+
+                    ul: ({ children }) => {
+                      return (
+                        <ul className="flex w-full flex-col gap-2">
+                          {children}
+                        </ul>
+                      );
+                    },
+
+                    strong: ({ children }) => {
+                      return (
+                        <span className="font-normal text-defaultTextColor">
+                          {children}
+                        </span>
+                      );
+                    },
+                  }}
+                >
+                  {selectedItem.description}
+                </ReactMarkdown>
               </div>
 
-              {selectedItem.details && (
+              {selectedItem.dopDescription && (
                 <div className="text-[14px]">
                   <p className="pb-[12px] pt-[24px] leading-[16px]">
                     Дополнительные опции:
                   </p>
 
-                  <ul className="flex flex-col gap-2">
-                    {selectedItem.details.map((detail, idx) => {
-                      return (
-                        <li
-                          key={idx}
-                          className="text-[14px] font-light leading-[16px] text-[#5A5A5A]"
-                        >
-                          {detail}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <ReactMarkdown
+                    components={{
+                      li: ({ children }) => {
+                        return (
+                          <li className="text-[14px] font-light leading-[16px] text-[#5A5A5A]">
+                            - {children}
+                          </li>
+                        );
+                      },
+
+                      ul: ({ children }) => {
+                        return (
+                          <ul className="flex flex-col gap-2">{children}</ul>
+                        );
+                      },
+                    }}
+                  >
+                    {selectedItem.dopDescription}
+                  </ReactMarkdown>
                 </div>
               )}
 
