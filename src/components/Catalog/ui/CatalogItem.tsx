@@ -1,9 +1,15 @@
+"use client";
+
 import { MockDataItem } from "@/shared/const";
 import { Arrow } from "@/shared/icons/Arrow";
+import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
 import { Button } from "@/shared/ui/button";
 import Image from "next/image";
+import { useContext } from "react";
 
 const CatalogItem = ({ item }: { item: MockDataItem }) => {
+  const { setOpen, setSelectedItem } = useContext(CatalogModalProviderContext);
+
   return (
     <article className="grid w-full grid-cols-[336px_1fr] gap-[30px] object-cover py-[32px] max-mobile:mt-[38px] max-mobile:grid-cols-1 max-mobile:gap-3 max-mobile:rounded-[4px] max-mobile:bg-white max-mobile:p-[6px] mobile:border-b mobile:border-[#8F8F8F]">
       <div className="relative h-[264px] max-mobile:h-[231px]">
@@ -60,6 +66,10 @@ const CatalogItem = ({ item }: { item: MockDataItem }) => {
 
           <div className="flex w-full flex-col items-end justify-end gap-2 max-mobile:items-center">
             <Button
+              onClick={() => {
+                setOpen(true);
+                setSelectedItem(item);
+              }}
               addonRight={<Arrow className="mt-0.5 size-[6.5px] rotate-180" />}
               className="h-[42px] w-[220px] items-center gap-[7px] text-[13px] leading-[15px]"
               variant={"secondary"}
