@@ -1,20 +1,22 @@
 "use client";
 
-import { MockDataItem } from "@/shared/const";
+import { Goods } from "@/graphql/__generated__";
 import { Arrow } from "@/shared/icons/Arrow";
+import { pathImage } from "@/shared/lib/utils";
 import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
 import { Button } from "@/shared/ui/button";
 import Image from "next/image";
 import { useContext } from "react";
+import ReactMarkdown from "react-markdown";
 
-const CatalogItem = ({ item }: { item: MockDataItem }) => {
+const CatalogItem = ({ item }: { item: Goods }) => {
   const { setOpen, setSelectedItem } = useContext(CatalogModalProviderContext);
 
   return (
     <article className="grid w-full grid-cols-[336px_1fr] gap-[30px] object-cover py-[32px] max-mobile:mt-[38px] max-mobile:grid-cols-1 max-mobile:gap-3 max-mobile:rounded-[4px] max-mobile:bg-white max-mobile:p-[6px] mobile:border-b mobile:border-[#8F8F8F]">
       <div className="relative h-[264px] max-mobile:h-[231px]">
         <Image
-          src={item.imgCatalog}
+          src={pathImage(item.mainImage.id)}
           className="object-cover"
           alt={item.title}
           fill
@@ -41,7 +43,7 @@ const CatalogItem = ({ item }: { item: MockDataItem }) => {
 
             {item.nds && (
               <div className="text-[12px] leading-[14px] text-[#5A5A5A]">
-                Цена с НДС {item.nds}
+                Цена с НДС {item.nds}%
               </div>
             )}
           </div>
@@ -49,26 +51,46 @@ const CatalogItem = ({ item }: { item: MockDataItem }) => {
 
         <div className="flex w-full items-end justify-between gap-2">
           <div className="flex w-full flex-col gap-2 pt-[27px] max-tablet:hidden max-mobile:pt-[31px]">
-            {item.parameters.map((param) => {
-              return (
-                <p
-                  key={param.id}
-                  className="flex gap-2 text-[14px] leading-[16px]"
-                >
-                  <span className="font-light text-[#7B7B7B]">
-                    {param.text}
-                  </span>
-                  <span>{param.value}</span>
-                </p>
-              );
-            })}
+            <ReactMarkdown
+              components={{
+                li: ({ children }) => {
+                  return (
+                    <li>
+                      <div className="text-[#7B7B7B]">
+                        <p className="flex gap-2 text-[14px] font-light leading-[16px]">
+                          {children}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                },
+
+                ul: ({ children }) => {
+                  return (
+                    <ul className="flex w-full flex-col gap-2 pt-[27px] max-tablet:hidden max-mobile:pt-[31px]">
+                      {children}
+                    </ul>
+                  );
+                },
+
+                strong: ({ children }) => {
+                  return (
+                    <span className="font-normal text-defaultTextColor">
+                      {children}
+                    </span>
+                  );
+                },
+              }}
+            >
+              {item.description}
+            </ReactMarkdown>
           </div>
 
           <div className="flex w-full flex-col items-end justify-end gap-2 max-mobile:items-center">
             <Button
               onClick={() => {
                 setOpen(true);
-                setSelectedItem(item);
+                // setSelectedItem(item);
               }}
               addonRight={<Arrow className="mt-0.5 size-[6.5px] rotate-180" />}
               className="h-[42px] w-[220px] items-center gap-[7px] text-[13px] leading-[15px]"

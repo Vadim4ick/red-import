@@ -1,0 +1,16 @@
+query GetGoods {
+  goods {
+    id
+    title
+    subtitle
+    price
+    nds
+    mainImage {
+      id
+      width
+      height
+    }
+    description
+    dopDescription
+  }
+}
