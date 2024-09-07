@@ -254,6 +254,7 @@ export type Goods = {
   readonly price: Maybe<Scalars['Int']['output']>;
   readonly subtitle: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
+  readonly year: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -290,6 +291,7 @@ export type Goods_Aggregated_Count = {
   readonly price: Maybe<Scalars['Int']['output']>;
   readonly subtitle: Maybe<Scalars['Int']['output']>;
   readonly title: Maybe<Scalars['Int']['output']>;
+  readonly year: Maybe<Scalars['Int']['output']>;
 };
 
 export type Goods_Aggregated_Fields = {
@@ -297,6 +299,7 @@ export type Goods_Aggregated_Fields = {
   readonly id: Maybe<Scalars['Float']['output']>;
   readonly nds: Maybe<Scalars['Float']['output']>;
   readonly price: Maybe<Scalars['Float']['output']>;
+  readonly year: Maybe<Scalars['Float']['output']>;
 };
 
 export type Goods_Filter = {
@@ -310,6 +313,7 @@ export type Goods_Filter = {
   readonly price: InputMaybe<Number_Filter_Operators>;
   readonly subtitle: InputMaybe<String_Filter_Operators>;
   readonly title: InputMaybe<String_Filter_Operators>;
+  readonly year: InputMaybe<Number_Filter_Operators>;
 };
 
 export type Goods_Mutated = {
@@ -366,12 +370,13 @@ export type Version_Goods = {
   readonly price: Maybe<Scalars['Int']['output']>;
   readonly subtitle: Maybe<Scalars['String']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
+  readonly year: Maybe<Scalars['Int']['output']>;
 };
 
 export type GetGoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
@@ -391,6 +396,7 @@ export const GetGoodsDocument = `
     subtitle
     price
     nds
+    year
     mainImage {
       ...MediaFragment
     }

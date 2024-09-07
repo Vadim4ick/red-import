@@ -1,22 +1,60 @@
 "use client";
 
 import { Input } from "@/shared/ui/input";
-import { RangeSlider } from "./RangeSlider";
-import { useState } from "react";
-
-const MIN_PRICE = 3500000;
-const MAX_PRICE = 14900000;
+import { RangeSlider } from "../RangeSlider";
+import { useEffect, useState } from "react";
+import { useGetGoodsQuery } from "@/graphql/__generated__";
+import { SkeletonFilters } from "./SkeletonFilters";
+import { calculateRangePrice } from "@/shared/lib/utils";
 
 const Filters = () => {
+  const { isLoading, data } = useGetGoodsQuery();
+
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+
   const [prices, setPrices] = useState({
     priceFrom: 0,
     priceTo: 0,
+  });
+
+  const [minYears, setMinYears] = useState(0);
+  const [maxYears, setMaxYears] = useState(0);
+
+  const [years, setYears] = useState({
+    from: 0,
+    to: 0,
   });
 
   const updatePrices = (prices: number[]) => {
     setPrices((prev) => ({ ...prev, priceFrom: prices[0] }));
     setPrices((prev) => ({ ...prev, priceTo: prices[1] }));
   };
+
+  const updateYears = (year: number[]) => {
+    setYears((prev) => ({ ...prev, from: year[0] }));
+    setYears((prev) => ({ ...prev, to: year[1] }));
+  };
+
+  useEffect(() => {
+    if (data?.goods) {
+      const prices = data.goods.map((el) => el.price);
+      const years = data.goods.map((el) => el.year);
+
+      const arrPrice = calculateRangePrice(prices);
+      const arrYears = calculateRangePrice(years);
+
+      setMinPrice(arrPrice[0]);
+      setMaxPrice(arrPrice[1]);
+
+      setMinYears(arrYears[0]);
+      setMaxYears(arrYears[1]);
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <SkeletonFilters />;
+  }
 
   return (
     <div className="grid grid-cols-3 gap-x-4 gap-y-6 border-b border-[#8F8F8F] pb-[36px] max-tablet:grid-cols-2 max-mobile:grid-cols-1">
@@ -52,8 +90,8 @@ const Filters = () => {
           <Input
             value={prices.priceFrom || ""}
             type="tel"
-            min={MIN_PRICE}
-            placeholder="3 500 000"
+            min={minPrice}
+            placeholder={String(minPrice)}
             onChange={(e) =>
               setPrices((prev) => ({
                 ...prev,
@@ -67,7 +105,7 @@ const Filters = () => {
           <Input
             value={prices.priceTo || ""}
             type="tel"
-            placeholder="14 900 000"
+            placeholder={String(maxPrice)}
             onChange={(e) =>
               setPrices((prev) => ({
                 ...prev,
@@ -78,8 +116,8 @@ const Filters = () => {
         </div>
 
         <RangeSlider
-          min={MIN_PRICE}
-          max={MAX_PRICE}
+          min={minPrice}
+          max={maxPrice}
           step={100000}
           value={
             Boolean(prices.priceFrom) && Boolean(prices.priceTo)
@@ -94,14 +132,45 @@ const Filters = () => {
         <h3 className="heading-three pb-[9px]">Год выпуска</h3>
 
         <div className="flex items-center gap-[3px] pb-[13px]">
-          <Input type="tel" placeholder="2001" />
+          <Input
+            value={years.from || ""}
+            type="tel"
+            min={minYears}
+            placeholder={String(minYears)}
+            onChange={(e) =>
+              setYears((prev) => ({
+                ...prev,
+                from: Number(e.target.value),
+              }))
+            }
+          />
 
           <p className="text-[#999999]">-</p>
 
-          <Input type="tel" placeholder="2016" />
+          <Input
+            value={years.to || ""}
+            type="tel"
+            placeholder={String(maxYears)}
+            onChange={(e) =>
+              setYears((prev) => ({
+                ...prev,
+                to: Number(e.target.value),
+              }))
+            }
+          />
         </div>
 
-        <RangeSlider min={2001} max={2016} step={1} />
+        <RangeSlider
+          min={minYears}
+          max={maxYears}
+          value={
+            Boolean(years.from) && Boolean(years.to)
+              ? [years.from, years.to]
+              : undefined
+          }
+          step={1}
+          onValueChange={updateYears}
+        />
       </div>
     </div>
   );

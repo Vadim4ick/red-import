@@ -50,41 +50,39 @@ const CatalogItem = ({ item }: { item: GetGoodsQuery["goods"][0] }) => {
         </div>
 
         <div className="flex w-full items-end justify-between gap-2">
-          <div className="flex w-full flex-col gap-2 pt-[27px] max-tablet:hidden max-mobile:pt-[31px]">
-            <ReactMarkdown
-              components={{
-                li: ({ children }) => {
-                  return (
-                    <li>
-                      <div className="text-[#7B7B7B]">
-                        <p className="flex gap-2 text-[14px] font-light leading-[16px]">
-                          {children}
-                        </p>
-                      </div>
-                    </li>
-                  );
-                },
+          <ReactMarkdown
+            components={{
+              li: ({ children }) => {
+                return (
+                  <li>
+                    <div className="text-[#7B7B7B]">
+                      <p className="flex gap-2 text-[14px] font-light leading-[16px]">
+                        {children}
+                      </p>
+                    </div>
+                  </li>
+                );
+              },
 
-                ul: ({ children }) => {
-                  return (
-                    <ul className="flex w-full flex-col gap-2 pt-[27px] max-tablet:hidden max-mobile:pt-[31px]">
-                      {children}
-                    </ul>
-                  );
-                },
+              ul: ({ children }) => {
+                return (
+                  <ul className="flex w-full flex-col gap-2 max-tablet:hidden">
+                    {children}
+                  </ul>
+                );
+              },
 
-                strong: ({ children }) => {
-                  return (
-                    <span className="font-normal text-defaultTextColor">
-                      {children}
-                    </span>
-                  );
-                },
-              }}
-            >
-              {item.description}
-            </ReactMarkdown>
-          </div>
+              strong: ({ children }) => {
+                return (
+                  <span className="font-normal text-defaultTextColor">
+                    {children}
+                  </span>
+                );
+              },
+            }}
+          >
+            {item.description}
+          </ReactMarkdown>
 
           <div className="flex w-full flex-col items-end justify-end gap-2 max-mobile:items-center">
             <Button

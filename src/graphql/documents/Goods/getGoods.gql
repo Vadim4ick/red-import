@@ -5,6 +5,7 @@ query GetGoods {
     subtitle
     price
     nds
+    year
     mainImage {
       ...MediaFragment
     }

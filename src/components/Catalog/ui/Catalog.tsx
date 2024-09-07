@@ -1,5 +1,5 @@
 import { Container } from "@/shared/ui/container";
-import { Filters } from "./Filters";
+import { Filters } from "./Filters/Filters";
 import { CatalogItems } from "./CatalogItems/CatalogItems";
 
 const Catalog = () => {
