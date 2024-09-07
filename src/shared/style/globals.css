@@ -74,3 +74,17 @@
     scrollbar-color: #a6a6a6 transparent;
   }
 }
+
+/* .custom-scrollbar__catalog {
+  padding-right: 25px;
+} */
+.custom-scrollbar__catalog::-webkit-scrollbar {
+  width: 4px;
+  scrollbar-width: 1px;
+}
+
+.custom-scrollbar__catalog::-webkit-scrollbar-thumb {
+  background-color: #bebebe;
+  border-radius: 100px;
+  scrollbar-color: #bebebe transparent;
+}
