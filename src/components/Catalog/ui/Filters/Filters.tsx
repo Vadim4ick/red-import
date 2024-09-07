@@ -2,44 +2,65 @@
 
 import { Input } from "@/shared/ui/input";
 import { RangeSlider } from "../RangeSlider";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useGetGoodsQuery } from "@/graphql/__generated__";
 import { SkeletonFilters } from "./SkeletonFilters";
 import { calculateRangePrice } from "@/shared/lib/utils";
+import {
+  $brands,
+  $maxPrice,
+  $maxYears,
+  $minPrice,
+  $minYears,
+  $prices,
+  $years,
+  setBrands,
+  setMaxPrice,
+  setMaxYears,
+  setMinPrice,
+  setMinYears,
+  setPrices,
+  setYears,
+} from "@/store/filters";
+import { useUnit } from "effector-react";
 
 const Filters = () => {
   const { isLoading, data } = useGetGoodsQuery();
 
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-
-  const [prices, setPrices] = useState({
-    priceFrom: 0,
-    priceTo: 0,
-  });
-
-  const [minYears, setMinYears] = useState(0);
-  const [maxYears, setMaxYears] = useState(0);
-
-  const [years, setYears] = useState({
-    from: 0,
-    to: 0,
-  });
+  const [maxPrice, maxYears, minPrice, minYears, prices, years, brands] =
+    useUnit([
+      $maxPrice,
+      $maxYears,
+      $minPrice,
+      $minYears,
+      $prices,
+      $years,
+      $brands,
+    ]);
 
   const updatePrices = (prices: number[]) => {
-    setPrices((prev) => ({ ...prev, priceFrom: prices[0] }));
-    setPrices((prev) => ({ ...prev, priceTo: prices[1] }));
+    setPrices({
+      priceFrom: prices[0],
+    });
+    setPrices({
+      priceTo: prices[1],
+    });
   };
 
   const updateYears = (year: number[]) => {
-    setYears((prev) => ({ ...prev, from: year[0] }));
-    setYears((prev) => ({ ...prev, to: year[1] }));
+    setYears({
+      from: year[0],
+    });
+    setYears({
+      to: year[1],
+    });
   };
 
   useEffect(() => {
     if (data?.goods) {
       const prices = data.goods.map((el) => el.price);
       const years = data.goods.map((el) => el.year);
+      const brands = data.goods.map((el) => el.brand);
 
       const arrPrice = calculateRangePrice(prices);
       const arrYears = calculateRangePrice(years);
@@ -49,6 +70,8 @@ const Filters = () => {
 
       setMinYears(arrYears[0]);
       setMaxYears(arrYears[1]);
+
+      setBrands(brands);
     }
   }, [data]);
 
@@ -62,24 +85,14 @@ const Filters = () => {
         <h3 className="heading-three">Марка</h3>
 
         <div className="flex flex-wrap gap-[6px]">
-          <span className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] leading-[18px] text-[#5A5A5A]">
-            JCB
-          </span>
-          <span className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] leading-[18px] text-[#5A5A5A]">
-            VOLVO
-          </span>
-          <span className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] leading-[18px] text-[#5A5A5A]">
-            KOMATSU
-          </span>
-          <span className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] leading-[18px] text-[#5A5A5A]">
-            DEUTZ FAHR
-          </span>
-          <span className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] leading-[18px] text-[#5A5A5A]">
-            CLAAS
-          </span>
-          <span className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] leading-[18px] text-[#5A5A5A]">
-            NEW HOLLAND
-          </span>
+          {brands.map((brand) => (
+            <span
+              key={brand}
+              className="rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] uppercase leading-[18px] text-[#5A5A5A]"
+            >
+              {brand}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -93,10 +106,9 @@ const Filters = () => {
             min={minPrice}
             placeholder={String(minPrice)}
             onChange={(e) =>
-              setPrices((prev) => ({
-                ...prev,
+              setPrices({
                 priceFrom: Number(e.target.value),
-              }))
+              })
             }
           />
 
@@ -107,10 +119,9 @@ const Filters = () => {
             type="tel"
             placeholder={String(maxPrice)}
             onChange={(e) =>
-              setPrices((prev) => ({
-                ...prev,
+              setPrices({
                 priceTo: Number(e.target.value),
-              }))
+              })
             }
           />
         </div>
@@ -138,10 +149,9 @@ const Filters = () => {
             min={minYears}
             placeholder={String(minYears)}
             onChange={(e) =>
-              setYears((prev) => ({
-                ...prev,
+              setYears({
                 from: Number(e.target.value),
-              }))
+              })
             }
           />
 
@@ -152,10 +162,9 @@ const Filters = () => {
             type="tel"
             placeholder={String(maxYears)}
             onChange={(e) =>
-              setYears((prev) => ({
-                ...prev,
+              setYears({
                 to: Number(e.target.value),
-              }))
+              })
             }
           />
         </div>

@@ -246,6 +246,7 @@ export type Directus_Files_Mutated = {
 
 export type Goods = {
   readonly __typename?: 'goods';
+  readonly brand: Maybe<Scalars['String']['output']>;
   readonly description: Maybe<Scalars['String']['output']>;
   readonly dopDescription: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
@@ -283,6 +284,7 @@ export type Goods_Aggregated = {
 
 export type Goods_Aggregated_Count = {
   readonly __typename?: 'goods_aggregated_count';
+  readonly brand: Maybe<Scalars['Int']['output']>;
   readonly description: Maybe<Scalars['Int']['output']>;
   readonly dopDescription: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
@@ -305,6 +307,7 @@ export type Goods_Aggregated_Fields = {
 export type Goods_Filter = {
   readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Goods_Filter>>>;
   readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Goods_Filter>>>;
+  readonly brand: InputMaybe<String_Filter_Operators>;
   readonly description: InputMaybe<String_Filter_Operators>;
   readonly dopDescription: InputMaybe<String_Filter_Operators>;
   readonly id: InputMaybe<Number_Filter_Operators>;
@@ -362,6 +365,7 @@ export type String_Filter_Operators = {
 
 export type Version_Goods = {
   readonly __typename?: 'version_goods';
+  readonly brand: Maybe<Scalars['String']['output']>;
   readonly description: Maybe<Scalars['String']['output']>;
   readonly dopDescription: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
@@ -376,7 +380,7 @@ export type Version_Goods = {
 export type GetGoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly brand: string, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
@@ -397,6 +401,7 @@ export const GetGoodsDocument = `
     price
     nds
     year
+    brand
     mainImage {
       ...MediaFragment
     }
