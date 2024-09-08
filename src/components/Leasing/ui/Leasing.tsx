@@ -15,10 +15,10 @@ const Leasing = () => {
             </p>
           </div>
 
-          <div className="flex justify-between gap-2 max-tablet:flex-col max-tablet:gap-[80px] max-mobile:gap-[64px]">
+          <div className="flex justify-between gap-2 max-tablet:flex-col max-tablet:items-center max-tablet:gap-[80px] max-mobile:gap-[64px]">
             <LeasingCalculation className="w-full tablet:max-w-[625px]" />
 
-            <LeasingForm className="w-full rounded-[2px] tablet:max-w-[368px]" />
+            <LeasingForm className="w-full rounded-[2px] mobile:max-w-[368px]" />
           </div>
         </div>
       </Container>
