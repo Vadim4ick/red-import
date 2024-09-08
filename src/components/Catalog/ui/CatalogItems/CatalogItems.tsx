@@ -46,6 +46,10 @@ const CatalogItems = () => {
           <CatalogItem key={item.id} item={item} />
         ))}
 
+      {filteredCatalogItems.length === 0 && !isLoading && (
+        <p className="heading-three pt-[50px]">Товары не найдены</p>
+      )}
+
       {isLoading && <SkeletonCatalogItems />}
 
       {!showMore && other.length > 0 && (

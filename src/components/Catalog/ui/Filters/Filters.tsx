@@ -5,7 +5,7 @@ import { RangeSlider } from "../RangeSlider";
 import { useEffect } from "react";
 import { useGetGoodsQuery } from "@/graphql/__generated__";
 import { SkeletonFilters } from "./SkeletonFilters";
-import { calculateRangePrice, cn } from "@/shared/lib/utils";
+import { calculateRangePrice, cn, formatPrice } from "@/shared/lib/utils";
 import {
   $activeBrands,
   $brands,
@@ -140,7 +140,7 @@ const Filters = () => {
             value={prices.priceFrom || ""}
             type="tel"
             min={minPrice}
-            placeholder={String(minPrice)}
+            placeholder={formatPrice(minPrice)}
             onChange={(e) =>
               setPrices({
                 priceFrom: Number(e.target.value),
@@ -153,7 +153,7 @@ const Filters = () => {
           <Input
             value={prices.priceTo || ""}
             type="tel"
-            placeholder={String(maxPrice)}
+            placeholder={formatPrice(maxPrice)}
             onChange={(e) =>
               setPrices({
                 priceTo: Number(e.target.value),

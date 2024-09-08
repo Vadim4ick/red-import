@@ -15,3 +15,7 @@ export const calculateRangePrice = (prices: number[]) => {
   const maxPrice = Math.max(...prices);
   return [minPrice, maxPrice];
 };
+
+export const formatPrice = (price: number) => {
+  return new Intl.NumberFormat("ru-RU").format(price);
+};

@@ -2,7 +2,7 @@
 
 import { GetGoodsQuery } from "@/graphql/__generated__";
 import { Arrow } from "@/shared/icons/Arrow";
-import { pathImage } from "@/shared/lib/utils";
+import { formatPrice, pathImage } from "@/shared/lib/utils";
 import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
 import { Button } from "@/shared/ui/button";
 import Image from "next/image";
@@ -37,7 +37,7 @@ const CatalogItem = ({ item }: { item: GetGoodsQuery["goods"][0] }) => {
 
           <div className="flex flex-col gap-[6px] max-mobile:items-center max-mobile:gap-[2px] mobile:items-end">
             <div className="heading-three">
-              {item.price}{" "}
+              {formatPrice(item.price)}{" "}
               <span className="text-[14px] leading-[16px]">руб.</span>
             </div>
 

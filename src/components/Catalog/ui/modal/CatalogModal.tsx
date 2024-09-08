@@ -1,6 +1,6 @@
 "use client";
 
-import { pathImage } from "@/shared/lib/utils";
+import { formatPrice, pathImage } from "@/shared/lib/utils";
 import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
 import { Button } from "@/shared/ui/button";
 import {
@@ -48,13 +48,13 @@ const CatalogModal = () => {
 
               <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[2px]">
                 <div className="heading-three">
-                  {selectedItem.price}{" "}
+                  {formatPrice(selectedItem.price)}{" "}
                   <span className="text-[14px] leading-[16px]">руб.</span>
                 </div>
 
                 {selectedItem.nds && (
                   <div className="text-[12px] leading-[14px] text-[#5A5A5A]">
-                    Цена с НДС {selectedItem.nds}
+                    Цена с НДС {selectedItem.nds}%
                   </div>
                 )}
               </div>
