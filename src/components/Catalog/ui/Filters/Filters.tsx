@@ -2,95 +2,24 @@
 
 import { Input } from "@/shared/ui/input";
 import { RangeSlider } from "../RangeSlider";
-import { useEffect } from "react";
-import { useGetGoodsQuery } from "@/graphql/__generated__";
 import { SkeletonFilters } from "./SkeletonFilters";
-import {
-  calculateRangePrice,
-  cn,
-  formatPrice,
-  parsePrice,
-} from "@/shared/lib/utils";
-import {
-  $activeBrands,
-  $brands,
-  $maxPrice,
-  $maxYears,
-  $minPrice,
-  $minYears,
-  $prices,
-  $years,
-  setActiveBrands,
-  setBrands,
-  setMaxPrice,
-  setMaxYears,
-  setMinPrice,
-  setMinYears,
-  setPrices,
-  setYears,
-} from "@/store/filters";
-import { useUnit } from "effector-react";
-import { Checkbox } from "@/shared/ui/checkbox";
+import { formatPrice, parsePrice } from "@/shared/lib/utils";
+import { setPrices, setYears } from "@/store/filters";
+import { FilterBrand } from "./FilterBrand";
+import { useFilter } from "@/shared/hooks/useFilter";
 
 const Filters = () => {
-  const { isLoading, data } = useGetGoodsQuery();
-
-  const [
+  const {
+    isLoading,
     maxPrice,
     maxYears,
     minPrice,
     minYears,
     prices,
+    updatePrices,
+    updateYears,
     years,
-    brands,
-    activeBrands,
-  ] = useUnit([
-    $maxPrice,
-    $maxYears,
-    $minPrice,
-    $minYears,
-    $prices,
-    $years,
-    $brands,
-    $activeBrands,
-  ]);
-
-  const updatePrices = (prices: number[]) => {
-    setPrices({
-      priceFrom: prices[0],
-    });
-    setPrices({
-      priceTo: prices[1],
-    });
-  };
-
-  const updateYears = (year: number[]) => {
-    setYears({
-      from: year[0],
-    });
-    setYears({
-      to: year[1],
-    });
-  };
-
-  useEffect(() => {
-    if (data?.goods) {
-      const prices = data.goods.map((el) => el.price);
-      const years = data.goods.map((el) => el.year);
-      const brands = data.goods.map((el) => el.brand);
-
-      const arrPrice = calculateRangePrice(prices);
-      const arrYears = calculateRangePrice(years);
-
-      setMinPrice(arrPrice[0]);
-      setMaxPrice(arrPrice[1]);
-
-      setMinYears(arrYears[0]);
-      setMaxYears(arrYears[1]);
-
-      setBrands(brands);
-    }
-  }, [data]);
+  } = useFilter();
 
   if (isLoading) {
     return <SkeletonFilters />;
@@ -98,44 +27,7 @@ const Filters = () => {
 
   return (
     <div className="grid grid-cols-3 gap-x-4 gap-y-6 border-b border-[#8F8F8F] pb-[36px] max-tablet:grid-cols-2 max-mobile:grid-cols-1">
-      <div className="flex flex-col gap-[12px] max-tablet:col-span-full">
-        <h3 className="heading-three">Марка</h3>
-
-        <div className="flex flex-wrap gap-[6px]">
-          {brands.map((brand) => (
-            <label key={brand}>
-              <Checkbox
-                className="hidden"
-                checked={activeBrands.includes(brand)}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setActiveBrands([...activeBrands, brand]);
-                  } else {
-                    const newActiveBrands = activeBrands.filter(
-                      (activeBrand) => activeBrand !== brand,
-                    );
-
-                    setActiveBrands(newActiveBrands);
-                  }
-                }}
-                id={brand}
-              />
-
-              <span
-                className={cn(
-                  "cursor-pointer rounded-full bg-[#E9E9E9] px-[10px] py-[4px] text-[13px] uppercase leading-[18px] text-[#5A5A5A]",
-                  {
-                    "bg-defaultTextColor text-white":
-                      activeBrands.includes(brand),
-                  },
-                )}
-              >
-                {brand}
-              </span>
-            </label>
-          ))}
-        </div>
-      </div>
+      <FilterBrand />
 
       <div className="flex flex-col">
         <h3 className="heading-three pb-[9px]">Цена</h3>
