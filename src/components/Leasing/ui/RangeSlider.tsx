@@ -18,22 +18,6 @@ type SliderProps = {
   minMaxLabel?: boolean; // Добавляем метку для минимального и максимального значения
 };
 
-// Функция для вычисления динамического смещения
-const calculateOffset = (value: number): string => {
-  switch (value) {
-    case 10000000:
-      return `+ 3px`;
-    case 15000000:
-      return `+ 0px`;
-    case 20000000:
-      return `- 3px`;
-    case 25000000:
-      return `- 6px`;
-    default:
-      return `+ 0px`;
-  }
-};
-
 const Slider = React.forwardRef(
   (
     {
@@ -72,10 +56,13 @@ const Slider = React.forwardRef(
     };
 
     // Вычисление позиции для отметки
+    // const getMarkPosition = (mark: number) => {};
     const getMarkPosition = (mark: number) => {
       const percentage = ((mark - min) / (max - min)) * 100;
-      const offset = calculateOffset(mark); // Вызываем функцию смещения
-      return `calc(${percentage}% ${offset})`; // Добавляем корректировку
+      // Учитываем динамическое смещение на основе позиции метки
+      const offset = (8 * (percentage - 50)) / 50; // Смещение от -8 до +8
+
+      return `calc(${percentage}% - ${offset}px)`;
     };
 
     return (
