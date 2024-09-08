@@ -1,133 +1,50 @@
-"use client";
+import { cn } from "@/shared/lib/utils";
+import { Button } from "@/shared/ui/button";
 
-import { Input } from "@/shared/ui/input";
-import { Slider } from "./RangeSlider";
-import { formatNumber, formatPrice } from "@/shared/lib/utils";
-import { useState } from "react";
-
-const LeasingForm = () => {
-  const [price, setPrice] = useState(500000);
-  const [contribution, setContribution] = useState(0);
-  const [term, setTerm] = useState(12);
-  const [percent, setPercent] = useState(0);
-
-  const updatePrice = (newPrice: number) => {
-    setPrice(newPrice);
-  };
-
-  const updateContribution = (newContribution: number) => {
-    setContribution(newContribution);
-  };
-
-  const updateTerm = (newTerm: number) => {
-    setTerm(newTerm);
-  };
-
-  const updatePercent = (newPercent: number) => {
-    setPercent(newPercent);
-  };
-
+const LeasingForm = ({ className }: { className?: string }) => {
   return (
-    <div className="flex max-w-[625px] flex-col gap-[63px]">
-      <div className="flex items-center justify-between gap-[36px]">
-        <div className="flex w-full flex-col gap-[24px]">
-          <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
-            Стоимость имущества (руб.)
-          </p>
+    <div
+      className={cn(
+        "h-fit bg-[#F3F3F3] px-[22px] py-4 max-mobile:px-[20px] max-mobile:py-[24px]",
+        className,
+      )}
+    >
+      <div className="flex flex-col gap-[6px]">
+        <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
+          Ежемесячный платёж:
+        </p>
 
-          <Slider
-            min={500000}
-            max={30000000}
-            step={50000}
-            value={price}
-            onValueChange={updatePrice}
-            marks={[500000, 10000000, 15000000, 20000000, 25000000]}
-            formatLabel={(val) => `${formatNumber(val)}`}
-            // label={true}
-          />
+        <div className="text-[24px] font-semibold leading-[33px]">
+          34 152 руб.
         </div>
-
-        <Input
-          readOnly
-          value={`${formatPrice(price)} руб.`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
-        />
       </div>
 
-      <div className="flex items-center justify-between gap-[36px]">
-        <div className="flex w-full flex-col gap-[24px]">
-          <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
-            Первоначальный взнос
-          </p>
+      <div className="flex justify-between gap-1 pt-[22px] max-mobile:pt-[24px]">
+        <div className="flex flex-col gap-[4px] text-[#5A5A5A]">
+          <p className="text-[12px] leading-[17px]">Годовое удорожание:</p>
 
-          <Slider
-            min={0}
-            max={49}
-            step={1}
-            value={contribution}
-            onValueChange={updateContribution}
-            // label={true}
-            minMaxLabel={true}
-            formatLabel={(val) => `${val}%`}
-          />
+          <div className="text-[15px] font-semibold leading-[21px]">23.21%</div>
         </div>
 
-        <Input
-          readOnly
-          value={`${contribution} %`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
-        />
-      </div>
+        <div className="flex flex-col gap-[4px] text-[#5A5A5A] tablet:pr-[22px]">
+          <p className="text-[12px] leading-[17px]">Сумма договора:</p>
 
-      <div className="flex items-center justify-between gap-[36px]">
-        <div className="flex w-full flex-col gap-[24px]">
-          <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
-            Срок договора
-          </p>
-
-          <Slider
-            min={12}
-            max={72}
-            step={1}
-            value={term}
-            onValueChange={updateTerm}
-            marks={[12, 24, 36, 48, 60]}
-            formatLabel={(val) => `${val} мес.`}
-            // label={true}
-          />
+          <div className="text-[15px] font-semibold leading-[21px]">
+            500 000 руб.
+          </div>
         </div>
-
-        <Input
-          readOnly
-          value={`${term} месяцев`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
-        />
       </div>
 
-      <div className="flex items-center justify-between gap-[36px]">
-        <div className="flex w-full flex-col gap-[24px]">
-          <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
-            Процентная ставка
-          </p>
+      <Button className="mt-[36px] h-[48px] w-full max-mobile:mt-[32px] max-mobile:h-[46px]">
+        Оставить заявку
+      </Button>
 
-          <Slider
-            min={0}
-            max={40}
-            step={1}
-            value={percent}
-            onValueChange={updatePercent}
-            // label={true}
-            minMaxLabel={true}
-            formatLabel={(val) => `${val}%`}
-          />
-        </div>
-
-        <Input
-          readOnly
-          value={`${percent} %`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
-        />
-      </div>
+      <p className="pt-[12px] text-[10px] font-light leading-[14px] text-[#5A5A5A] max-mobile:pt-[16px]">
+        Стоимость предмета лизинга и приведенные расчеты через калькулятор
+        являются предварительными. Для точного определения процентной ставки по
+        договору, пожалуйста, обратитесь к менеджеру в вашем регионе.
+        Калькулятор не следует применять для расчетов по 44-ФЗ и 223-ФЗ.
+      </p>
     </div>
   );
 };
