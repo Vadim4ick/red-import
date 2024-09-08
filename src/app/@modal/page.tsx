@@ -1,4 +1,4 @@
-import { CatalogModal } from "@/components/Catalog";
+import { CatalogModal } from "@/components/modals/CatalogModal";
 
 export default function ModalPage() {
   return <CatalogModal />;

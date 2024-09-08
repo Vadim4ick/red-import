@@ -129,7 +129,7 @@ const MainSlider = () => {
               id="mainSlider-prev"
               className="relative flex size-[30px] items-center justify-center rounded-full border-[2px] border-[#f1f1f1] bg-white transition-colors hover:bg-[#F1F1F1] disabled:pointer-events-none disabled:opacity-40 max-mobile:size-[26px]"
             >
-              <Arrow className="max-mobile:size-[7.2px]" />
+              <Arrow className="text-defaultTextColor max-mobile:size-[7.2px]" />
             </button>
 
             <div className="flex text-defaultTextColor max-mobile:hidden">
@@ -151,7 +151,7 @@ const MainSlider = () => {
               id="mainSlider-next"
               className="relative flex size-[30px] items-center justify-center rounded-full border-[2px] border-[#f1f1f1] bg-white transition-colors hover:bg-[#F1F1F1] disabled:pointer-events-none disabled:opacity-40 max-mobile:size-[26px]"
             >
-              <Arrow className="rotate-180 max-mobile:size-[7.2px]" />
+              <Arrow className="rotate-180 text-defaultTextColor max-mobile:size-[7.2px]" />
             </button>
           </div>
         </div>
