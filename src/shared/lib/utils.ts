@@ -26,3 +26,16 @@ export const parsePrice = (formattedPrice: string): number => {
   // Преобразуем строку в число
   return parseFloat(normalizedPrice);
 };
+
+export const formatNumber = (value: number): string => {
+  if (value >= 1000000) {
+    // Если миллионы, округляем до одного знака после запятой и добавляем "млн."
+    return `${(value / 1000000).toFixed(0)} млн.`;
+  } else if (value >= 1000) {
+    // Если тысячи, округляем до целого числа и добавляем "тыс."
+    return `${(value / 1000).toFixed(0)} тыс.`;
+  } else {
+    // Если меньше тысячи, выводим просто значение
+    return value.toString();
+  }
+};
