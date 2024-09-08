@@ -155,6 +155,8 @@ const Filters = () => {
                 priceFrom: parsePrice(e.target.value)
                   ? parsePrice(e.target.value)
                   : 0,
+
+                priceTo: prices.priceTo === 0 ? maxPrice : prices.priceTo,
               })
             }
           />
@@ -171,6 +173,8 @@ const Filters = () => {
             placeholder={formatPrice(maxPrice)}
             onChange={(e) =>
               setPrices({
+                priceFrom: prices.priceFrom === 0 ? minPrice : prices.priceFrom,
+
                 priceTo: parsePrice(e.target.value)
                   ? parsePrice(e.target.value)
                   : 0,
@@ -203,6 +207,8 @@ const Filters = () => {
             placeholder={String(minYears)}
             onChange={(e) =>
               setYears({
+                to: years.to === 0 ? maxYears : years.to,
+
                 from: Number(e.target.value),
               })
             }
@@ -216,6 +222,8 @@ const Filters = () => {
             placeholder={String(maxYears)}
             onChange={(e) =>
               setYears({
+                from: years.from === 0 ? minYears : years.from,
+
                 to: Number(e.target.value),
               })
             }
