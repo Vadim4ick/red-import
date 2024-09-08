@@ -3,29 +3,25 @@
 import { Input } from "@/shared/ui/input";
 import { Slider } from "./RangeSlider";
 import { cn, formatNumber, formatPrice } from "@/shared/lib/utils";
-import { useState } from "react";
+import { useUnit } from "effector-react";
+import {
+  $contribution,
+  $percent,
+  $price,
+  $term,
+  updateContribution,
+  updatePercent,
+  updatePrice,
+  updateTerm,
+} from "@/store/leasing";
 
 const LeasingCalculation = ({ className }: { className?: string }) => {
-  const [price, setPrice] = useState(500000);
-  const [contribution, setContribution] = useState(0);
-  const [term, setTerm] = useState(12);
-  const [percent, setPercent] = useState(0);
-
-  const updatePrice = (newPrice: number) => {
-    setPrice(newPrice);
-  };
-
-  const updateContribution = (newContribution: number) => {
-    setContribution(newContribution);
-  };
-
-  const updateTerm = (newTerm: number) => {
-    setTerm(newTerm);
-  };
-
-  const updatePercent = (newPercent: number) => {
-    setPercent(newPercent);
-  };
+  const [price, contribution, term, percent] = useUnit([
+    $price,
+    $contribution,
+    $term,
+    $percent,
+  ]);
 
   return (
     <div
@@ -116,7 +112,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           </p>
 
           <Slider
-            min={0}
+            min={1}
             max={40}
             step={1}
             value={percent}

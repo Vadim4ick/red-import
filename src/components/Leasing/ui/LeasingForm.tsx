@@ -1,7 +1,39 @@
-import { cn } from "@/shared/lib/utils";
+"use client";
+
+import { calculateLeasingDetails, cn, formatPrice } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
+import { $contribution, $percent, $price, $term } from "@/store/leasing";
+import { useUnit } from "effector-react";
+import { useEffect, useState } from "react";
 
 const LeasingForm = ({ className }: { className?: string }) => {
+  const [price, contribution, term, percent] = useUnit([
+    $price,
+    $contribution,
+    $term,
+    $percent,
+  ]);
+
+  const [result, setResult] = useState({
+    annualCostIncreasePercentage: "0",
+    monthlyPayment: "0",
+    totalContractAmount: "0",
+  });
+
+  useEffect(() => {
+    const {
+      annualCostIncreasePercentage,
+      monthlyPayment,
+      totalContractAmount,
+    } = calculateLeasingDetails(price, contribution, term, percent);
+
+    setResult({
+      annualCostIncreasePercentage,
+      monthlyPayment,
+      totalContractAmount,
+    });
+  }, [contribution, percent, price, term]);
+
   return (
     <div
       className={cn(
@@ -15,7 +47,7 @@ const LeasingForm = ({ className }: { className?: string }) => {
         </p>
 
         <div className="text-[24px] font-semibold leading-[33px]">
-          34 152 руб.
+          {formatPrice(parseInt(result.monthlyPayment))} руб.
         </div>
       </div>
 
@@ -23,14 +55,16 @@ const LeasingForm = ({ className }: { className?: string }) => {
         <div className="flex flex-col gap-[4px] text-[#5A5A5A]">
           <p className="text-[12px] leading-[17px]">Годовое удорожание:</p>
 
-          <div className="text-[15px] font-semibold leading-[21px]">23.21%</div>
+          <div className="text-[15px] font-semibold leading-[21px]">
+            {result.annualCostIncreasePercentage}%
+          </div>
         </div>
 
         <div className="flex flex-col gap-[4px] text-[#5A5A5A] tablet:pr-[22px]">
           <p className="text-[12px] leading-[17px]">Сумма договора:</p>
 
           <div className="text-[15px] font-semibold leading-[21px]">
-            500 000 руб.
+            {formatPrice(parseInt(result.totalContractAmount))} руб.
           </div>
         </div>
       </div>

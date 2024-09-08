@@ -39,3 +39,44 @@ export const formatNumber = (value: number): string => {
     return value.toString();
   }
 };
+
+export function calculateLeasingDetails(
+  propertyCost: number,
+  downPaymentRate: number,
+  termMonths: number,
+  annualInterestRate: number,
+) {
+  // Рассчитать сумму первого взноса
+  const downPayment = (propertyCost * downPaymentRate) / 100;
+
+  // Рассчитать сумму кредита
+  const loanAmount = propertyCost - downPayment;
+
+  // Рассчитать месячную процентную ставку
+  const monthlyInterestRate = annualInterestRate / 100 / 12;
+
+  // Рассчитать ежемесячный платеж (EMI)
+  const emi =
+    (loanAmount *
+      monthlyInterestRate *
+      Math.pow(1 + monthlyInterestRate, termMonths)) /
+    (Math.pow(1 + monthlyInterestRate, termMonths) - 1);
+
+  // Рассчитать сумму договора
+  const totalPayment = emi * termMonths;
+
+  // Рассчитать годовое удорожание в процентах
+  const annualCostIncreasePercentage =
+    ((totalPayment - loanAmount) / loanAmount) * 100;
+
+  return {
+    monthlyPayment: emi.toFixed(0),
+    annualCostIncreasePercentage: annualCostIncreasePercentage.toFixed(2),
+    totalContractAmount: totalPayment.toFixed(0),
+  };
+  // return {
+  //   monthlyPayment: emi.toFixed(2),
+  //   annualCostIncreasePercentage: annualCostIncreasePercentage.toFixed(2),
+  //   totalContractAmount: totalPayment.toFixed(2),
+  // };
+}
