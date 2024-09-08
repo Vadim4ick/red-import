@@ -19,3 +19,10 @@ export const calculateRangePrice = (prices: number[]) => {
 export const formatPrice = (price: number) => {
   return new Intl.NumberFormat("ru-RU").format(price);
 };
+
+export const parsePrice = (formattedPrice: string): number => {
+  // Удаляем все пробелы и заменяем запятую на точку
+  const normalizedPrice = formattedPrice.replace(/\s/g, "").replace(",", ".");
+  // Преобразуем строку в число
+  return parseFloat(normalizedPrice);
+};

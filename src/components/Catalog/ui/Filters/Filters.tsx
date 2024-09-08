@@ -5,7 +5,12 @@ import { RangeSlider } from "../RangeSlider";
 import { useEffect } from "react";
 import { useGetGoodsQuery } from "@/graphql/__generated__";
 import { SkeletonFilters } from "./SkeletonFilters";
-import { calculateRangePrice, cn, formatPrice } from "@/shared/lib/utils";
+import {
+  calculateRangePrice,
+  cn,
+  formatPrice,
+  parsePrice,
+} from "@/shared/lib/utils";
 import {
   $activeBrands,
   $brands,
@@ -137,13 +142,19 @@ const Filters = () => {
 
         <div className="flex items-center gap-[3px] pb-[13px]">
           <Input
-            value={prices.priceFrom || ""}
+            value={
+              parseInt(formatPrice(prices.priceFrom)) === 0
+                ? ""
+                : formatPrice(prices.priceFrom)
+            }
             type="tel"
             min={minPrice}
             placeholder={formatPrice(minPrice)}
             onChange={(e) =>
               setPrices({
-                priceFrom: Number(e.target.value),
+                priceFrom: parsePrice(e.target.value)
+                  ? parsePrice(e.target.value)
+                  : 0,
               })
             }
           />
@@ -151,12 +162,18 @@ const Filters = () => {
           <p className="text-[#999999]">-</p>
 
           <Input
-            value={prices.priceTo || ""}
+            value={
+              parseInt(formatPrice(prices.priceTo)) === 0
+                ? ""
+                : formatPrice(prices.priceTo)
+            }
             type="tel"
             placeholder={formatPrice(maxPrice)}
             onChange={(e) =>
               setPrices({
-                priceTo: Number(e.target.value),
+                priceTo: parsePrice(e.target.value)
+                  ? parsePrice(e.target.value)
+                  : 0,
               })
             }
           />
