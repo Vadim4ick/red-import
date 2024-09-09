@@ -51,6 +51,10 @@ export type Query = {
   readonly goods_aggregated: ReadonlyArray<Goods_Aggregated>;
   readonly goods_by_id: Maybe<Goods>;
   readonly goods_by_version: Maybe<Version_Goods>;
+  readonly mainSlider: ReadonlyArray<MainSlider>;
+  readonly mainSlider_aggregated: ReadonlyArray<MainSlider_Aggregated>;
+  readonly mainSlider_by_id: Maybe<MainSlider>;
+  readonly mainSlider_by_version: Maybe<Version_MainSlider>;
 };
 
 
@@ -86,10 +90,44 @@ export type QueryGoods_By_VersionArgs = {
   version: Scalars['String']['input'];
 };
 
+
+export type QueryMainSliderArgs = {
+  filter: InputMaybe<MainSlider_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryMainSlider_AggregatedArgs = {
+  filter: InputMaybe<MainSlider_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryMainSlider_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryMainSlider_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
 export type Subscription = {
   readonly __typename?: 'Subscription';
   readonly directus_files_mutated: Maybe<Directus_Files_Mutated>;
   readonly goods_mutated: Maybe<Goods_Mutated>;
+  readonly mainSlider_mutated: Maybe<MainSlider_Mutated>;
 };
 
 
@@ -99,6 +137,11 @@ export type SubscriptionDirectus_Files_MutatedArgs = {
 
 
 export type SubscriptionGoods_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionMainSlider_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -249,6 +292,7 @@ export type Goods = {
   readonly brand: Maybe<Scalars['String']['output']>;
   readonly description: Maybe<Scalars['String']['output']>;
   readonly dopDescription: Maybe<Scalars['String']['output']>;
+  readonly guarant: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
   readonly mainImage: Maybe<Directus_Files>;
   readonly nds: Maybe<Scalars['Int']['output']>;
@@ -287,6 +331,7 @@ export type Goods_Aggregated_Count = {
   readonly brand: Maybe<Scalars['Int']['output']>;
   readonly description: Maybe<Scalars['Int']['output']>;
   readonly dopDescription: Maybe<Scalars['Int']['output']>;
+  readonly guarant: Maybe<Scalars['Int']['output']>;
   readonly id: Maybe<Scalars['Int']['output']>;
   readonly mainImage: Maybe<Scalars['Int']['output']>;
   readonly nds: Maybe<Scalars['Int']['output']>;
@@ -310,6 +355,7 @@ export type Goods_Filter = {
   readonly brand: InputMaybe<String_Filter_Operators>;
   readonly description: InputMaybe<String_Filter_Operators>;
   readonly dopDescription: InputMaybe<String_Filter_Operators>;
+  readonly guarant: InputMaybe<String_Filter_Operators>;
   readonly id: InputMaybe<Number_Filter_Operators>;
   readonly mainImage: InputMaybe<Directus_Files_Filter>;
   readonly nds: InputMaybe<Number_Filter_Operators>;
@@ -322,6 +368,75 @@ export type Goods_Filter = {
 export type Goods_Mutated = {
   readonly __typename?: 'goods_mutated';
   readonly data: Maybe<Goods>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type MainSlider = {
+  readonly __typename?: 'mainSlider';
+  readonly goods: Maybe<Goods>;
+  readonly id: Scalars['ID']['output'];
+  readonly img: Maybe<Directus_Files>;
+};
+
+
+export type MainSliderGoodsArgs = {
+  filter: InputMaybe<Goods_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type MainSliderImgArgs = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MainSlider_Aggregated = {
+  readonly __typename?: 'mainSlider_aggregated';
+  readonly avg: Maybe<MainSlider_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<MainSlider_Aggregated_Fields>;
+  readonly count: Maybe<MainSlider_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<MainSlider_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<MainSlider_Aggregated_Fields>;
+  readonly min: Maybe<MainSlider_Aggregated_Fields>;
+  readonly sum: Maybe<MainSlider_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<MainSlider_Aggregated_Fields>;
+};
+
+export type MainSlider_Aggregated_Count = {
+  readonly __typename?: 'mainSlider_aggregated_count';
+  readonly goods: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly img: Maybe<Scalars['Int']['output']>;
+};
+
+export type MainSlider_Aggregated_Fields = {
+  readonly __typename?: 'mainSlider_aggregated_fields';
+  readonly goods: Maybe<Scalars['Float']['output']>;
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type MainSlider_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<MainSlider_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<MainSlider_Filter>>>;
+  readonly goods: InputMaybe<Goods_Filter>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly img: InputMaybe<Directus_Files_Filter>;
+};
+
+export type MainSlider_Mutated = {
+  readonly __typename?: 'mainSlider_mutated';
+  readonly data: Maybe<MainSlider>;
   readonly event: Maybe<EventEnum>;
   readonly key: Scalars['ID']['output'];
 };
@@ -368,6 +483,7 @@ export type Version_Goods = {
   readonly brand: Maybe<Scalars['String']['output']>;
   readonly description: Maybe<Scalars['String']['output']>;
   readonly dopDescription: Maybe<Scalars['String']['output']>;
+  readonly guarant: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
   readonly mainImage: Maybe<Scalars['JSON']['output']>;
   readonly nds: Maybe<Scalars['Int']['output']>;
@@ -377,10 +493,22 @@ export type Version_Goods = {
   readonly year: Maybe<Scalars['Int']['output']>;
 };
 
+export type Version_MainSlider = {
+  readonly __typename?: 'version_mainSlider';
+  readonly goods: Maybe<Scalars['JSON']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly img: Maybe<Scalars['JSON']['output']>;
+};
+
 export type GetGoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly brand: string, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: ReadonlyArray<{ readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly guarant: string, readonly brand: string, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+
+export type GetMainSliderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMainSliderQuery = { readonly __typename?: 'Query', readonly mainSlider: ReadonlyArray<{ readonly __typename?: 'mainSlider', readonly id: string, readonly goods: { readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly description: string }, readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
@@ -401,6 +529,7 @@ export const GetGoodsDocument = `
     price
     nds
     year
+    guarant
     brand
     mainImage {
       ...MediaFragment
@@ -445,3 +574,59 @@ useInfiniteGetGoodsQuery.getKey = (variables?: GetGoodsQueryVariables) => variab
 
 
 useGetGoodsQuery.fetcher = (variables?: GetGoodsQueryVariables) => fetcher<GetGoodsQuery, GetGoodsQueryVariables>(GetGoodsDocument, variables);
+
+export const GetMainSliderDocument = `
+    query GetMainSlider {
+  mainSlider {
+    id
+    goods {
+      id
+      title
+      subtitle
+      price
+      nds
+      description
+    }
+    img {
+      id
+      width
+      height
+    }
+  }
+}
+    `;
+
+export const useGetMainSliderQuery = <
+      TData = GetMainSliderQuery,
+      TError = unknown
+    >(
+      variables?: GetMainSliderQueryVariables,
+      options?: UseQueryOptions<GetMainSliderQuery, TError, TData>
+    ) => {
+    
+    return useQuery<GetMainSliderQuery, TError, TData>(
+      variables === undefined ? ['GetMainSlider'] : ['GetMainSlider', variables],
+      fetcher<GetMainSliderQuery, GetMainSliderQueryVariables>(GetMainSliderDocument, variables),
+      options
+    )};
+
+useGetMainSliderQuery.getKey = (variables?: GetMainSliderQueryVariables) => variables === undefined ? ['GetMainSlider'] : ['GetMainSlider', variables];
+
+export const useInfiniteGetMainSliderQuery = <
+      TData = GetMainSliderQuery,
+      TError = unknown
+    >(
+      variables?: GetMainSliderQueryVariables,
+      options?: UseInfiniteQueryOptions<GetMainSliderQuery, TError, TData>
+    ) => {
+    
+    return useInfiniteQuery<GetMainSliderQuery, TError, TData>(
+      variables === undefined ? ['GetMainSlider.infinite'] : ['GetMainSlider.infinite', variables],
+      (metaData) => fetcher<GetMainSliderQuery, GetMainSliderQueryVariables>(GetMainSliderDocument, {...variables, ...(metaData.pageParam ?? {})})(),
+      options
+    )};
+
+useInfiniteGetMainSliderQuery.getKey = (variables?: GetMainSliderQueryVariables) => variables === undefined ? ['GetMainSlider.infinite'] : ['GetMainSlider.infinite', variables];
+
+
+useGetMainSliderQuery.fetcher = (variables?: GetMainSliderQueryVariables) => fetcher<GetMainSliderQuery, GetMainSliderQueryVariables>(GetMainSliderDocument, variables);

@@ -1,0 +1,20 @@
+query GetMainSlider {
+  mainSlider {
+    id
+
+    goods {
+      id
+      title
+      subtitle
+      price
+      nds
+      description
+    }
+
+    img {
+      id
+      width
+      height
+    }
+  }
+}

@@ -136,9 +136,11 @@ const CatalogModal = () => {
           </div>
         </div>
 
-        <p className="text-center text-[14px] leading-[16px]">
-          Гарантия 1500 м*ч или 18 мес., что наступит раньше.
-        </p>
+        {selectedItem.guarant && (
+          <p className="text-center text-[14px] leading-[16px]">
+            {selectedItem.guarant}
+          </p>
+        )}
 
         <Button
           variant={"reverseDefault"}

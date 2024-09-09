@@ -310,9 +310,11 @@ const CatalogItem = ({ item }: { item: GetGoodsQuery["goods"][0] }) => {
                       </button>
                     </div>
 
-                    <p className="px-[44px] py-[8px] text-center text-[14px] leading-[16px]">
-                      Гарантия 1500 м*ч или 18 мес., что наступит раньше.
-                    </p>
+                    {item.guarant && (
+                      <p className="px-[44px] py-[8px] text-center text-[14px] leading-[16px]">
+                        {item.guarant}
+                      </p>
+                    )}
                   </>
                 </motion.div>
               ) : (
@@ -337,7 +339,10 @@ const CatalogItem = ({ item }: { item: GetGoodsQuery["goods"][0] }) => {
               )}
             </AnimatePresence>
 
-            <Button className="h-[42px] w-[220px]" variant={"reverseDefault"}>
+            <Button
+              className="h-[42px] w-[220px] bg-transparent"
+              variant={"reverseDefault"}
+            >
               Купить сейчас
             </Button>
           </div>

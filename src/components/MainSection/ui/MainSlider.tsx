@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Button } from "@/shared/ui/button";
@@ -11,11 +12,15 @@ import Swiper from "swiper";
 import { numberSlide } from "@/shared/lib/numberSlide";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { Container } from "@/shared/ui/container";
-import { mockDataItems } from "@/shared/const";
+import ReactMarkdown from "react-markdown";
+import { useGetMainSliderQuery } from "@/graphql/__generated__";
+import { formatPrice, pathImage } from "@/shared/lib/utils";
 
 const MainSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(1); // Индекс текущего слайда (начинается с 1)
   const [totalSlides, setTotalSlides] = useState(0); // Общее количество слайдов
+
+  const { data, isLoading } = useGetMainSliderQuery();
 
   const handleSlideChange = (swiper: Swiper) => {
     setCurrentSlide(swiper.realIndex + 1); // Обновляем текущий слайд
@@ -44,83 +49,106 @@ const MainSlider = () => {
           }}
           speed={800}
         >
-          {mockDataItems.map((slide) => {
-            return (
-              <SwiperSlide key={slide.id}>
-                <article className="rounded:rounded-t-[6px] relative grid h-full bg-white pl-[57px] max-tablet:pl-[20px] mobile:grid-cols-[352px_1fr]">
-                  <div className="pb-[49px] pt-[30px] max-mobile:pb-[22.5px] max-mobile:pt-[34px]">
-                    <div className="flex flex-col gap-[7px] max-mobile:gap-0.5">
-                      <p className="font-medium leading-[19px]">
-                        {slide.title}
-                      </p>
-
-                      <p className="text-[14px] leading-[16px] text-[#7B7B7B] max-mobile:text-[12px] max-mobile:leading-[14px]">
-                        {slide.subtitle}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col pt-4 text-buttonColor max-mobile:pt-3 mobile:gap-[3px]">
-                      <div className="flex items-end gap-[3px] font-medium">
-                        <p className="text-[24px] leading-[28p] max-mobile:text-[20px] max-mobile:leading-[24px]">
-                          {slide.price}
+          {data &&
+            data.mainSlider.map((slide) => {
+              return (
+                <SwiperSlide key={slide.id}>
+                  <article className="rounded:rounded-t-[6px] relative grid h-full bg-white pl-[57px] max-tablet:pl-[20px] mobile:grid-cols-[352px_1fr]">
+                    <div className="pb-[49px] pt-[30px] max-mobile:pb-[22.5px] max-mobile:pt-[34px]">
+                      <div className="flex flex-col gap-[7px] max-mobile:gap-0.5">
+                        <p className="font-medium leading-[19px]">
+                          {slide.goods.title}
                         </p>
 
-                        <span className="pb-[4px] text-[14px] leading-[16px] max-mobile:pb-[2px]">
-                          руб.
-                        </span>
+                        <p className="text-[14px] leading-[16px] text-[#7B7B7B] max-mobile:text-[12px] max-mobile:leading-[14px]">
+                          {slide.goods.subtitle}
+                        </p>
                       </div>
 
-                      {slide.nds && (
-                        <div className="text-[12px] leading-[14px]">
-                          Цена с НДС {slide.nds}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col gap-2 pt-[27px] max-mobile:pt-[31px]">
-                      {slide.parameters.map((param) => {
-                        return (
-                          <p
-                            key={param.id}
-                            className="flex gap-2 text-[14px] leading-[16px]"
-                          >
-                            <span className="font-light text-[#7B7B7B]">
-                              {param.text}
-                            </span>
-                            <span>{param.value}</span>
+                      <div className="flex flex-col pt-4 text-buttonColor max-mobile:pt-3 mobile:gap-[3px]">
+                        <div className="flex items-end gap-[3px] font-medium">
+                          <p className="text-[24px] leading-[28p] max-mobile:text-[20px] max-mobile:leading-[24px]">
+                            {formatPrice(slide.goods.price)}
                           </p>
-                        );
-                      })}
+
+                          <span className="pb-[4px] text-[14px] leading-[16px] max-mobile:pb-[2px]">
+                            руб.
+                          </span>
+                        </div>
+
+                        {slide.goods.nds && (
+                          <div className="text-[12px] leading-[14px]">
+                            Цена с НДС {slide.goods.nds}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex flex-col gap-2 pt-[27px] max-mobile:pt-[31px]">
+                        <ReactMarkdown
+                          components={{
+                            li: ({ children }) => {
+                              return (
+                                <li>
+                                  <div className="text-[#7B7B7B]">
+                                    <p className="flex gap-2 text-[14px] font-light leading-[16px]">
+                                      {children}
+                                    </p>
+                                  </div>
+                                </li>
+                              );
+                            },
+
+                            ul: ({ children }) => {
+                              return (
+                                <ul className="flex w-full flex-col gap-2">
+                                  {children}
+                                </ul>
+                              );
+                            },
+
+                            strong: ({ children }) => {
+                              return (
+                                <span className="font-normal text-defaultTextColor">
+                                  {children}
+                                </span>
+                              );
+                            },
+                          }}
+                        >
+                          {slide.goods.description}
+                        </ReactMarkdown>
+                      </div>
+
+                      <div className="flex w-full items-center gap-[10px] pt-[20px] max-mobile:absolute max-mobile:bottom-8 max-mobile:justify-center max-mobile:pr-[20px]">
+                        <Button
+                          variant={"secondary"}
+                          className="h-[42px] w-full max-w-[155px] max-mobile:h-[40px]"
+                        >
+                          Подробнее
+                        </Button>
+
+                        <Button
+                          addonLeft={
+                            <Phone className="mr-[7.6px] size-[16px]" />
+                          }
+                          className="h-[42px] w-full max-w-[155px] max-mobile:h-[40px]"
+                        >
+                          Позвонить
+                        </Button>
+                      </div>
                     </div>
 
-                    <div className="flex w-full items-center gap-[10px] pt-[20px] max-mobile:absolute max-mobile:bottom-8 max-mobile:justify-center max-mobile:pr-[20px]">
-                      <Button
-                        variant={"secondary"}
-                        className="h-[42px] w-full max-w-[155px] max-mobile:h-[40px]"
-                      >
-                        Подробнее
-                      </Button>
-
-                      <Button
-                        addonLeft={<Phone className="mr-[7.6px] size-[16px]" />}
-                        className="h-[42px] w-full max-w-[155px] max-mobile:h-[40px]"
-                      >
-                        Позвонить
-                      </Button>
+                    <div className="flex h-full w-full items-end justify-end">
+                      <img
+                        src={pathImage(slide.img.id)}
+                        alt={slide.goods.title}
+                        className="object-cover max-mobile:h-full"
+                      />
                     </div>
-                  </div>
-
-                  <div className="flex h-full w-full items-end justify-end">
-                    <img
-                      src={slide.img}
-                      alt={slide.title}
-                      className="object-cover max-mobile:h-full"
-                    />
-                  </div>
-                </article>
-              </SwiperSlide>
-            );
-          })}
+                  </article>
+                </SwiperSlide>
+              );
+            })}
         </SwiperContainer>
 
         <div className="absolute right-0 top-[-12px] z-10 -translate-y-full max-mobile:top-[-5px]">
