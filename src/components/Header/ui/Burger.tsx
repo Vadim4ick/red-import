@@ -1,16 +1,15 @@
 "use client";
 
+import { $burgerOpen, toggleBurgerOpen } from "@/store/burger";
+import { useUnit } from "effector-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 const Burger = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const isOpen = useUnit($burgerOpen);
 
   return (
     <button
-      onClick={toggleMenu}
+      onClick={() => toggleBurgerOpen()}
       className="flex h-[15px] w-[30px] cursor-pointer flex-col justify-between"
     >
       <motion.div

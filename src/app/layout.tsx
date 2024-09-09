@@ -30,7 +30,7 @@ export default function RootLayout({
           <div className="flex h-full flex-col">
             <Header />
 
-            <main className="flex-1">{children}</main>
+            <main className="mt-[var(--header-height)] flex-1">{children}</main>
 
             <Footer />
           </div>

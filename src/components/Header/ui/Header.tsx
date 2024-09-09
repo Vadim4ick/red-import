@@ -13,11 +13,11 @@ const Header = () => {
   const isMobile = useMedia(768);
 
   return (
-    <header className="border-b border-b-[#E8E8E8] bg-white">
+    <header className="fixed z-50 w-full border-b border-b-[#E8E8E8] bg-white">
       <Container>
         <div className="flex h-[var(--header-height)] items-center justify-between">
           <Link href={"/"}>
-            <Logo className="max-mobileSmall:max-w-[141px] max-mobileSmall:max-h-[24px] max-h-[28px] max-w-[166px]" />
+            <Logo className="max-h-[28px] max-w-[166px] max-mobileSmall:max-h-[24px] max-mobileSmall:max-w-[141px]" />
           </Link>
 
           {!isMobile ? (
