@@ -15,6 +15,7 @@ import { Container } from "@/shared/ui/container";
 import ReactMarkdown from "react-markdown";
 import { useGetMainSliderQuery } from "@/graphql/__generated__";
 import { formatPrice, pathImage } from "@/shared/lib/utils";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 const MainSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(1); // Индекс текущего слайда (начинается с 1)
@@ -33,6 +34,20 @@ const MainSlider = () => {
   const isMobile = useMedia(768);
 
   const ContainerSlider = !isMobile ? Container : React.Fragment;
+
+  if (isLoading) {
+    return (
+      <ContainerSlider>
+        <div className="relative">
+          <Skeleton className="h-[391px] w-full" />
+
+          <div className="absolute right-0 top-[-12px] z-10 -translate-y-full max-mobile:top-[-5px]">
+            <Skeleton className="h-[30px] w-[130px]" />
+          </div>
+        </div>
+      </ContainerSlider>
+    );
+  }
 
   return (
     <ContainerSlider>
