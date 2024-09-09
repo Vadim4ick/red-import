@@ -8,6 +8,7 @@ import { Container } from "@/shared/ui/container";
 import { Phone } from "lucide-react";
 import Link from "next/link";
 import { Burger } from "./Burger";
+import { toggleBidOpen } from "@/store/bidModal";
 
 const Header = () => {
   const isMobile = useMedia(768);
@@ -30,7 +31,12 @@ const Header = () => {
                 </p>
               </div>
 
-              <Button className="h-[42px] w-[188px]">Заказать звонок</Button>
+              <Button
+                onClick={() => toggleBidOpen()}
+                className="h-[42px] w-[188px]"
+              >
+                Заказать звонок
+              </Button>
             </div>
           ) : (
             <Burger />

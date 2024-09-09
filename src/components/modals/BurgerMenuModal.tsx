@@ -7,10 +7,10 @@ import { Button } from "@/shared/ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/shared/ui/sheet";
+import { toggleBidOpen } from "@/store/bidModal";
 import { $burgerOpen, toggleBurgerOpen } from "@/store/burger";
 import { useUnit } from "effector-react";
 import { useEffect } from "react";
@@ -68,7 +68,13 @@ const BurgerMenuModal = () => {
             </p>
           </div>
 
-          <Button className="h-[40px] w-[155px] text-[12px] leading-[16px]">
+          <Button
+            onClick={() => {
+              toggleBidOpen();
+              toggleBurgerOpen();
+            }}
+            className="h-[40px] w-[155px] text-[12px] leading-[16px]"
+          >
             Заказать звонок
           </Button>
         </div>
