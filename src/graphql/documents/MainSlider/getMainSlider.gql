@@ -3,12 +3,7 @@ query GetMainSlider {
     id
 
     goods {
-      id
-      title
-      subtitle
-      price
-      nds
-      description
+      ...Goods
     }
 
     img {

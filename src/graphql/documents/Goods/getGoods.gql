@@ -1,17 +1,5 @@
 query GetGoods {
   goods {
-    id
-    title
-    subtitle
-    price
-    nds
-    year
-    guarant
-    brand
-    mainImage {
-      ...MediaFragment
-    }
-    description
-    dopDescription
+    ...Goods
   }
 }

@@ -733,16 +733,37 @@ export type GetGoodsQuery = { readonly __typename?: 'Query', readonly goods: Rea
 export type GetMainSliderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMainSliderQuery = { readonly __typename?: 'Query', readonly mainSlider: ReadonlyArray<{ readonly __typename?: 'mainSlider', readonly id: string, readonly goods: { readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly description: string }, readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+export type GetMainSliderQuery = { readonly __typename?: 'Query', readonly mainSlider: ReadonlyArray<{ readonly __typename?: 'mainSlider', readonly id: string, readonly goods: { readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly guarant: string, readonly brand: string, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }, readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
 export type GetSuccessfulCasesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetSuccessfulCasesQuery = { readonly __typename?: 'Query', readonly successfulCases: ReadonlyArray<{ readonly __typename?: 'successfulCases', readonly id: string, readonly title: string, readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
+export type GoodsFragment = { readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly guarant: string, readonly brand: string, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } };
+
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
 
+export const GoodsFragmentDoc = `
+    fragment Goods on goods {
+  id
+  title
+  subtitle
+  price
+  nds
+  year
+  guarant
+  brand
+  mainImage {
+    id
+    width
+    height
+  }
+  description
+  dopDescription
+}
+    `;
 export const MediaFragmentFragmentDoc = `
     fragment MediaFragment on directus_files {
   id
@@ -801,22 +822,10 @@ useGetAdvantagesQuery.fetcher = (variables?: GetAdvantagesQueryVariables) => fet
 export const GetGoodsDocument = `
     query GetGoods {
   goods {
-    id
-    title
-    subtitle
-    price
-    nds
-    year
-    guarant
-    brand
-    mainImage {
-      ...MediaFragment
-    }
-    description
-    dopDescription
+    ...Goods
   }
 }
-    ${MediaFragmentFragmentDoc}`;
+    ${GoodsFragmentDoc}`;
 
 export const useGetGoodsQuery = <
       TData = GetGoodsQuery,
@@ -858,19 +867,15 @@ export const GetMainSliderDocument = `
   mainSlider {
     id
     goods {
-      id
-      title
-      subtitle
-      price
-      nds
-      description
+      ...Goods
     }
     img {
       ...MediaFragment
     }
   }
 }
-    ${MediaFragmentFragmentDoc}`;
+    ${GoodsFragmentDoc}
+${MediaFragmentFragmentDoc}`;
 
 export const useGetMainSliderQuery = <
       TData = GetMainSliderQuery,

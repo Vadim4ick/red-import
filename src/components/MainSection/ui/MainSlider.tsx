@@ -7,15 +7,16 @@ import { Swiper as SwiperContainer, SwiperSlide } from "swiper/react";
 
 import { Navigation } from "swiper/modules";
 import { Arrow } from "@/shared/icons/Arrow";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Swiper from "swiper";
 import { numberSlide } from "@/shared/lib/numberSlide";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { Container } from "@/shared/ui/container";
 import ReactMarkdown from "react-markdown";
-import { useGetMainSliderQuery } from "@/graphql/__generated__";
+import { Goods, useGetMainSliderQuery } from "@/graphql/__generated__";
 import { formatPrice, pathImage } from "@/shared/lib/utils";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
 
 const MainSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(1); // Индекс текущего слайда (начинается с 1)
@@ -34,6 +35,15 @@ const MainSlider = () => {
   const isMobile = useMedia(768);
 
   const ContainerSlider = !isMobile ? Container : React.Fragment;
+
+  const { setOpen, setSelectedItem } = useContext(CatalogModalProviderContext);
+
+  const handleClickDescription = (item: Goods) => {
+    if (!isMobile) {
+      setOpen(true);
+      setSelectedItem(item);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -134,7 +144,11 @@ const MainSlider = () => {
                         </ReactMarkdown>
                       </div>
 
-                      <div className="flex w-full items-center gap-[10px] pt-[20px] max-mobile:absolute max-mobile:bottom-8 max-mobile:justify-center max-mobile:pr-[20px]">
+                      <div
+                        // @ts-ignore
+                        onClick={() => handleClickDescription(slide.goods)}
+                        className="flex w-full items-center gap-[10px] pt-[20px] max-mobile:absolute max-mobile:bottom-8 max-mobile:left-0 max-mobile:justify-center"
+                      >
                         <Button
                           variant={"secondary"}
                           className="h-[42px] w-full max-w-[155px] max-mobile:h-[40px]"

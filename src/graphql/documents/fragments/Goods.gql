@@ -1,0 +1,17 @@
+fragment Goods on goods {
+  id
+  title
+  subtitle
+  price
+  nds
+  year
+  guarant
+  brand
+  mainImage {
+    id
+    width
+    height
+  }
+  description
+  dopDescription
+}
