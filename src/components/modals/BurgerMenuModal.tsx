@@ -1,6 +1,7 @@
 "use client";
 
 import { phoneNumber } from "@/shared/const";
+import { useBurgerMenu } from "@/shared/hooks/useBurgerMenu";
 import { Arrow } from "@/shared/icons/Arrow";
 import { Phone } from "@/shared/icons/Phone";
 import { Button } from "@/shared/ui/button";
@@ -18,6 +19,8 @@ import { useEffect } from "react";
 const BurgerMenuModal = () => {
   const isOpen = useUnit($burgerOpen);
 
+  const { asideMenu } = useBurgerMenu();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -34,29 +37,22 @@ const BurgerMenuModal = () => {
         overlay={false}
       >
         <SheetHeader className="flex flex-col gap-[20px]">
-          <button className="flex cursor-pointer items-center justify-between">
-            <SheetTitle className="text-[24px] font-medium leading-[28px] text-[#3D3D3D]">
-              Преимущества
-            </SheetTitle>
+          {asideMenu.map((el) => (
+            <button
+              onClick={() => {
+                el.fn();
+                toggleBurgerOpen();
+              }}
+              key={el.name}
+              className="flex cursor-pointer items-center justify-between"
+            >
+              <SheetTitle className="text-[24px] font-medium leading-[28px] text-[#3D3D3D]">
+                {el.name}
+              </SheetTitle>
 
-            <Arrow className="size-[14px] rotate-180 text-[#3D3D3D]" />
-          </button>
-
-          <button className="flex cursor-pointer items-center justify-between">
-            <SheetTitle className="text-[24px] font-medium leading-[28px] text-[#3D3D3D]">
-              Каталог техники
-            </SheetTitle>
-
-            <Arrow className="size-[14px] rotate-180 text-[#3D3D3D]" />
-          </button>
-
-          <button className="flex cursor-pointer items-center justify-between">
-            <SheetTitle className="text-[24px] font-medium leading-[28px] text-[#3D3D3D]">
-              О нас
-            </SheetTitle>
-
-            <Arrow className="size-[14px] rotate-180 text-[#3D3D3D]" />
-          </button>
+              <Arrow className="size-[14px] rotate-180 text-[#3D3D3D]" />
+            </button>
+          ))}
         </SheetHeader>
 
         <div className="flex items-center justify-between gap-4">
