@@ -26,37 +26,39 @@ const CatalogModal = () => {
     <Dialog open={open} onOpenChange={onClickCatalogModal}>
       <DialogContent className="flex h-[725px] w-full max-w-[482px] flex-col justify-between rounded-[2px] border-none p-[20px]">
         <div>
-          <DialogHeader className="flex flex-row gap-[18px] pb-[16px]">
+          <DialogHeader className="flex flex-row gap-[18px] space-y-0 pb-[16px]">
             <div>
               <Image
                 src={pathImage(selectedItem.mainImage.id)}
                 alt={selectedItem.title}
-                width={169}
-                height={101}
-                className="max-h-[101px] max-w-[170px] object-cover"
+                width={170}
+                height={127}
+                className="max-h-[127px] max-w-[170px] object-cover"
               />
             </div>
 
-            <div className="flex flex-col items-start gap-[6px]">
-              <DialogTitle className="heading-three max-mobile:text-[18px] max-mobile:leading-[22px]">
-                {selectedItem.title}
-              </DialogTitle>
+            <div className="flex flex-col items-start justify-between gap-[6px]">
+              <div className="flex flex-col items-start gap-[6px]">
+                <DialogTitle className="heading-three text-start max-mobile:text-[18px] max-mobile:leading-[22px]">
+                  {selectedItem.title}
+                </DialogTitle>
 
-              <p className="text-[14px] leading-[16px] text-[#5A5A5A]">
-                {selectedItem.subtitle}
-              </p>
+                <p className="text-[14px] leading-[16px] text-[#5A5A5A]">
+                  {selectedItem.subtitle}
+                </p>
+              </div>
 
               <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[2px]">
-                <div className="heading-three">
-                  {formatPrice(selectedItem.price)}{" "}
-                  <span className="text-[14px] leading-[16px]">руб.</span>
-                </div>
-
                 {selectedItem.nds && (
                   <div className="text-[12px] leading-[14px] text-[#5A5A5A]">
                     Цена с НДС {selectedItem.nds}%
                   </div>
                 )}
+
+                <div className="heading-three">
+                  {formatPrice(selectedItem.price)}{" "}
+                  <span className="text-[14px] leading-[16px]">руб.</span>
+                </div>
               </div>
             </div>
           </DialogHeader>
