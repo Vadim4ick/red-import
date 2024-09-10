@@ -47,6 +47,10 @@ export enum EventEnum {
 
 export type Query = {
   readonly __typename?: 'Query';
+  readonly advantages: ReadonlyArray<Advantages>;
+  readonly advantages_aggregated: ReadonlyArray<Advantages_Aggregated>;
+  readonly advantages_by_id: Maybe<Advantages>;
+  readonly advantages_by_version: Maybe<Version_Advantages>;
   readonly goods: ReadonlyArray<Goods>;
   readonly goods_aggregated: ReadonlyArray<Goods_Aggregated>;
   readonly goods_by_id: Maybe<Goods>;
@@ -55,6 +59,43 @@ export type Query = {
   readonly mainSlider_aggregated: ReadonlyArray<MainSlider_Aggregated>;
   readonly mainSlider_by_id: Maybe<MainSlider>;
   readonly mainSlider_by_version: Maybe<Version_MainSlider>;
+  readonly successfulCases: ReadonlyArray<SuccessfulCases>;
+  readonly successfulCases_aggregated: ReadonlyArray<SuccessfulCases_Aggregated>;
+  readonly successfulCases_by_id: Maybe<SuccessfulCases>;
+  readonly successfulCases_by_version: Maybe<Version_SuccessfulCases>;
+};
+
+
+export type QueryAdvantagesArgs = {
+  filter: InputMaybe<Advantages_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryAdvantages_AggregatedArgs = {
+  filter: InputMaybe<Advantages_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryAdvantages_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryAdvantages_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
 };
 
 
@@ -123,11 +164,51 @@ export type QueryMainSlider_By_VersionArgs = {
   version: Scalars['String']['input'];
 };
 
+
+export type QuerySuccessfulCasesArgs = {
+  filter: InputMaybe<SuccessfulCases_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QuerySuccessfulCases_AggregatedArgs = {
+  filter: InputMaybe<SuccessfulCases_Filter>;
+  groupBy: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QuerySuccessfulCases_By_IdArgs = {
+  id: Scalars['ID']['input'];
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QuerySuccessfulCases_By_VersionArgs = {
+  id: Scalars['ID']['input'];
+  version: Scalars['String']['input'];
+};
+
 export type Subscription = {
   readonly __typename?: 'Subscription';
+  readonly advantages_mutated: Maybe<Advantages_Mutated>;
   readonly directus_files_mutated: Maybe<Directus_Files_Mutated>;
   readonly goods_mutated: Maybe<Goods_Mutated>;
   readonly mainSlider_mutated: Maybe<MainSlider_Mutated>;
+  readonly successfulCases_mutated: Maybe<SuccessfulCases_Mutated>;
+};
+
+
+export type SubscriptionAdvantages_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
 };
 
 
@@ -143,6 +224,72 @@ export type SubscriptionGoods_MutatedArgs = {
 
 export type SubscriptionMainSlider_MutatedArgs = {
   event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionSuccessfulCases_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+export type Advantages = {
+  readonly __typename?: 'advantages';
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly icon: Maybe<Directus_Files>;
+  readonly id: Scalars['ID']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+
+export type AdvantagesIconArgs = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Advantages_Aggregated = {
+  readonly __typename?: 'advantages_aggregated';
+  readonly avg: Maybe<Advantages_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<Advantages_Aggregated_Fields>;
+  readonly count: Maybe<Advantages_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<Advantages_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<Advantages_Aggregated_Fields>;
+  readonly min: Maybe<Advantages_Aggregated_Fields>;
+  readonly sum: Maybe<Advantages_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<Advantages_Aggregated_Fields>;
+};
+
+export type Advantages_Aggregated_Count = {
+  readonly __typename?: 'advantages_aggregated_count';
+  readonly description: Maybe<Scalars['Int']['output']>;
+  readonly icon: Maybe<Scalars['Int']['output']>;
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly title: Maybe<Scalars['Int']['output']>;
+};
+
+export type Advantages_Aggregated_Fields = {
+  readonly __typename?: 'advantages_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type Advantages_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<Advantages_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<Advantages_Filter>>>;
+  readonly description: InputMaybe<String_Filter_Operators>;
+  readonly icon: InputMaybe<Directus_Files_Filter>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly title: InputMaybe<String_Filter_Operators>;
+};
+
+export type Advantages_Mutated = {
+  readonly __typename?: 'advantages_mutated';
+  readonly data: Maybe<Advantages>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
 };
 
 export type Big_Int_Filter_Operators = {
@@ -478,6 +625,72 @@ export type String_Filter_Operators = {
   readonly _starts_with: InputMaybe<Scalars['String']['input']>;
 };
 
+export type SuccessfulCases = {
+  readonly __typename?: 'successfulCases';
+  readonly id: Scalars['ID']['output'];
+  readonly img: Maybe<Directus_Files>;
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+
+export type SuccessfulCasesImgArgs = {
+  filter: InputMaybe<Directus_Files_Filter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  offset: InputMaybe<Scalars['Int']['input']>;
+  page: InputMaybe<Scalars['Int']['input']>;
+  search: InputMaybe<Scalars['String']['input']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type SuccessfulCases_Aggregated = {
+  readonly __typename?: 'successfulCases_aggregated';
+  readonly avg: Maybe<SuccessfulCases_Aggregated_Fields>;
+  readonly avgDistinct: Maybe<SuccessfulCases_Aggregated_Fields>;
+  readonly count: Maybe<SuccessfulCases_Aggregated_Count>;
+  readonly countAll: Maybe<Scalars['Int']['output']>;
+  readonly countDistinct: Maybe<SuccessfulCases_Aggregated_Count>;
+  readonly group: Maybe<Scalars['JSON']['output']>;
+  readonly max: Maybe<SuccessfulCases_Aggregated_Fields>;
+  readonly min: Maybe<SuccessfulCases_Aggregated_Fields>;
+  readonly sum: Maybe<SuccessfulCases_Aggregated_Fields>;
+  readonly sumDistinct: Maybe<SuccessfulCases_Aggregated_Fields>;
+};
+
+export type SuccessfulCases_Aggregated_Count = {
+  readonly __typename?: 'successfulCases_aggregated_count';
+  readonly id: Maybe<Scalars['Int']['output']>;
+  readonly img: Maybe<Scalars['Int']['output']>;
+  readonly title: Maybe<Scalars['Int']['output']>;
+};
+
+export type SuccessfulCases_Aggregated_Fields = {
+  readonly __typename?: 'successfulCases_aggregated_fields';
+  readonly id: Maybe<Scalars['Float']['output']>;
+};
+
+export type SuccessfulCases_Filter = {
+  readonly _and: InputMaybe<ReadonlyArray<InputMaybe<SuccessfulCases_Filter>>>;
+  readonly _or: InputMaybe<ReadonlyArray<InputMaybe<SuccessfulCases_Filter>>>;
+  readonly id: InputMaybe<Number_Filter_Operators>;
+  readonly img: InputMaybe<Directus_Files_Filter>;
+  readonly title: InputMaybe<String_Filter_Operators>;
+};
+
+export type SuccessfulCases_Mutated = {
+  readonly __typename?: 'successfulCases_mutated';
+  readonly data: Maybe<SuccessfulCases>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type Version_Advantages = {
+  readonly __typename?: 'version_advantages';
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly icon: Maybe<Scalars['JSON']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
 export type Version_Goods = {
   readonly __typename?: 'version_goods';
   readonly brand: Maybe<Scalars['String']['output']>;
@@ -500,6 +713,18 @@ export type Version_MainSlider = {
   readonly img: Maybe<Scalars['JSON']['output']>;
 };
 
+export type Version_SuccessfulCases = {
+  readonly __typename?: 'version_successfulCases';
+  readonly id: Scalars['ID']['output'];
+  readonly img: Maybe<Scalars['JSON']['output']>;
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+export type GetAdvantagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdvantagesQuery = { readonly __typename?: 'Query', readonly advantages: ReadonlyArray<{ readonly __typename?: 'advantages', readonly id: string, readonly title: string, readonly description: string, readonly icon: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+
 export type GetGoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -509,6 +734,11 @@ export type GetMainSliderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetMainSliderQuery = { readonly __typename?: 'Query', readonly mainSlider: ReadonlyArray<{ readonly __typename?: 'mainSlider', readonly id: string, readonly goods: { readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly description: string }, readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
+
+export type GetSuccessfulCasesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSuccessfulCasesQuery = { readonly __typename?: 'Query', readonly successfulCases: ReadonlyArray<{ readonly __typename?: 'successfulCases', readonly id: string, readonly title: string, readonly img: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } }> };
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
@@ -520,6 +750,54 @@ export const MediaFragmentFragmentDoc = `
   height
 }
     `;
+export const GetAdvantagesDocument = `
+    query GetAdvantages {
+  advantages {
+    id
+    title
+    description
+    icon {
+      ...MediaFragment
+    }
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
+
+export const useGetAdvantagesQuery = <
+      TData = GetAdvantagesQuery,
+      TError = unknown
+    >(
+      variables?: GetAdvantagesQueryVariables,
+      options?: UseQueryOptions<GetAdvantagesQuery, TError, TData>
+    ) => {
+    
+    return useQuery<GetAdvantagesQuery, TError, TData>(
+      variables === undefined ? ['GetAdvantages'] : ['GetAdvantages', variables],
+      fetcher<GetAdvantagesQuery, GetAdvantagesQueryVariables>(GetAdvantagesDocument, variables),
+      options
+    )};
+
+useGetAdvantagesQuery.getKey = (variables?: GetAdvantagesQueryVariables) => variables === undefined ? ['GetAdvantages'] : ['GetAdvantages', variables];
+
+export const useInfiniteGetAdvantagesQuery = <
+      TData = GetAdvantagesQuery,
+      TError = unknown
+    >(
+      variables?: GetAdvantagesQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAdvantagesQuery, TError, TData>
+    ) => {
+    
+    return useInfiniteQuery<GetAdvantagesQuery, TError, TData>(
+      variables === undefined ? ['GetAdvantages.infinite'] : ['GetAdvantages.infinite', variables],
+      (metaData) => fetcher<GetAdvantagesQuery, GetAdvantagesQueryVariables>(GetAdvantagesDocument, {...variables, ...(metaData.pageParam ?? {})})(),
+      options
+    )};
+
+useInfiniteGetAdvantagesQuery.getKey = (variables?: GetAdvantagesQueryVariables) => variables === undefined ? ['GetAdvantages.infinite'] : ['GetAdvantages.infinite', variables];
+
+
+useGetAdvantagesQuery.fetcher = (variables?: GetAdvantagesQueryVariables) => fetcher<GetAdvantagesQuery, GetAdvantagesQueryVariables>(GetAdvantagesDocument, variables);
+
 export const GetGoodsDocument = `
     query GetGoods {
   goods {
@@ -588,13 +866,11 @@ export const GetMainSliderDocument = `
       description
     }
     img {
-      id
-      width
-      height
+      ...MediaFragment
     }
   }
 }
-    `;
+    ${MediaFragmentFragmentDoc}`;
 
 export const useGetMainSliderQuery = <
       TData = GetMainSliderQuery,
@@ -630,3 +906,50 @@ useInfiniteGetMainSliderQuery.getKey = (variables?: GetMainSliderQueryVariables)
 
 
 useGetMainSliderQuery.fetcher = (variables?: GetMainSliderQueryVariables) => fetcher<GetMainSliderQuery, GetMainSliderQueryVariables>(GetMainSliderDocument, variables);
+
+export const GetSuccessfulCasesDocument = `
+    query GetSuccessfulCases {
+  successfulCases {
+    id
+    title
+    img {
+      ...MediaFragment
+    }
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
+
+export const useGetSuccessfulCasesQuery = <
+      TData = GetSuccessfulCasesQuery,
+      TError = unknown
+    >(
+      variables?: GetSuccessfulCasesQueryVariables,
+      options?: UseQueryOptions<GetSuccessfulCasesQuery, TError, TData>
+    ) => {
+    
+    return useQuery<GetSuccessfulCasesQuery, TError, TData>(
+      variables === undefined ? ['GetSuccessfulCases'] : ['GetSuccessfulCases', variables],
+      fetcher<GetSuccessfulCasesQuery, GetSuccessfulCasesQueryVariables>(GetSuccessfulCasesDocument, variables),
+      options
+    )};
+
+useGetSuccessfulCasesQuery.getKey = (variables?: GetSuccessfulCasesQueryVariables) => variables === undefined ? ['GetSuccessfulCases'] : ['GetSuccessfulCases', variables];
+
+export const useInfiniteGetSuccessfulCasesQuery = <
+      TData = GetSuccessfulCasesQuery,
+      TError = unknown
+    >(
+      variables?: GetSuccessfulCasesQueryVariables,
+      options?: UseInfiniteQueryOptions<GetSuccessfulCasesQuery, TError, TData>
+    ) => {
+    
+    return useInfiniteQuery<GetSuccessfulCasesQuery, TError, TData>(
+      variables === undefined ? ['GetSuccessfulCases.infinite'] : ['GetSuccessfulCases.infinite', variables],
+      (metaData) => fetcher<GetSuccessfulCasesQuery, GetSuccessfulCasesQueryVariables>(GetSuccessfulCasesDocument, {...variables, ...(metaData.pageParam ?? {})})(),
+      options
+    )};
+
+useInfiniteGetSuccessfulCasesQuery.getKey = (variables?: GetSuccessfulCasesQueryVariables) => variables === undefined ? ['GetSuccessfulCases.infinite'] : ['GetSuccessfulCases.infinite', variables];
+
+
+useGetSuccessfulCasesQuery.fetcher = (variables?: GetSuccessfulCasesQueryVariables) => fetcher<GetSuccessfulCasesQuery, GetSuccessfulCasesQueryVariables>(GetSuccessfulCasesDocument, variables);

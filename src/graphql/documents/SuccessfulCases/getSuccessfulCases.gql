@@ -1,0 +1,9 @@
+query GetSuccessfulCases {
+  successfulCases {
+    id
+    title
+    img {
+      ...MediaFragment
+    }
+  }
+}

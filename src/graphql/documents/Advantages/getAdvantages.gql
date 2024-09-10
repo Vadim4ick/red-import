@@ -1,0 +1,10 @@
+query GetAdvantages {
+  advantages {
+    id
+    title
+    description
+    icon {
+      ...MediaFragment
+    }
+  }
+}

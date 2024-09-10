@@ -2,13 +2,15 @@
 
 import { Container } from "@/shared/ui/container";
 // import { motion } from "framer-motion";
-import { casesData } from "../model/mockData";
 import { CasesItem } from "./CasesItem";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useScroll } from "@/shared/hooks/useScroll";
+import { useGetSuccessfulCasesQuery } from "@/graphql/__generated__";
 
 const Cases = () => {
   const { handleScroll, ref } = useScroll();
+
+  const { data, isLoading } = useGetSuccessfulCasesQuery();
 
   const isMobile = useMedia(768);
 
@@ -23,9 +25,11 @@ const Cases = () => {
             ref={!isMobile ? ref : undefined}
             className="custom-scrollbar flex gap-[20px] max-mobile:flex-col max-mobile:items-center mobile:overflow-x-auto"
           >
-            {casesData.map((el) => (
-              <CasesItem key={el.id} item={el} />
-            ))}
+            {data &&
+              !isLoading &&
+              data.successfulCases.map((el) => (
+                <CasesItem key={el.id} item={el} />
+              ))}
           </div>
         </div>
       </Container>

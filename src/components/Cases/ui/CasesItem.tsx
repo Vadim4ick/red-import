@@ -1,14 +1,19 @@
 import Image from "next/image";
-import { TCasesItem } from "../model/mockData";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { GetSuccessfulCasesQuery } from "@/graphql/__generated__";
+import { pathImage } from "@/shared/lib/utils";
 
-const CasesItem = ({ item }: { item: TCasesItem }) => {
+const CasesItem = ({
+  item,
+}: {
+  item: GetSuccessfulCasesQuery["successfulCases"][0];
+}) => {
   const isMobile = useMedia(768);
 
   return (
-    <article className="flex flex-col gap-[20px] max-mobile:items-center">
+    <article className="flex w-[350px] flex-shrink-0 flex-grow-0 flex-col gap-[20px] max-mobile:items-center">
       <Image
-        src={item.img}
+        src={pathImage(item.img.id)}
         alt="image"
         width={isMobile ? 320 : 348}
         height={isMobile ? 426 : 401}
@@ -16,7 +21,7 @@ const CasesItem = ({ item }: { item: TCasesItem }) => {
       />
 
       <p className="text-[17px] font-light leading-[24px] text-[#5A5A5A] max-mobile:max-w-[320px]">
-        {item.text}
+        {item.title}
       </p>
     </article>
   );

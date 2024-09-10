@@ -12,9 +12,7 @@ query GetMainSlider {
     }
 
     img {
-      id
-      width
-      height
+      ...MediaFragment
     }
   }
 }
