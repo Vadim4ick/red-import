@@ -2,6 +2,7 @@
 
 import { calculateLeasingDetails, cn, formatPrice } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
+import { toggleCatalogBidOpen } from "@/store/catalogBidModal";
 import { $contribution, $percent, $price, $term } from "@/store/leasing";
 import { useUnit } from "effector-react";
 import { useEffect, useState } from "react";
@@ -69,7 +70,10 @@ const LeasingForm = ({ className }: { className?: string }) => {
         </div>
       </div>
 
-      <Button className="mt-[36px] h-[48px] w-full max-mobile:mt-[32px] max-mobile:h-[46px]">
+      <Button
+        onClick={() => toggleCatalogBidOpen()}
+        className="mt-[36px] h-[48px] w-full max-mobile:mt-[32px] max-mobile:h-[46px]"
+      >
         Оставить заявку
       </Button>
 
