@@ -3,6 +3,7 @@
 import { phoneNumber } from "@/shared/const";
 import { Creatin } from "@/shared/icons/Creatin";
 import { Logo } from "@/shared/icons/Logo";
+import { onest } from "@/shared/style/fonts";
 import { Button } from "@/shared/ui/button";
 import { Container } from "@/shared/ui/container";
 import { toggleBidOpen } from "@/store/bidModal";
@@ -56,12 +57,18 @@ const Footer = () => {
 
         <div className="flex items-end justify-between pt-[59px] max-mobile:-mx-[20px] max-mobile:mt-[20px] max-mobile:flex-col max-mobile:items-start max-mobile:justify-center max-mobile:gap-3 max-mobile:bg-[#242424] max-mobile:px-[20px] max-mobile:py-[20px]">
           <div className="flex flex-col gap-3 text-[14px] leading-[14px] text-[#6F6F6F] max-mobile:flex-col-reverse max-mobile:text-[12px] max-mobile:leading-[12px]">
-            <a>Публичная оферта</a>
-            <a>Пользовательское соглашение</a>
+            <a href="#" className={`${onest.className}`}>
+              Публичная оферта
+            </a>
+            <a href="#" className={`${onest.className}`}>
+              Пользовательское соглашение
+            </a>
           </div>
 
           <div className="flex items-center gap-2 rounded-3xl bg-[#2E2E2E] pb-[3px] pl-[16px] pr-[3px] pt-[3px] text-[12px] max-mobile:self-end">
-            <span className="font-semibold text-[#787878]">разработано</span>
+            <span className="font-['Jeko'] font-semibold text-[#787878]">
+              разработано
+            </span>
 
             <div className="rounded-full bg-defaultTextColor px-[18px] py-[10px]">
               <Creatin className="text-white" />

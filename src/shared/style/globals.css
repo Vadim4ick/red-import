@@ -4,6 +4,15 @@
 
 @import url("swiper/css");
 
+@font-face {
+  font-family: "Jeko";
+  src:
+    url("/font/JekoBold.woff2") format("woff2"),
+    url("/font/JekoBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
 @layer components {
   .heading-two {
     @apply text-[36px] font-medium leading-[43px] max-mobile:text-[32px] max-mobile:leading-[38px];
