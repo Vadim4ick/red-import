@@ -1,6 +1,5 @@
 "use client";
 
-import { GetGoodsQuery } from "@/graphql/__generated__";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { Arrow } from "@/shared/icons/Arrow";
 import { formatPrice, pathImage } from "@/shared/lib/utils";
@@ -10,8 +9,9 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { motion, AnimatePresence } from "framer-motion";
+import { GoodsFragment } from "@/graphql/__generated__";
 
-const CatalogItem = ({ item }: { item: GetGoodsQuery["goods"][0] }) => {
+const CatalogItem = ({ item }: { item: GoodsFragment }) => {
   const { setOpen, setSelectedItem } = useContext(CatalogModalProviderContext);
 
   const [descOpen, setDescOpen] = useState(false);

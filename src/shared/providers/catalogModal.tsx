@@ -1,6 +1,6 @@
 "use client";
 
-import { GetGoodsQuery, Goods } from "@/graphql/__generated__";
+import { GoodsFragment } from "@/graphql/__generated__";
 import {
   Dispatch,
   SetStateAction,
@@ -13,8 +13,8 @@ import {
 interface CatalogModalContext {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  selectedItem: Goods | null;
-  setSelectedItem: (val: Goods | null) => void;
+  selectedItem: GoodsFragment | null;
+  setSelectedItem: (val: GoodsFragment | null) => void;
   onClickCatalogModal: () => void;
 }
 
@@ -24,7 +24,7 @@ export const CatalogModalProviderContext = createContext(
 
 const CatalogModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Goods | null>(null);
+  const [selectedItem, setSelectedItem] = useState<GoodsFragment | null>(null);
 
   const onClickCatalogModal = useCallback(() => {
     setOpen(!open);

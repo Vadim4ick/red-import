@@ -745,6 +745,13 @@ export type GoodsFragment = { readonly __typename?: 'goods', readonly id: string
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
 
 
+export const MediaFragmentFragmentDoc = `
+    fragment MediaFragment on directus_files {
+  id
+  width
+  height
+}
+    `;
 export const GoodsFragmentDoc = `
     fragment Goods on goods {
   id
@@ -756,21 +763,12 @@ export const GoodsFragmentDoc = `
   guarant
   brand
   mainImage {
-    id
-    width
-    height
+    ...MediaFragment
   }
   description
   dopDescription
 }
-    `;
-export const MediaFragmentFragmentDoc = `
-    fragment MediaFragment on directus_files {
-  id
-  width
-  height
-}
-    `;
+    ${MediaFragmentFragmentDoc}`;
 export const GetAdvantagesDocument = `
     query GetAdvantages {
   advantages {
@@ -870,12 +868,13 @@ export const GetMainSliderDocument = `
       ...Goods
     }
     img {
-      ...MediaFragment
+      id
+      width
+      height
     }
   }
 }
-    ${GoodsFragmentDoc}
-${MediaFragmentFragmentDoc}`;
+    ${GoodsFragmentDoc}`;
 
 export const useGetMainSliderQuery = <
       TData = GetMainSliderQuery,

@@ -13,7 +13,7 @@ import { numberSlide } from "@/shared/lib/numberSlide";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { Container } from "@/shared/ui/container";
 import ReactMarkdown from "react-markdown";
-import { Goods, useGetMainSliderQuery } from "@/graphql/__generated__";
+import { GoodsFragment, useGetMainSliderQuery } from "@/graphql/__generated__";
 import { formatPrice, pathImage } from "@/shared/lib/utils";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
@@ -38,7 +38,7 @@ const MainSlider = () => {
 
   const { setOpen, setSelectedItem } = useContext(CatalogModalProviderContext);
 
-  const handleClickDescription = (item: Goods) => {
+  const handleClickDescription = (item: GoodsFragment) => {
     setOpen(true);
     setSelectedItem(item);
   };
@@ -143,7 +143,6 @@ const MainSlider = () => {
                       </div>
 
                       <div
-                        // @ts-ignore
                         onClick={() => handleClickDescription(slide.goods)}
                         className="flex w-full items-center gap-[10px] pt-[20px] max-mobile:absolute max-mobile:bottom-8 max-mobile:left-0 max-mobile:justify-center"
                       >

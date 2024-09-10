@@ -8,9 +8,7 @@ fragment Goods on goods {
   guarant
   brand
   mainImage {
-    id
-    width
-    height
+    ...MediaFragment
   }
   description
   dopDescription
