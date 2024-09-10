@@ -39,10 +39,8 @@ const MainSlider = () => {
   const { setOpen, setSelectedItem } = useContext(CatalogModalProviderContext);
 
   const handleClickDescription = (item: Goods) => {
-    if (!isMobile) {
-      setOpen(true);
-      setSelectedItem(item);
-    }
+    setOpen(true);
+    setSelectedItem(item);
   };
 
   if (isLoading) {
