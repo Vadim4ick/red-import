@@ -9,6 +9,8 @@ import "@/shared/style/globals.css";
 const geologica = Geologica({
   subsets: ["cyrillic"],
   weight: ["300", "400", "500", "600"],
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {

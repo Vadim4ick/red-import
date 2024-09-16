@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const pathImage = (src: string) => {
-  return `http://0.0.0.0:8055/assets/${src}`;
+  return `${process.env.NEXT_PUBLIC_SERVER_URI}/assets/${src}`;
 };
 
 export const calculateRangePrice = (prices: number[]) => {
