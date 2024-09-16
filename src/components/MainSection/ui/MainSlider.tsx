@@ -113,7 +113,7 @@ const MainSlider = () => {
                               return (
                                 <li>
                                   <div className="text-[#7B7B7B]">
-                                    <p className="flex gap-2 text-[14px] font-light leading-[16px]">
+                                    <p className="mr-2 text-[14px] font-light leading-[16px]">
                                       {children}
                                     </p>
                                   </div>
@@ -131,7 +131,7 @@ const MainSlider = () => {
 
                             strong: ({ children }) => {
                               return (
-                                <span className="font-normal text-defaultTextColor">
+                                <span className="pl-2 font-normal text-defaultTextColor">
                                   {children}
                                 </span>
                               );
