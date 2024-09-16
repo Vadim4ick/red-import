@@ -1,11 +1,22 @@
 import { Container } from "@/shared/ui/container";
 import { AdvantagesScrollSlider } from "./AdvantagesScrollSlider";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const/motion";
 
 const Advantages = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
-    <section
+    <motion.section
       id="advantages"
       className="bg-white pb-[104px] pt-[88px] max-mobile:pb-[64px] max-mobile:pt-[32px]"
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
     >
       <Container className="mobile:ml-auto mobile:mr-0 mobile:max-w-[1440px]">
         <h2 className="heading-two">
@@ -22,7 +33,7 @@ const Advantages = () => {
           выбирают!
         </p>
       </Container>
-    </section>
+    </motion.section>
   );
 };
 

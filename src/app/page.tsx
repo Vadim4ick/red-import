@@ -1,3 +1,5 @@
+"use client";
+
 import { About } from "@/components/About";
 import { Advantages } from "@/components/Advantages";
 import { Cases } from "@/components/Cases";

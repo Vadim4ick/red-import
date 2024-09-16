@@ -1,11 +1,22 @@
 import { Container } from "@/shared/ui/container";
 import Image from "next/image";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const/motion";
 
 const About = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
-    <section
+    <motion.section
       id="about"
       className="bg-white pb-[96px] pt-[88px] max-tablet:pt-[32px] max-mobile:pb-[64px]"
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
     >
       <Container>
         <div className="flex items-end gap-[2px]">
@@ -52,7 +63,7 @@ const About = () => {
           </div>
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 };
 

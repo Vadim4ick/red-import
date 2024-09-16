@@ -1,10 +1,23 @@
 import { Container } from "@/shared/ui/container";
 import { LeasingCalculation } from "./LeasingCalculation";
 import { LeasingForm } from "./LeasingForm";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const/motion";
 
 const Leasing = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
-    <section className="bg-white pb-[128px] pt-[96px] max-mobile:pb-[64px] max-mobile:pt-[32px]">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="bg-white pb-[128px] pt-[96px] max-mobile:pb-[64px] max-mobile:pt-[32px]"
+    >
       <Container>
         <div className="flex flex-col gap-[60px] max-mobile:gap-[48px]">
           <div className="flex flex-col gap-[24px] max-mobile:gap-[12px]">
@@ -22,7 +35,7 @@ const Leasing = () => {
           </div>
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 };
 

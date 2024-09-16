@@ -1,10 +1,23 @@
 import { Container } from "@/shared/ui/container";
 import Image from "next/image";
 import { FormFeedbackForm } from "./FormFeedbackForm";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motionConfigAnimate } from "@/shared/const/motion";
 
 const FormFeedback = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   return (
-    <section className="rounded-[2px] bg-white mobile:pb-[128px]">
+    <motion.section
+      ref={ref}
+      {...motionConfigAnimate}
+      animate={
+        inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
+      }
+      className="rounded-[2px] bg-white mobile:pb-[128px]"
+    >
       <Container className="max-w-[1258px] max-mobile:px-0">
         <div className="flex justify-between gap-2 bg-[#EDEDED] pb-[28px] pl-[68px] pr-[98px] pt-[44px] max-desktop:px-[45px] max-mobile:flex-col max-mobile:items-center max-mobile:gap-[24px] max-mobile:px-[20px] max-mobile:pb-[64px] max-mobile:pt-[32px]">
           <div className="flex max-w-[596px] flex-col justify-between gap-[36px]">
@@ -33,7 +46,7 @@ const FormFeedback = () => {
           <FormFeedbackForm />
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 };
 
