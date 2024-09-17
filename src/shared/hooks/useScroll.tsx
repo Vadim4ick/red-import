@@ -112,15 +112,15 @@ const useScroll = () => {
 
     if (isScrollLocked && !hasScrolled && isInView) {
       // Lock scroll
-      disableBodyScroll(sliderRef.current);
+      disableBodyScroll(sliderRef.current!);
       window.addEventListener("wheel", handleWheel);
     } else {
       // Unlock scroll
-      enableBodyScroll(sliderRef.current);
+      enableBodyScroll(sliderRef.current!);
     }
 
     return () => {
-      enableBodyScroll(sliderRef.current);
+      enableBodyScroll(sliderRef.current!);
       window.removeEventListener("wheel", handleWheel);
     };
   }, [isScrollLocked, isInView, hasScrolled]);
