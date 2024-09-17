@@ -40,17 +40,19 @@ const CatalogItems = () => {
 
   return (
     <div className="flex w-full flex-col items-center mobile:gap-[48px]">
-      {catalogItems.length > 0 &&
-        !isLoading &&
-        (showMore ? filteredCatalogItems : first).map((item) => (
-          <CatalogItem key={item.id} item={item} />
-        ))}
+      <div className="w-full">
+        {catalogItems.length > 0 &&
+          !isLoading &&
+          (showMore ? filteredCatalogItems : first).map((item) => (
+            <CatalogItem key={item.id} item={item} />
+          ))}
 
-      {filteredCatalogItems.length === 0 && !isLoading && (
-        <p className="heading-three pt-[50px]">Товары не найдены</p>
-      )}
+        {filteredCatalogItems.length === 0 && !isLoading && (
+          <p className="heading-three pt-[50px]">Товары не найдены</p>
+        )}
 
-      {isLoading && <SkeletonCatalogItems />}
+        {isLoading && <SkeletonCatalogItems />}
+      </div>
 
       {!showMore && other.length > 0 && (
         <Button

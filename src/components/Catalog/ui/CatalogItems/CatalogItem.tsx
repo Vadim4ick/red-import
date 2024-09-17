@@ -30,7 +30,7 @@ const CatalogItem = ({ item }: { item: GoodsFragment }) => {
   const handleClickDesc = () => setDescOpen(!descOpen);
 
   return (
-    <article className="grid w-full grid-cols-[336px_1fr] gap-[30px] object-cover py-[32px] max-mobile:mt-[38px] max-mobile:grid-cols-1 max-mobile:gap-3 max-mobile:rounded-[4px] max-mobile:bg-white max-mobile:p-[6px] mobile:border-b mobile:border-[#8F8F8F]">
+    <article className="grid w-full grid-cols-[336px_1fr] gap-[30px] object-cover py-[32px] max-mobile:mt-[32px] max-mobile:grid-cols-1 max-mobile:gap-3 max-mobile:rounded-[4px] max-mobile:bg-white max-mobile:p-[6px] mobile:border-b mobile:border-[#8F8F8F]">
       <div className="relative h-[264px] max-mobile:h-[231px]">
         <Image
           src={pathImage(item.mainImage.id)}

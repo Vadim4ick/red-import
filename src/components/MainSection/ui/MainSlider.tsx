@@ -17,6 +17,7 @@ import { GoodsFragment, useGetMainSliderQuery } from "@/graphql/__generated__";
 import { formatPrice, pathImage } from "@/shared/lib/utils";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { CatalogModalProviderContext } from "@/shared/providers/catalogModal";
+import { toggleBidOpen } from "@/store/bidModal";
 
 const MainSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(1); // Индекс текущего слайда (начинается с 1)
@@ -90,7 +91,7 @@ const MainSlider = () => {
 
                       <div className="flex flex-col pt-4 text-buttonColor max-mobile:pt-3 mobile:gap-[3px]">
                         <div className="flex items-end gap-[3px] font-medium">
-                          <p className="text-[24px] leading-[28p] max-mobile:text-[20px] max-mobile:leading-[24px]">
+                          <p className="text-[24px] leading-[29px] max-mobile:text-[20px] max-mobile:leading-[24px]">
                             {formatPrice(slide.goods.price)}
                           </p>
 
@@ -142,11 +143,9 @@ const MainSlider = () => {
                         </ReactMarkdown>
                       </div>
 
-                      <div
-                        onClick={() => handleClickDescription(slide.goods)}
-                        className="flex w-full items-center gap-[10px] pt-[20px] max-mobile:absolute max-mobile:bottom-8 max-mobile:left-0 max-mobile:justify-center"
-                      >
+                      <div className="flex w-full items-center gap-[10px] pt-[20px] max-mobile:absolute max-mobile:bottom-8 max-mobile:left-0 max-mobile:justify-center">
                         <Button
+                          onClick={() => handleClickDescription(slide.goods)}
                           variant={"secondary"}
                           className="h-[42px] w-full max-w-[155px] max-mobile:h-[40px]"
                         >
@@ -154,6 +153,7 @@ const MainSlider = () => {
                         </Button>
 
                         <Button
+                          onClick={() => toggleBidOpen()}
                           addonLeft={
                             <Phone className="mr-[7.6px] size-[16px]" />
                           }

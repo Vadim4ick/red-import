@@ -42,7 +42,7 @@ const CatalogModal = () => {
 
             <div className="flex flex-col items-start justify-between gap-[6px]">
               <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[2px]">
-                <DialogTitle className="heading-three text-start max-mobile:text-[13px] max-mobile:leading-[17px]">
+                <DialogTitle className="heading-three text-start text-[20px] font-medium leading-[24px] max-mobile:text-[13px] max-mobile:leading-[17px]">
                   {selectedItem.title}
                 </DialogTitle>
 
@@ -69,7 +69,7 @@ const CatalogModal = () => {
           </DialogHeader>
 
           <div className="rounded-[2px] bg-[#F5F5F5] py-[2px] pl-[20px] pr-[4px] max-mobile:pl-4">
-            <div className="custom-scrollbar__catalog h-[469px] overflow-y-scroll pr-[12px] max-mobile:h-[345px] max-mobile:pr-[8px]">
+            <div className="custom-scrollbar__catalog h-[440px] overflow-y-scroll pr-[12px] max-mobile:h-[345px] max-mobile:pr-[8px]">
               {/* Виртуальные паддинги сверху */}
               <div className="sticky top-0 h-[18px] w-full bg-[#F5F5F5] max-mobile:h-[16px]"></div>
 
