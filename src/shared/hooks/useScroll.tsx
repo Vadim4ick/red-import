@@ -81,11 +81,87 @@
 
 // export { useScroll };
 
+// "use client";
+
+// import { useInView } from "framer-motion";
+// import { useEffect, useRef, useState } from "react";
+// import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+
+// const useScroll = () => {
+//   const sliderRef = useRef<HTMLDivElement | null>(null);
+
+//   const [isScrollLocked, setIsScrollLocked] = useState(true);
+//   const [hasScrolled, setHasScrolled] = useState(false);
+
+//   const isInView = useInView(sliderRef, {
+//     amount: "all",
+//   });
+
+//   useEffect(() => {
+//     if (hasScrolled) {
+//       sliderRef.current = null;
+//     }
+//   }, [hasScrolled]);
+
+//   useEffect(() => {
+//     const handleWheel = (e: WheelEvent) => {
+//       if (isScrollLocked && !hasScrolled && sliderRef.current && isInView) {
+//         sliderRef.current.scrollLeft += e.deltaY;
+//       }
+//     };
+
+//     if (isScrollLocked && !hasScrolled && isInView) {
+//       // Lock scroll
+//       disableBodyScroll(sliderRef.current!);
+//       window.addEventListener("wheel", handleWheel);
+//     } else {
+//       // Unlock scroll
+//       enableBodyScroll(sliderRef.current!);
+//     }
+
+//     return () => {
+//       enableBodyScroll(sliderRef.current!);
+//       window.removeEventListener("wheel", handleWheel);
+//     };
+//   }, [isScrollLocked, isInView, hasScrolled]);
+
+//   useEffect(() => {
+//     const rect = sliderRef.current?.getBoundingClientRect();
+
+//     if (!rect) return;
+
+//     if (rect.y < 0) {
+//       setHasScrolled(true);
+//     }
+//   }, []);
+
+//   const handleScroll = () => {
+//     if (!sliderRef.current) return;
+
+//     const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+
+//     if (scrollLeft === 0 || scrollLeft + clientWidth >= scrollWidth) {
+//       setIsScrollLocked(false);
+//       enableBodyScroll(sliderRef.current);
+//       setHasScrolled(true);
+//     } else {
+//       setIsScrollLocked(true);
+//       disableBodyScroll(sliderRef.current);
+//     }
+//   };
+
+//   return {
+//     ref: sliderRef,
+//     handleScroll,
+//   };
+// };
+
+// export { useScroll };
+
 "use client";
 
 import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 const useScroll = () => {
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -111,16 +187,37 @@ const useScroll = () => {
     };
 
     if (isScrollLocked && !hasScrolled && isInView) {
-      // Lock scroll
-      disableBodyScroll(sliderRef.current!);
+      // Create and append a compensation element
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      if (scrollbarWidth > 0) {
+        const scrollbarCompensation = document.createElement("div");
+        scrollbarCompensation.style.position = "fixed";
+        scrollbarCompensation.style.top = "0";
+        scrollbarCompensation.style.right = "0";
+        scrollbarCompensation.style.width = `${scrollbarWidth}px`;
+        scrollbarCompensation.style.height = "100vh";
+        scrollbarCompensation.style.backgroundColor = "transparent";
+        scrollbarCompensation.style.pointerEvents = "none";
+        scrollbarCompensation.classList.add("scrollbar-compensation");
+        document.body.appendChild(scrollbarCompensation);
+      }
+
+      document.body.style.overflow = "hidden";
       window.addEventListener("wheel", handleWheel);
     } else {
-      // Unlock scroll
-      enableBodyScroll(sliderRef.current!);
+      // Clean up
+      document.body.style.overflow = "auto";
+      document
+        .querySelectorAll(".scrollbar-compensation")
+        .forEach((el) => el.remove());
     }
 
     return () => {
-      enableBodyScroll(sliderRef.current!);
+      document.body.style.overflow = "auto";
+      document
+        .querySelectorAll(".scrollbar-compensation")
+        .forEach((el) => el.remove());
       window.removeEventListener("wheel", handleWheel);
     };
   }, [isScrollLocked, isInView, hasScrolled]);
@@ -139,14 +236,51 @@ const useScroll = () => {
     if (!sliderRef.current) return;
 
     const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
 
     if (scrollLeft === 0 || scrollLeft + clientWidth >= scrollWidth) {
       setIsScrollLocked(false);
-      enableBodyScroll(sliderRef.current);
+      document.body.style.overflow = "auto";
       setHasScrolled(true);
+      document
+        .querySelectorAll(".scrollbar-compensation")
+        .forEach((el) => el.remove());
+
+      if (scrollLeft === 0) {
+        setIsScrollLocked(true);
+        if (scrollbarWidth > 0) {
+          const scrollbarCompensation = document.createElement("div");
+          scrollbarCompensation.style.position = "fixed";
+          scrollbarCompensation.style.top = "0";
+          scrollbarCompensation.style.right = "0";
+          scrollbarCompensation.style.width = `${scrollbarWidth}px`;
+          scrollbarCompensation.style.height = "100vh";
+          scrollbarCompensation.style.backgroundColor = "transparent";
+          scrollbarCompensation.style.pointerEvents = "none";
+          scrollbarCompensation.classList.add("scrollbar-compensation");
+          document.body.appendChild(scrollbarCompensation);
+        }
+      }
+
+      if (scrollLeft + clientWidth < scrollWidth) {
+        setHasScrolled(false);
+      }
     } else {
       setIsScrollLocked(true);
-      disableBodyScroll(sliderRef.current);
+      document.body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) {
+        const scrollbarCompensation = document.createElement("div");
+        scrollbarCompensation.style.position = "fixed";
+        scrollbarCompensation.style.top = "0";
+        scrollbarCompensation.style.right = "0";
+        scrollbarCompensation.style.width = `${scrollbarWidth}px`;
+        scrollbarCompensation.style.height = "100vh";
+        scrollbarCompensation.style.backgroundColor = "transparent";
+        scrollbarCompensation.style.pointerEvents = "none";
+        scrollbarCompensation.classList.add("scrollbar-compensation");
+        document.body.appendChild(scrollbarCompensation);
+      }
     }
   };
 
