@@ -85,6 +85,7 @@
 
 import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 const useScroll = () => {
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -110,21 +111,16 @@ const useScroll = () => {
     };
 
     if (isScrollLocked && !hasScrolled && isInView) {
-      // Lock scroll and adjust padding
-      const scrollbarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      // Lock scroll
+      disableBodyScroll(sliderRef.current);
       window.addEventListener("wheel", handleWheel);
     } else {
-      // Unlock scroll and reset padding
-      document.body.style.overflow = "auto";
-      document.body.style.paddingRight = "0";
+      // Unlock scroll
+      enableBodyScroll(sliderRef.current);
     }
 
     return () => {
-      document.body.style.overflow = "auto";
-      document.body.style.paddingRight = "0";
+      enableBodyScroll(sliderRef.current);
       window.removeEventListener("wheel", handleWheel);
     };
   }, [isScrollLocked, isInView, hasScrolled]);
@@ -143,27 +139,14 @@ const useScroll = () => {
     if (!sliderRef.current) return;
 
     const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
 
     if (scrollLeft === 0 || scrollLeft + clientWidth >= scrollWidth) {
       setIsScrollLocked(false);
-      document.body.style.overflow = "auto";
+      enableBodyScroll(sliderRef.current);
       setHasScrolled(true);
-      document.body.style.paddingRight = "0";
-
-      if (scrollLeft === 0) {
-        setIsScrollLocked(true);
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
-
-      if (scrollLeft + clientWidth < scrollWidth) {
-        setHasScrolled(false);
-      }
     } else {
       setIsScrollLocked(true);
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      disableBodyScroll(sliderRef.current);
     }
   };
 
