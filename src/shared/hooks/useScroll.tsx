@@ -55,6 +55,11 @@ const useScroll = () => {
 
     const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
 
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    console.log(scrollbarWidth);
+
     if (scrollLeft === 0 || scrollLeft + clientWidth >= scrollWidth) {
       setIsScrollLocked(false);
       document.body.style.overflow = "auto";
@@ -63,7 +68,7 @@ const useScroll = () => {
 
       if (scrollLeft === 0) {
         setIsScrollLocked(true);
-        document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`; // Установить padding при блокировке
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
       }
 
       if (scrollLeft + clientWidth < scrollWidth) {
@@ -72,7 +77,7 @@ const useScroll = () => {
     } else {
       setIsScrollLocked(true);
       document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`; // Установить padding при блокировке
+      document.body.style.paddingRight = `${scrollbarWidth}px`; // Установить padding при блокировке
     }
   };
 
