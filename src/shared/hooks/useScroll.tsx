@@ -59,9 +59,11 @@ const useScroll = () => {
       setIsScrollLocked(false);
       document.body.style.overflow = "auto";
       setHasScrolled(true);
+      document.body.style.paddingRight = "0";
 
       if (scrollLeft === 0) {
         setIsScrollLocked(true);
+        document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`; // Установить padding при блокировке
       }
 
       if (scrollLeft + clientWidth < scrollWidth) {
@@ -70,6 +72,7 @@ const useScroll = () => {
     } else {
       setIsScrollLocked(true);
       document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`; // Установить padding при блокировке
     }
   };
 
