@@ -6,6 +6,8 @@ const nextConfig = {
       { protocol: "http", hostname: "0.0.0.0", port: "8055", pathname: "/**" },
       { protocol: "http", hostname: "localhost" },
       { protocol: "http", hostname: "185.84.163.192" },
+      { protocol: "https", hostname: "admin.jcb-redimport.ru" },
+      { protocol: "https", hostname: "jcb-redimport.ru" },
     ],
   },
 };
