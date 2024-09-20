@@ -16,6 +16,18 @@ import {
 } from "@/store/leasing";
 import { ChangeEvent, useRef } from "react";
 
+const PRICE_MAX = 30000000;
+const PRICE_MIN = 500000;
+
+const CONTRIBUTION_MIN = 0;
+const CONTRIBUTION_MAX = 49;
+
+const TERM_MIN = 12;
+const TERM_MAX = 72;
+
+const PERCENT_MIN = 1;
+const PERCENT_MAX = 40;
+
 const LeasingCalculation = ({ className }: { className?: string }) => {
   const [price, contribution, term, percent] = useUnit([
     $price,
@@ -33,6 +45,10 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
     const inputValue = e.target.value.replace(/\s?руб\./, "");
     let parsedValue = parsePrice(inputValue) || 0;
 
+    if (parsedValue >= PRICE_MAX) {
+      parsedValue = PRICE_MAX;
+    }
+
     updatePrice(parsedValue);
 
     setTimeout(() => {
@@ -45,6 +61,10 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
   const handleInput2Change = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
     let parsedValue = parsePrice(inputValue) || 0;
+
+    if (parsedValue >= CONTRIBUTION_MAX) {
+      parsedValue = CONTRIBUTION_MAX;
+    }
 
     updateContribution(parsedValue);
 
@@ -59,6 +79,10 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
     const inputValue = e.target.value.replace(/\s?месяцев/, ""); // Убираем пробелы и текст "месяцев"
     let parsedValue = parseInt(inputValue, 10) || 0; // Парсим значение как целое число
 
+    if (parsedValue >= TERM_MAX) {
+      parsedValue = TERM_MAX;
+    }
+
     updateTerm(parsedValue); // Обновляем состояние термина
 
     setTimeout(() => {
@@ -71,6 +95,10 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
   const handleInput4Change = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
     let parsedValue = parseFloat(inputValue) || 0; // Парсим значение как число
+
+    if (parsedValue >= PERCENT_MAX) {
+      parsedValue = PERCENT_MAX;
+    }
 
     updatePercent(parsedValue);
 
@@ -95,8 +123,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           </p>
 
           <Slider
-            min={500000}
-            max={30000000}
+            min={PRICE_MIN}
+            max={PRICE_MAX}
             step={50000}
             value={price}
             onValueChange={updatePrice}
@@ -107,6 +135,11 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
+          onBlur={(e) => {
+            if (parsePrice(e.target.value) < PRICE_MIN) {
+              updatePrice(PRICE_MIN);
+            }
+          }}
           ref={inputRef}
           onChange={handleInputChange}
           value={`${formatPrice(price)} руб.`}
@@ -121,8 +154,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           </p>
 
           <Slider
-            min={0}
-            max={49}
+            min={CONTRIBUTION_MIN}
+            max={CONTRIBUTION_MAX}
             step={1}
             value={contribution}
             onValueChange={updateContribution}
@@ -133,6 +166,11 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
+          onBlur={(e) => {
+            if (parsePrice(e.target.value) < CONTRIBUTION_MIN) {
+              updateContribution(CONTRIBUTION_MIN);
+            }
+          }}
           ref={inputRef2}
           onChange={handleInput2Change}
           value={`${contribution} %`}
@@ -147,8 +185,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           </p>
 
           <Slider
-            min={12}
-            max={72}
+            min={TERM_MIN}
+            max={TERM_MAX}
             step={1}
             value={term}
             onValueChange={updateTerm}
@@ -159,6 +197,11 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
+          onBlur={(e) => {
+            if (parsePrice(e.target.value) < TERM_MIN) {
+              updateTerm(TERM_MIN);
+            }
+          }}
           ref={inputRef3}
           onChange={handleInput3Change}
           value={`${term} месяцев`}
@@ -173,8 +216,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           </p>
 
           <Slider
-            min={1}
-            max={40}
+            min={PERCENT_MIN}
+            max={PERCENT_MAX}
             step={1}
             value={percent}
             onValueChange={updatePercent}
@@ -185,6 +228,11 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
+          onBlur={(e) => {
+            if (parsePrice(e.target.value) < PERCENT_MIN) {
+              updatePercent(PERCENT_MIN);
+            }
+          }}
           ref={inputRef4}
           onChange={handleInput4Change}
           value={`${percent} %`}
