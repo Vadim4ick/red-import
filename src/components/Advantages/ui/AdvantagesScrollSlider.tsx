@@ -16,7 +16,7 @@ const AdvantagesScrollSlider = () => {
     <motion.div
       onScroll={!isMobile ? handleScroll : undefined}
       ref={!isMobile ? ref : undefined}
-      className="custom-scrollbar flex gap-[20px] max-mobile:flex-col max-mobile:items-center mobile:overflow-x-auto"
+      className="custom-scrollbar flex gap-[20px] max-mobile:flex-col max-mobile:items-center mobile:overflow-x-scroll"
     >
       {data &&
         !isLoading &&
