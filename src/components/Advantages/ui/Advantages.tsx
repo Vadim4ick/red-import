@@ -42,42 +42,42 @@
 import { Container } from "@/shared/ui/container";
 import { AdvantagesScrollSlider } from "./AdvantagesScrollSlider";
 import { motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motionConfigAnimate } from "@/shared/const/motion";
 
 const Advantages = () => {
   const ref = useRef(null);
-  const ref2 = useRef(null);
+  // const ref2 = useRef(null);
   const inView = useInView(ref);
 
-  // Состояние для хранения расстояния до правого края экрана
-  const [distanceToRight, setDistanceToRight] = useState(0);
+  // // Состояние для хранения расстояния до правого края экрана
+  // const [distanceToRight, setDistanceToRight] = useState(0);
 
-  // Функция для расчета расстояния до правого края экрана
-  const calculateDistance = () => {
-    if (ref2.current) {
-      const elementRect = ref2.current.getBoundingClientRect();
-      const windowWidth = window.innerWidth;
-      const distance = windowWidth - elementRect.right; // Расстояние до правого края экрана
+  // // Функция для расчета расстояния до правого края экрана
+  // const calculateDistance = () => {
+  //   if (ref2.current) {
+  //     const elementRect = ref2.current.getBoundingClientRect();
+  //     const windowWidth = window.innerWidth;
+  //     const distance = windowWidth - elementRect.right; // Расстояние до правого края экрана
 
-      setDistanceToRight(distance);
-    }
-  };
+  //     setDistanceToRight(distance);
+  //   }
+  // };
 
-  // Вызываем расчет при первом рендере и при изменении размера окна
-  useEffect(() => {
-    calculateDistance();
-    window.addEventListener("resize", calculateDistance);
+  // // Вызываем расчет при первом рендере и при изменении размера окна
+  // useEffect(() => {
+  //   calculateDistance();
+  //   window.addEventListener("resize", calculateDistance);
 
-    return () => {
-      window.removeEventListener("resize", calculateDistance); // Очистка слушателя при размонтировании
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", calculateDistance); // Очистка слушателя при размонтировании
+  //   };
+  // }, []);
 
   return (
     <motion.section
       id="advantages"
-      className="bg-white pb-[104px] pt-[88px] max-mobile:pb-[64px] max-mobile:pt-[32px]"
+      className="overflow-hidden bg-white pb-[104px] pt-[88px] max-mobile:pb-[64px] max-mobile:pt-[32px]"
       ref={ref}
       {...motionConfigAnimate}
       animate={
@@ -90,8 +90,8 @@ const Advantages = () => {
         </h2>
 
         <div
-          ref={ref2}
-          style={{ width: `${distanceToRight}px` }}
+          // ref={ref2}
+          // style={{ width: `${distanceToRight}px` }}
           className="pt-[64px] max-mobile:pt-[32px]"
         >
           <AdvantagesScrollSlider />
