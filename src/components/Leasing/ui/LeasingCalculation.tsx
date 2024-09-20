@@ -2,7 +2,7 @@
 
 import { Input } from "@/shared/ui/input";
 import { Slider } from "./RangeSlider";
-import { cn, formatNumber, formatPrice } from "@/shared/lib/utils";
+import { cn, formatNumber, formatPrice, parsePrice } from "@/shared/lib/utils";
 import { useUnit } from "effector-react";
 import {
   $contribution,
@@ -14,6 +14,7 @@ import {
   updatePrice,
   updateTerm,
 } from "@/store/leasing";
+import { ChangeEvent, useRef } from "react";
 
 const LeasingCalculation = ({ className }: { className?: string }) => {
   const [price, contribution, term, percent] = useUnit([
@@ -22,6 +23,63 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
     $term,
     $percent,
   ]);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef2 = useRef<HTMLInputElement | null>(null);
+  const inputRef3 = useRef<HTMLInputElement | null>(null);
+  const inputRef4 = useRef<HTMLInputElement | null>(null);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.replace(/\s?руб\./, "");
+    let parsedValue = parsePrice(inputValue) || 0;
+
+    updatePrice(parsedValue);
+
+    setTimeout(() => {
+      const formattedValue = `${formatPrice(parsedValue)} руб.`;
+      const numberLength = formattedValue.length - 5;
+      inputRef.current?.setSelectionRange(numberLength, numberLength);
+    }, 0);
+  };
+
+  const handleInput2Change = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
+    let parsedValue = parsePrice(inputValue) || 0;
+
+    updateContribution(parsedValue);
+
+    setTimeout(() => {
+      const formattedValue = `${parsedValue} %`; // Форматируем значение с процентом
+      const numberLength = formattedValue.length - 2; // Длина числа без %
+      inputRef2.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+    }, 0);
+  };
+
+  const handleInput3Change = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.replace(/\s?месяцев/, ""); // Убираем пробелы и текст "месяцев"
+    let parsedValue = parseInt(inputValue, 10) || 0; // Парсим значение как целое число
+
+    updateTerm(parsedValue); // Обновляем состояние термина
+
+    setTimeout(() => {
+      const formattedValue = `${parsedValue} месяцев`; // Форматируем значение с "месяцев"
+      const numberLength = formattedValue.length - 8; // Длина числа без " месяцев"
+      inputRef3.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+    }, 0);
+  };
+
+  const handleInput4Change = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
+    let parsedValue = parseFloat(inputValue) || 0; // Парсим значение как число
+
+    updatePercent(parsedValue);
+
+    setTimeout(() => {
+      const formattedValue = `${parsedValue} %`; // Форматируем значение с %
+      const numberLength = formattedValue.length - 2; // Длина числа без %
+      inputRef4.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+    }, 0);
+  };
 
   return (
     <div
@@ -49,7 +107,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
-          readOnly
+          ref={inputRef}
+          onChange={handleInputChange}
           value={`${formatPrice(price)} руб.`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
         />
@@ -74,7 +133,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
-          readOnly
+          ref={inputRef2}
+          onChange={handleInput2Change}
           value={`${contribution} %`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
         />
@@ -99,7 +159,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
-          readOnly
+          ref={inputRef3}
+          onChange={handleInput3Change}
           value={`${term} месяцев`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
         />
@@ -124,7 +185,8 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
-          readOnly
+          ref={inputRef4}
+          onChange={handleInput4Change}
           value={`${percent} %`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
         />
