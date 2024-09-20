@@ -47,7 +47,7 @@ import { motionConfigAnimate } from "@/shared/const/motion";
 
 const Advantages = () => {
   const ref = useRef(null);
-  const ref2 = useRef(null);
+  const ref2 = useRef<any>(null);
   const inView = useInView(ref);
 
   // Состояние для хранения расстояния до правого края экрана
