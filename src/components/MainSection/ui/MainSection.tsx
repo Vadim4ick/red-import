@@ -25,7 +25,7 @@ const MainSection = () => {
 
       <div className="bg-[#D3961F]">
         <Container className="w-full desktop:max-w-[1200px] desktop:pl-[55px]">
-          <p className="w-full py-2 text-[13px] font-light leading-[15px] text-white max-mobile:py-3 max-mobile:text-[12px] max-mobile:leading-[16px]">
+          <p className="w-full py-2 text-[13px] font-light leading-[15px] text-white max-mobile:py-3 max-mobile:text-[14px] max-mobile:leading-[16px]">
             Спецтехника для любых задач — от экскаваторов до бульдозеров.
             Импортируем напрямую, исключая посредников. Высокое качество и
             быстрая доставка по всей России.

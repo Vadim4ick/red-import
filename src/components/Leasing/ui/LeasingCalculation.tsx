@@ -143,7 +143,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           ref={inputRef}
           onChange={handleInputChange}
           value={`${formatPrice(price)} руб.`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
+          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
       </div>
 
@@ -174,7 +174,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           ref={inputRef2}
           onChange={handleInput2Change}
           value={`${contribution} %`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
+          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
       </div>
 
@@ -205,7 +205,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           ref={inputRef3}
           onChange={handleInput3Change}
           value={`${term} месяцев`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
+          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
       </div>
 
@@ -236,7 +236,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           ref={inputRef4}
           onChange={handleInput4Change}
           value={`${percent} %`}
-          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A]"
+          className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
       </div>
     </div>

@@ -18,8 +18,8 @@ const Advantages = () => {
         inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
       }
     >
-      <Container className="mobile:ml-auto mobile:mr-0 mobile:max-w-[1440px]">
-        <h2 className="heading-two">
+      <Container className="max-mobile:px-0 mobile:ml-auto mobile:mr-0 mobile:max-w-[1440px]">
+        <h2 className="heading-two max-mobile:px-[20px]">
           Почему выбирают <span className="text-buttonColor">Red</span>Import?
         </h2>
 
@@ -27,7 +27,7 @@ const Advantages = () => {
           <AdvantagesScrollSlider />
         </div>
 
-        <p className="pt-[36px] text-[13px] font-light leading-[15.5px] text-[#505050] max-mobile:pt-[20px]">
+        <p className="pt-[36px] text-[13px] font-light leading-[15.5px] text-[#505050] max-mobile:px-[20px] max-mobile:pt-[20px] max-mobile:text-[16px] max-mobile:leading-[19.2px]">
           Параллельный импорт спецтехники без посредников. Лучшие цены,
           качественная продукция и оперативная доставка — вот почему нас
           выбирают!

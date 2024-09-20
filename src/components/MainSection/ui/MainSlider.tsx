@@ -84,14 +84,14 @@ const MainSlider = () => {
                           {slide.goods.title}
                         </p>
 
-                        <p className="text-[14px] leading-[16px] text-[#7B7B7B] max-mobile:text-[12px] max-mobile:leading-[14px]">
+                        <p className="text-[14px] leading-[16px] text-[#7B7B7B] max-mobile:text-[14px] max-mobile:leading-[16.8px]">
                           {slide.goods.subtitle}
                         </p>
                       </div>
 
                       <div className="flex flex-col pt-4 text-buttonColor max-mobile:pt-3 mobile:gap-[3px]">
                         <div className="flex items-end gap-[3px] font-medium">
-                          <p className="text-[24px] leading-[29px] max-mobile:text-[20px] max-mobile:leading-[24px]">
+                          <p className="text-[24px] leading-[29px] max-mobile:text-[22px] max-mobile:leading-[26px]">
                             {formatPrice(slide.goods.price)}
                           </p>
 
@@ -101,7 +101,7 @@ const MainSlider = () => {
                         </div>
 
                         {slide.goods.nds && (
-                          <div className="text-[12px] leading-[14px]">
+                          <div className="text-[12px] leading-[14px] max-mobile:text-[14px] max-mobile:leading-[16.8px]">
                             Цена с НДС {slide.goods.nds}
                           </div>
                         )}
@@ -114,7 +114,7 @@ const MainSlider = () => {
                               return (
                                 <li>
                                   <div className="text-[#7B7B7B]">
-                                    <p className="mr-2 text-[14px] font-light leading-[16px]">
+                                    <p className="mr-2 text-[14px] font-light leading-[16px] max-mobile:text-[16px] max-mobile:leading-[19px]">
                                       {children}
                                     </p>
                                   </div>

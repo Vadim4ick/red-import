@@ -82,7 +82,7 @@ const RangeSlider = React.forwardRef(
 
             <SliderPrimitive.Thumb
               className={cn(
-                "relative block size-[13px] cursor-pointer rounded-full outline-none transition-colors after:absolute after:left-1/2 after:top-1/2 after:size-[5px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-white disabled:pointer-events-none disabled:opacity-50",
+                "relative block size-[16px] cursor-pointer rounded-full outline-none transition-colors after:absolute after:left-1/2 after:top-1/2 after:size-[8px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-white disabled:pointer-events-none disabled:opacity-50",
                 !value ? "bg-[#7B7B7B]" : "bg-[#D32E23]",
               )}
             />

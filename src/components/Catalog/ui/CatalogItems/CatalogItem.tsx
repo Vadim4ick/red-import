@@ -53,13 +53,13 @@ const CatalogItem = ({ item }: { item: GoodsFragment }) => {
           </div>
 
           <div className="flex flex-col gap-[6px] max-mobile:items-center max-mobile:gap-[2px] mobile:items-end">
-            <div className="heading-three">
+            <div className="heading-three max-mobile:text-[22px] max-mobile:leading-[26px]">
               {formatPrice(item.price)}{" "}
               <span className="text-[14px] leading-[16px]">руб.</span>
             </div>
 
             {item.nds && (
-              <div className="text-[12px] leading-[14px] text-[#5A5A5A]">
+              <div className="text-[12px] leading-[14px] text-[#5A5A5A] max-mobile:text-[14px] max-mobile:leading-[16.8px]">
                 Цена с НДС {item.nds}%
               </div>
             )}
