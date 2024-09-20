@@ -47,7 +47,7 @@ import { motionConfigAnimate } from "@/shared/const/motion";
 
 const Advantages = () => {
   const ref = useRef(null);
-  const ref2 = useRef<any>(null);
+  const ref2 = useRef(null);
   const inView = useInView(ref);
 
   // Состояние для хранения расстояния до правого края экрана
@@ -84,7 +84,7 @@ const Advantages = () => {
         inView ? motionConfigAnimate.animate : motionConfigAnimate.initial
       }
     >
-      <Container className="max-mobile:px-0 mobile:ml-auto">
+      <Container className="relative max-mobile:px-0 mobile:ml-auto">
         <h2 className="heading-two max-mobile:px-[20px]">
           Почему выбирают <span className="text-buttonColor">Red</span>Import?
         </h2>
