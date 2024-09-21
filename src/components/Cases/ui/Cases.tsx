@@ -42,15 +42,15 @@ const Cases = () => {
       }
       className="overflow-hidden pb-[96px] pt-[72px] max-mobile:pb-[64px] max-mobile:pt-[32px]"
     >
-      <Container className="relative max-mobile:px-0 mobile:ml-auto">
+      <Container className="relative max-mobile:px-[20px] mobile:ml-auto">
         <h2 className="heading-two">Успешные кейсы</h2>
 
         <div className="pt-[48px] max-mobile:pt-[24px]">
           <div
             ref={isMobile ? null : ref}
-            className="custom-scrollbar swiper flex w-[81vw] gap-[20px] max-mobile:flex-col max-mobile:items-center"
+            className="custom-scrollbar swiper flex w-[81vw] gap-[20px] max-desktop:w-[100vw] max-mobile:w-full max-mobile:flex-col max-mobile:items-center"
           >
-            <div className="swiper-wrapper">
+            <div className="swiper-wrapper max-mobile:flex-col max-mobile:gap-[48px]">
               {data &&
                 !isLoading &&
                 data.successfulCases.map((el) => (

@@ -11,10 +11,10 @@ const MainSection = () => {
           </h1>
 
           <div className="flex flex-col">
-            <p className="text-[18px] font-light leading-[22px] max-mobile:text-[14px] max-mobile:leading-[16px] max-mobile:text-[#6C6C6C]">
+            <p className="text-[18px] font-light leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px] max-mobile:text-[#6C6C6C]">
               Импортируем, доставляем, обеспечиваем качество.
             </p>
-            <p className="text-[18px] font-light leading-[22px] max-mobile:text-[14px] max-mobile:leading-[16px] max-mobile:text-[#6C6C6C]">
+            <p className="text-[18px] font-light leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px] max-mobile:text-[#6C6C6C]">
               Спецтехника напрямую от производителей по лучшим ценам!
             </p>
           </div>

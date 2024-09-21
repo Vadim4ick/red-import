@@ -55,6 +55,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  :root {
+    --header-height: 48px;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

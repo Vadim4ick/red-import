@@ -42,25 +42,25 @@ const CatalogModal = () => {
 
             <div className="flex flex-col items-start justify-between gap-[6px]">
               <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[2px]">
-                <DialogTitle className="heading-three text-start text-[20px] font-medium leading-[24px] max-mobile:text-[13px] max-mobile:leading-[17px]">
+                <DialogTitle className="heading-three text-start text-[20px] font-medium leading-[24px] max-mobile:text-[16px] max-mobile:leading-[18px]">
                   {selectedItem.title}
                 </DialogTitle>
 
-                <p className="text-[14px] leading-[16px] text-[#5A5A5A] max-mobile:text-[11px] max-mobile:leading-[13px]">
+                <p className="text-[14px] leading-[16px] text-[#5A5A5A] max-mobile:text-[12px] max-mobile:leading-[14px]">
                   {selectedItem.subtitle}
                 </p>
               </div>
 
               <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[2px]">
                 {selectedItem.nds && (
-                  <div className="text-[12px] leading-[14px] text-[#5A5A5A] max-mobile:text-[10px] max-mobile:leading-[12px]">
+                  <div className="text-[12px] leading-[14px] text-[#5A5A5A]">
                     Цена с НДС {selectedItem.nds}%
                   </div>
                 )}
 
-                <div className="heading-three max-mobile:text-[13px] max-mobile:leading-[15px]">
+                <div className="heading-three max-mobile:text-[16px] max-mobile:leading-[18px]">
                   {formatPrice(selectedItem.price)}{" "}
-                  <span className="text-[14px] leading-[16px] max-mobile:text-[11px] max-mobile:leading-[13px]">
+                  <span className="text-[14px] leading-[16px] max-mobile:text-[12px] max-mobile:leading-[16px]">
                     руб.
                   </span>
                 </div>
@@ -80,7 +80,7 @@ const CatalogModal = () => {
                       return (
                         <li>
                           <div className="text-[#5A5A5A]">
-                            <p className="flex gap-2 text-[14px] font-light leading-[16px]">
+                            <p className="text-[14px] font-light leading-[16px]">
                               {children}
                             </p>
                           </div>
@@ -98,7 +98,7 @@ const CatalogModal = () => {
 
                     strong: ({ children }) => {
                       return (
-                        <span className="font-normal text-defaultTextColor">
+                        <span className="pl-2 font-normal text-defaultTextColor">
                           {children}
                         </span>
                       );

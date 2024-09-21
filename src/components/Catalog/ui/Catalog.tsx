@@ -20,7 +20,9 @@ const Catalog = () => {
       }
     >
       <Container>
-        <h2 className="heading-two text-center">Каталог техники</h2>
+        <h2 className="heading-two text-center max-mobile:text-start">
+          Каталог техники
+        </h2>
 
         <div className="pt-[64px] max-mobile:pt-[32px]">
           <Filters />

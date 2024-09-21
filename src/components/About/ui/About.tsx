@@ -21,7 +21,7 @@ const About = () => {
       <Container>
         <div className="flex items-end gap-[2px]">
           <div className="flex flex-col tablet:gap-[42px]">
-            <h2 className="heading-two max-tablet:pb-[24px] max-mobileSmall:max-w-[248px]">
+            <h2 className="heading-two max-tablet:pb-[24px] max-mobileSmall:max-w-[252px]">
               <span className="text-buttonColor">Red</span>Import — ваш надежный
               партнер в мире спецтехники
             </h2>

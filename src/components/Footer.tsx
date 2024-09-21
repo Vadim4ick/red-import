@@ -30,7 +30,7 @@ const Footer = () => {
 
             <Button
               onClick={() => toggleBidOpen()}
-              className="h-[42px] w-[188px] max-mobile:h-[40px] max-mobile:w-[155px]"
+              className="h-[42px] w-[188px] max-mobile:h-[40px] max-mobile:w-[155px] max-mobile:text-[12px] max-mobile:leading-[16px]"
             >
               Заказать звонок
             </Button>

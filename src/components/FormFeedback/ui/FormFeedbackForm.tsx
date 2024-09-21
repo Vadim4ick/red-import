@@ -52,8 +52,8 @@ const FormFeedbackForm = ({
           />
         </div>
 
-        <div className="bg-white py-[2px] pr-[4px]">
-          {type !== "catalog" && (
+        {type !== "catalog" && (
+          <div className="bg-white py-[2px] pr-[4px]">
             <Textarea
               className={cn(
                 "custom-scrollbar__catalog min-h-[170px] resize-none max-mobile:min-h-[164px] max-mobile:px-[14px] max-mobile:text-[14px] max-mobile:leading-[19px]",
@@ -63,8 +63,8 @@ const FormFeedbackForm = ({
               )}
               placeholder="Ваш вопрос или комментарий"
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div

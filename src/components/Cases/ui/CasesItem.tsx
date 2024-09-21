@@ -11,13 +11,13 @@ const CasesItem = ({
   const isMobile = useMedia(768);
 
   return (
-    <article className="swiper-slide flex w-[350px] flex-shrink-0 flex-grow-0 flex-col gap-[20px] max-mobile:items-center">
+    <article className="swiper-slide flex w-[350px] flex-shrink-0 flex-grow-0 flex-col gap-[20px] max-mobile:w-full max-mobile:items-start max-mobile:gap-3">
       <Image
         src={pathImage(item.img.id)}
         alt="image"
         width={isMobile ? 320 : 348}
         height={isMobile ? 426 : 401}
-        className="bg-black"
+        className="bg-black max-mobile:w-full"
       />
 
       <p className="text-[17px] font-light leading-[24px] text-[#5A5A5A] max-mobile:max-w-[320px]">

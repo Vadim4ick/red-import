@@ -42,12 +42,12 @@ const LeasingForm = ({ className }: { className?: string }) => {
         className,
       )}
     >
-      <div className="flex flex-col gap-[6px]">
+      <div className="flex flex-col gap-[6px] max-mobile:gap-[4px]">
         <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
           Ежемесячный платёж:
         </p>
 
-        <div className="text-[24px] font-semibold leading-[33px]">
+        <div className="text-[24px] font-semibold leading-[33px] max-mobile:leading-[29px]">
           {formatPrice(parseInt(result.monthlyPayment))} руб.
         </div>
       </div>
