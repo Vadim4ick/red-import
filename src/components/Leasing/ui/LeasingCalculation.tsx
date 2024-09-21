@@ -28,6 +28,32 @@ const TERM_MAX = 72;
 const PERCENT_MIN = 1;
 const PERCENT_MAX = 40;
 
+interface InputConfig {
+  ref: React.RefObject<HTMLInputElement>;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface RangeConfig {
+  step: number;
+  min: number;
+  max: number;
+  value: number;
+  onValueChange: (value: number) => void;
+  marks?: number[];
+  minMaxLabel?: boolean;
+  formatLabel: (val: number) => string;
+}
+
+interface InputRangeItem {
+  id: number;
+  title: string;
+  input: InputConfig;
+  range: RangeConfig;
+}
+
 const LeasingCalculation = ({ className }: { className?: string }) => {
   const [price, contribution, term, percent] = useUnit([
     $price,
@@ -41,117 +67,184 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
   const inputRef3 = useRef<HTMLInputElement | null>(null);
   const inputRef4 = useRef<HTMLInputElement | null>(null);
 
-  // const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused2, setIsFocused2] = useState(false);
+  const [isFocused3, setIsFocused3] = useState(false);
+  const [isFocused4, setIsFocused4] = useState(false);
 
-  // const handleInputFocus = () => {
-  //   if (!isFocused) {
-  //     updatePrice(0); // Очищаем значение инпута
-  //     setIsFocused(true);
-  //   }
-  // };
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    type: "price" | "contribution" | "term" | "percent",
+  ) => {
+    const inputValue = e.target.value;
+    let parsedValue = 0;
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.replace(/\s?руб\./, "");
-    let parsedValue = parsePrice(inputValue) || 0;
-
-    // if (parsedValue >= PRICE_MAX) {
-    //   parsedValue = PRICE_MAX;
-    // }
-
-    updatePrice(parsedValue);
-
-    // setTimeout(() => {
-    //   const formattedValue = `${formatPrice(parsedValue)} руб.`;
-    //   const numberLength = formattedValue.length - 5;
-    //   inputRef.current?.setSelectionRange(numberLength, numberLength);
-    // }, 0);
-
-    // Сохраняем позицию курсора
-    const cursorPosition = e.target.selectionStart;
-
-    setTimeout(() => {
-      // Восстанавливаем позицию курсора
-      inputRef.current?.setSelectionRange(cursorPosition, cursorPosition);
-    }, 0);
-  };
-
-  const handleInput2Change = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
-    let parsedValue = parsePrice(inputValue) || 0;
-
-    // if (parsedValue >= CONTRIBUTION_MAX) {
-    //   parsedValue = CONTRIBUTION_MAX;
-    // }
-    if (parsedValue >= 99) {
-      parsedValue = 99;
+    switch (type) {
+      case "price":
+        parsedValue = parsePrice(inputValue.replace(/\s?руб\./, "")) || -1;
+        updatePrice(parsedValue);
+        break;
+      case "contribution":
+        parsedValue = parsePrice(inputValue.replace(/\s?%/, "")) || -1;
+        if (parsedValue >= 99) {
+          parsedValue = 99;
+        }
+        updateContribution(parsedValue);
+        break;
+      case "term":
+        parsedValue = parseInt(inputValue.replace(/\s?месяцев/, ""), 10) || -1;
+        updateTerm(parsedValue);
+        break;
+      case "percent":
+        parsedValue = parseFloat(inputValue.replace(/\s?%/, "")) || -1;
+        updatePercent(parsedValue);
+        break;
     }
 
-    updateContribution(parsedValue);
-
-    // setTimeout(() => {
-    //   const formattedValue = `${parsedValue} %`; // Форматируем значение с процентом
-    //   const numberLength = formattedValue.length - 2; // Длина числа без %
-    //   inputRef2.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
-    // }, 0);
-
     // Сохраняем позицию курсора
     const cursorPosition = e.target.selectionStart;
 
     setTimeout(() => {
       // Восстанавливаем позицию курсора
-      inputRef2.current?.setSelectionRange(cursorPosition, cursorPosition);
+      switch (type) {
+        case "price":
+          inputRef.current?.setSelectionRange(cursorPosition, cursorPosition);
+          break;
+        case "contribution":
+          inputRef2.current?.setSelectionRange(cursorPosition, cursorPosition);
+          break;
+        case "term":
+          inputRef3.current?.setSelectionRange(cursorPosition, cursorPosition);
+          break;
+        case "percent":
+          inputRef4.current?.setSelectionRange(cursorPosition, cursorPosition);
+          break;
+      }
     }, 0);
   };
 
-  const handleInput3Change = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.replace(/\s?месяцев/, ""); // Убираем пробелы и текст "месяцев"
-    let parsedValue = parseInt(inputValue, 10) || 1; // Парсим значение как целое число
-
-    // if (parsedValue >= TERM_MAX) {
-    //   parsedValue = TERM_MAX;
-    // }
-
-    updateTerm(parsedValue); // Обновляем состояние термина
-
-    // setTimeout(() => {
-    //   const formattedValue = `${parsedValue} месяцев`; // Форматируем значение с "месяцев"
-    //   const numberLength = formattedValue.length - 8; // Длина числа без " месяцев"
-    //   inputRef3.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
-    // }, 0);
-
-    // Сохраняем позицию курсора
-    const cursorPosition = e.target.selectionStart;
-
-    setTimeout(() => {
-      // Восстанавливаем позицию курсора
-      inputRef3.current?.setSelectionRange(cursorPosition, cursorPosition);
-    }, 0);
-  };
-
-  const handleInput4Change = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
-    let parsedValue = parseFloat(inputValue) || 1; // Парсим значение как число
-
-    // if (parsedValue >= PERCENT_MAX) {
-    //   parsedValue = PERCENT_MAX;
-    // }
-
-    updatePercent(parsedValue);
-
-    // setTimeout(() => {
-    //   const formattedValue = `${parsedValue} %`; // Форматируем значение с %
-    //   const numberLength = formattedValue.length - 2; // Длина числа без %
-    //   inputRef4.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
-    // }, 0);
-
-    // Сохраняем позицию курсора
-    const cursorPosition = e.target.selectionStart;
-
-    setTimeout(() => {
-      // Восстанавливаем позицию курсора
-      inputRef4.current?.setSelectionRange(cursorPosition, cursorPosition);
-    }, 0);
-  };
+  const arrInputs: InputRangeItem[] = [
+    {
+      id: 1,
+      title: "Стоимость имущества (руб.)",
+      input: {
+        ref: inputRef,
+        value: `${price === -1 ? "" : formatPrice(price)} руб.`,
+        onChange: (e: ChangeEvent<HTMLInputElement>) =>
+          handleInputChange(e, "price"),
+        onFocus: () => {
+          if (!isFocused) {
+            updatePrice(-1);
+            setIsFocused(true);
+          }
+        },
+        // onBlur: (e: ChangeEvent<HTMLInputElement>) => {
+        //   if (parsePrice(e.target.value) < PRICE_MIN) {
+        //     updatePrice(PRICE_MIN);
+        //   }
+        // },
+      },
+      range: {
+        step: 50000,
+        min: PRICE_MIN,
+        max: PRICE_MAX,
+        value: price,
+        onValueChange: updatePrice,
+        marks: [500000, 10000000, 15000000, 20000000, 25000000],
+        formatLabel: (val: number) => `${formatNumber(val)}`,
+      },
+    },
+    {
+      id: 2,
+      title: "Первоначальный взнос",
+      input: {
+        ref: inputRef2,
+        value: `${contribution === -1 ? "" : contribution} %`,
+        onChange: (e: ChangeEvent<HTMLInputElement>) =>
+          handleInputChange(e, "contribution"),
+        onFocus: () => {
+          if (!isFocused2) {
+            updateContribution(-1);
+            setIsFocused2(true);
+          }
+        },
+        onBlur: (e: ChangeEvent<HTMLInputElement>) => {
+          if (parsePrice(e.target.value) < CONTRIBUTION_MIN) {
+            updateContribution(CONTRIBUTION_MIN);
+          }
+        },
+      },
+      range: {
+        step: 1,
+        min: CONTRIBUTION_MIN,
+        max: CONTRIBUTION_MAX,
+        value: contribution,
+        onValueChange: updateContribution,
+        minMaxLabel: true,
+        formatLabel: (val: number) => `${val}%`,
+      },
+    },
+    {
+      id: 3,
+      title: "Срок договора",
+      input: {
+        ref: inputRef3,
+        value: `${term === -1 ? "" : term} месяцев`,
+        onChange: (e: ChangeEvent<HTMLInputElement>) =>
+          handleInputChange(e, "term"),
+        onFocus: () => {
+          if (!isFocused3) {
+            updateTerm(-1);
+            setIsFocused3(true);
+          }
+        },
+        onBlur: (e: ChangeEvent<HTMLInputElement>) => {
+          if (parsePrice(e.target.value) < TERM_MIN) {
+            updateTerm(TERM_MIN);
+          }
+        },
+      },
+      range: {
+        step: 1,
+        min: TERM_MIN,
+        max: TERM_MAX,
+        value: term,
+        onValueChange: updateTerm,
+        marks: [12, 24, 36, 48, 60],
+        formatLabel: (val: number) => `${val} мес.`,
+      },
+    },
+    {
+      id: 4,
+      title: "Процентная ставка",
+      input: {
+        ref: inputRef4,
+        value: `${percent === -1 ? "" : percent} %`,
+        onChange: (e: ChangeEvent<HTMLInputElement>) =>
+          handleInputChange(e, "percent"),
+        onBlur: (e: ChangeEvent<HTMLInputElement>) => {
+          if (parsePrice(e.target.value) < PERCENT_MIN) {
+            updatePercent(PERCENT_MIN);
+          }
+        },
+        onFocus: () => {
+          if (!isFocused4) {
+            updatePercent(-1);
+            setIsFocused4(true);
+          }
+        },
+      },
+      range: {
+        step: 1,
+        min: PERCENT_MIN,
+        max: PERCENT_MAX,
+        value: percent,
+        onValueChange: updatePercent,
+        minMaxLabel: true,
+        formatLabel: (val: number) => `${val}%`,
+      },
+    },
+  ];
 
   return (
     <div
@@ -160,7 +253,46 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         className,
       )}
     >
-      <div className="flex items-center justify-between gap-[36px] max-mobile:flex-col max-mobile:items-start max-mobile:gap-[46px]">
+      {arrInputs.map((el) => (
+        <div
+          key={el.id}
+          className="flex items-center justify-between gap-[36px] max-mobile:flex-col max-mobile:items-start max-mobile:gap-[46px]"
+        >
+          <div className="flex w-full flex-col gap-[24px]">
+            <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
+              {el.title}
+            </p>
+
+            <Slider
+              min={el.range.min}
+              max={el.range.max}
+              step={el.range.step}
+              value={el.range.value}
+              onValueChange={el.range.onValueChange}
+              minMaxLabel={el.range.minMaxLabel}
+              formatLabel={el.range.formatLabel}
+              marks={el.range.marks}
+            />
+          </div>
+
+          <Input
+            onBlur={el.input.onBlur}
+            onFocus={el.input.onFocus}
+            ref={el.input.ref}
+            onChange={el.input.onChange}
+            value={el.input.value}
+            className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export { LeasingCalculation };
+
+{
+  /* <div className="flex items-center justify-between gap-[36px] max-mobile:flex-col max-mobile:items-start max-mobile:gap-[46px]">
         <div className="flex w-full flex-col gap-[24px]">
           <p className="text-[17px] leading-[24px] text-[#5A5A5A]">
             Стоимость имущества (руб.)
@@ -186,7 +318,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
             }
           }}
           ref={inputRef}
-          onChange={handleInputChange}
+          onChange={(e) => handleInputChange(e, "price")}
           value={`${formatPrice(price)} руб.`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
@@ -217,7 +349,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
             }
           }}
           ref={inputRef2}
-          onChange={handleInput2Change}
+          onChange={(e) => handleInputChange(e, "contribution")}
           value={`${contribution} %`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
@@ -248,7 +380,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
             }
           }}
           ref={inputRef3}
-          onChange={handleInput3Change}
+          onChange={(e) => handleInputChange(e, "term")}
           value={`${term} месяцев`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
@@ -279,13 +411,9 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
             }
           }}
           ref={inputRef4}
-          onChange={handleInput4Change}
+          onChange={(e) => handleInputChange(e, "percent")}
           value={`${percent} %`}
           className="h-[56px] max-w-[184px] rounded-[2px] border-[#CBCBCB] bg-[#F3F3F3] text-center text-[17px] leading-[24px] text-[#5A5A5A] max-mobile:max-w-full"
         />
-      </div>
-    </div>
-  );
-};
-
-export { LeasingCalculation };
+      </div> */
+}
