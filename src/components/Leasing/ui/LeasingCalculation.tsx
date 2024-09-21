@@ -45,9 +45,9 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
     const inputValue = e.target.value.replace(/\s?руб\./, "");
     let parsedValue = parsePrice(inputValue) || 0;
 
-    if (parsedValue >= PRICE_MAX) {
-      parsedValue = PRICE_MAX;
-    }
+    // if (parsedValue >= PRICE_MAX) {
+    //   parsedValue = PRICE_MAX;
+    // }
 
     updatePrice(parsedValue);
 
@@ -62,8 +62,11 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
     const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
     let parsedValue = parsePrice(inputValue) || 0;
 
-    if (parsedValue >= CONTRIBUTION_MAX) {
-      parsedValue = CONTRIBUTION_MAX;
+    // if (parsedValue >= CONTRIBUTION_MAX) {
+    //   parsedValue = CONTRIBUTION_MAX;
+    // }
+    if (parsedValue >= 99) {
+      parsedValue = 99;
     }
 
     updateContribution(parsedValue);
@@ -77,11 +80,11 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
 
   const handleInput3Change = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\s?месяцев/, ""); // Убираем пробелы и текст "месяцев"
-    let parsedValue = parseInt(inputValue, 10) || 0; // Парсим значение как целое число
+    let parsedValue = parseInt(inputValue, 10) || 1; // Парсим значение как целое число
 
-    if (parsedValue >= TERM_MAX) {
-      parsedValue = TERM_MAX;
-    }
+    // if (parsedValue >= TERM_MAX) {
+    //   parsedValue = TERM_MAX;
+    // }
 
     updateTerm(parsedValue); // Обновляем состояние термина
 
@@ -94,11 +97,11 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
 
   const handleInput4Change = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\s?%/, ""); // Убираем пробелы и знак %
-    let parsedValue = parseFloat(inputValue) || 0; // Парсим значение как число
+    let parsedValue = parseFloat(inputValue) || 1; // Парсим значение как число
 
-    if (parsedValue >= PERCENT_MAX) {
-      parsedValue = PERCENT_MAX;
-    }
+    // if (parsedValue >= PERCENT_MAX) {
+    //   parsedValue = PERCENT_MAX;
+    // }
 
     updatePercent(parsedValue);
 

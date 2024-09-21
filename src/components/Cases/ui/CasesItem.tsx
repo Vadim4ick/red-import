@@ -11,7 +11,7 @@ const CasesItem = ({
   const isMobile = useMedia(768);
 
   return (
-    <article className="flex w-[350px] flex-shrink-0 flex-grow-0 flex-col gap-[20px] max-mobile:items-center">
+    <article className="swiper-slide flex w-[350px] flex-shrink-0 flex-grow-0 flex-col gap-[20px] max-mobile:items-center">
       <Image
         src={pathImage(item.img.id)}
         alt="image"
