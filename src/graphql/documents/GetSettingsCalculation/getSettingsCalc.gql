@@ -1,0 +1,11 @@
+query GetSettingsCalc {
+  settingsCalculation {
+    id
+    type
+    title
+    min
+    max
+    step
+    marks
+  }
+}

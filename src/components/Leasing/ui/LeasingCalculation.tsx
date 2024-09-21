@@ -13,21 +13,10 @@ import {
   updateTerm,
 } from "@/store/leasing";
 import { InputRangeItem } from "./InputRangeItem";
-
-const PRICE_MAX = 30000000;
-const PRICE_MIN = 500000;
-
-const CONTRIBUTION_MIN = 0;
-const CONTRIBUTION_MAX = 49;
-
-const TERM_MIN = 12;
-const TERM_MAX = 72;
-
-const PERCENT_MIN = 1;
-const PERCENT_MAX = 40;
+import { useGetSettingsCalcQuery } from "@/graphql/__generated__";
 
 interface InputRangeConfig {
-  id: number;
+  id: string;
   title: string;
   type: "price" | "contribution" | "term" | "percent";
   min: number;
@@ -37,7 +26,7 @@ interface InputRangeConfig {
   updateFn: (value: number) => void;
   formatLabel: (val: number) => string;
   formatLabelMarks: (val: number) => string;
-  marks?: number[];
+  marks?: any;
   minMaxLabel?: boolean;
 }
 
@@ -49,60 +38,97 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
     $percent,
   ]);
 
-  const arrInputs: InputRangeConfig[] = [
-    {
-      id: 1,
-      title: "Стоимость имущества (руб.)",
-      type: "price",
-      min: PRICE_MIN,
-      max: PRICE_MAX,
-      step: 50000,
-      value: price,
-      updateFn: updatePrice,
-      formatLabel: (val: number) => `${formatPrice(val)} руб.`,
-      formatLabelMarks: (val: number) => `${formatNumber(val)}`,
-      marks: [500000, 10000000, 15000000, 20000000, 25000000],
-    },
-    {
-      id: 2,
-      title: "Первоначальный взнос",
-      type: "contribution",
-      min: CONTRIBUTION_MIN,
-      max: CONTRIBUTION_MAX,
-      step: 1,
-      value: contribution,
-      updateFn: updateContribution,
-      formatLabel: (val: number) => `${val} %`,
-      formatLabelMarks: (val: number) => `${val}%`,
-      minMaxLabel: true,
-    },
-    {
-      id: 3,
-      title: "Срок договора (мес.)",
-      type: "term",
-      min: TERM_MIN,
-      max: TERM_MAX,
-      step: 1,
-      value: term,
-      updateFn: updateTerm,
-      formatLabel: (val: number) => `${val} месяцев`,
-      formatLabelMarks: (val: number) => `${val} мес.`,
-      marks: [12, 24, 36, 48, 60],
-    },
-    {
-      id: 4,
-      title: "Процентная ставка",
-      type: "percent",
-      min: PERCENT_MIN,
-      max: PERCENT_MAX,
-      step: 1,
-      value: percent,
-      updateFn: updatePercent,
-      formatLabel: (val: number) => `${val} %`,
-      formatLabelMarks: (val: number) => `${val}%`,
-      minMaxLabel: true,
-    },
-  ];
+  const { data, isLoading } = useGetSettingsCalcQuery();
+
+  if (isLoading) return <div>Загрузка...</div>;
+
+  if (!data) return <div>Нет данных</div>;
+
+  const settings = data.settingsCalculation;
+
+  // Пример функции для получения значения по типу
+  function getValueByType(type: string) {
+    switch (type) {
+      case "price":
+        return price;
+      case "contribution":
+        return contribution;
+      case "term":
+        return term;
+      case "percent":
+        return percent;
+      default:
+        return 0;
+    }
+  }
+
+  // Пример функции для получения функции обновления по типу
+  function getUpdateFnByType(type: string) {
+    switch (type) {
+      case "price":
+        return updatePrice;
+      case "contribution":
+        return updateContribution;
+      case "term":
+        return updateTerm;
+      case "percent":
+        return updatePercent;
+      default:
+        return () => {};
+    }
+  }
+
+  // Пример функции для форматирования меток
+  function formatLabelByType(type: string, val: number) {
+    switch (type) {
+      case "price":
+        return `${formatPrice(val)} руб.`;
+      case "contribution":
+        return `${val} %`;
+      case "term":
+        return `${val} месяцев`;
+      case "percent":
+        return `${val} %`;
+      default:
+        return val;
+    }
+  }
+
+  // Пример функции для форматирования меток отметок
+  function formatMarksByType(type: string, val: number) {
+    switch (type) {
+      case "price":
+        return formatNumber(val);
+      case "contribution":
+        return `${val}%`;
+      case "term":
+        return `${val} мес.`;
+      case "percent":
+        return `${val}%`;
+      default:
+        return val;
+    }
+  }
+
+  const arrInputs: InputRangeConfig[] = settings.map((setting) => {
+    return {
+      id: setting.id,
+      title: setting.title,
+      type: setting.type as "price" | "contribution" | "term" | "percent",
+      min: setting.min,
+      max: setting.max,
+      step: setting.step,
+      value: getValueByType(setting.type),
+      updateFn: getUpdateFnByType(setting.type),
+      formatLabel: (val: number) =>
+        String(formatLabelByType(setting.type, val)),
+      formatLabelMarks: (val: number) =>
+        String(formatMarksByType(setting.type, val)),
+      marks: setting.marks,
+      minMaxLabel:
+        setting.type === "contribution" || setting.type === "percent",
+    };
+  });
 
   return (
     <div
@@ -127,56 +153,6 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
           minMaxLabel={el.minMaxLabel}
         />
       ))}
-      {/* <InputRangeItem
-        title="Стоимость имущества (руб.)"
-        type="price"
-        min={PRICE_MIN}
-        max={PRICE_MAX}
-        step={50000}
-        value={price}
-        updateFn={updatePrice}
-        formatLabel={(val) => `${formatPrice(val)} руб.`}
-        formatLabelMarks={(val) => `${formatNumber(val)}`}
-        marks={[500000, 10000000, 15000000, 20000000, 25000000]}
-      />
-
-      <InputRangeItem
-        title="Первоначальный взнос (руб.)"
-        type="contribution"
-        min={CONTRIBUTION_MIN}
-        max={CONTRIBUTION_MAX}
-        step={1}
-        value={contribution}
-        updateFn={updateContribution}
-        minMaxLabel={true}
-        formatLabel={(val) => `${val} %`}
-        formatLabelMarks={(val) => `${val}%`}
-      />
-
-      <InputRangeItem
-        title="Срок договора (мес.)"
-        type="term"
-        min={TERM_MIN}
-        max={TERM_MAX}
-        step={1}
-        value={term}
-        updateFn={updateTerm}
-        formatLabel={(val) => `${val} месяцев`}
-        formatLabelMarks={(val) => `${val} мес.`}
-        marks={[12, 24, 36, 48, 60]}
-      />
-      <InputRangeItem
-        title="Процентная ставка"
-        type="percent"
-        min={PERCENT_MIN}
-        max={PERCENT_MAX}
-        step={1}
-        value={percent}
-        updateFn={updatePercent}
-        minMaxLabel={true}
-        formatLabel={(val) => `${val} %`}
-        formatLabelMarks={(val) => `${val}%`}
-      /> */}
     </div>
   );
 };
