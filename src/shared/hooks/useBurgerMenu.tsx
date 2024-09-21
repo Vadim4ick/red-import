@@ -23,6 +23,14 @@ const useBurgerMenu = () => {
       name: "О нас",
       fn: () => handleClick(document.getElementById("about")),
     },
+    {
+      name: "Наши кейсы",
+      fn: () => handleClick(document.getElementById("cases")),
+    },
+    {
+      name: "Лизинг",
+      fn: () => handleClick(document.getElementById("leasing")),
+    },
   ];
 
   return { asideMenu };

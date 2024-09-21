@@ -35,6 +35,7 @@ const Cases = () => {
 
   return (
     <motion.section
+      id="cases"
       ref={refMotion}
       {...motionConfigAnimate}
       animate={

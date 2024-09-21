@@ -14,7 +14,7 @@ const Header = () => {
   const isMobile = useMedia(768);
 
   return (
-    <header className="fixed z-50 w-[100vw] border-b border-b-[#E8E8E8] bg-white">
+    <header className="fixed z-[100] w-[100vw] border-b border-b-[#E8E8E8] bg-white">
       <Container>
         <div className="flex h-[var(--header-height)] items-center justify-between">
           <Link href={"/"}>

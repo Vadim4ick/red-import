@@ -11,6 +11,7 @@ const Leasing = () => {
 
   return (
     <motion.section
+      id="leasing"
       ref={ref}
       {...motionConfigAnimate}
       animate={
