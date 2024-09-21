@@ -22,17 +22,27 @@ const LeasingForm = ({ className }: { className?: string }) => {
   });
 
   useEffect(() => {
-    const {
-      annualCostIncreasePercentage,
-      monthlyPayment,
-      totalContractAmount,
-    } = calculateLeasingDetails(price, contribution, term, percent);
+    // Если хотя бы одно из значений равно -1, приводим все к 0
+    if ([price, contribution, term, percent].some((value) => value === -1)) {
+      setResult({
+        annualCostIncreasePercentage: "0",
+        monthlyPayment: "0",
+        totalContractAmount: "0",
+      });
+    } else {
+      // В противном случае выполняем расчеты
+      const {
+        annualCostIncreasePercentage,
+        monthlyPayment,
+        totalContractAmount,
+      } = calculateLeasingDetails(price, contribution, term, percent);
 
-    setResult({
-      annualCostIncreasePercentage,
-      monthlyPayment,
-      totalContractAmount,
-    });
+      setResult({
+        annualCostIncreasePercentage,
+        monthlyPayment,
+        totalContractAmount,
+      });
+    }
   }, [contribution, percent, price, term]);
 
   return (
