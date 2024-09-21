@@ -14,7 +14,7 @@ import {
   updatePrice,
   updateTerm,
 } from "@/store/leasing";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 const PRICE_MAX = 30000000;
 const PRICE_MIN = 500000;
@@ -41,6 +41,15 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
   const inputRef3 = useRef<HTMLInputElement | null>(null);
   const inputRef4 = useRef<HTMLInputElement | null>(null);
 
+  // const [isFocused, setIsFocused] = useState(false);
+
+  // const handleInputFocus = () => {
+  //   if (!isFocused) {
+  //     updatePrice(0); // Очищаем значение инпута
+  //     setIsFocused(true);
+  //   }
+  // };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\s?руб\./, "");
     let parsedValue = parsePrice(inputValue) || 0;
@@ -51,10 +60,18 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
 
     updatePrice(parsedValue);
 
+    // setTimeout(() => {
+    //   const formattedValue = `${formatPrice(parsedValue)} руб.`;
+    //   const numberLength = formattedValue.length - 5;
+    //   inputRef.current?.setSelectionRange(numberLength, numberLength);
+    // }, 0);
+
+    // Сохраняем позицию курсора
+    const cursorPosition = e.target.selectionStart;
+
     setTimeout(() => {
-      const formattedValue = `${formatPrice(parsedValue)} руб.`;
-      const numberLength = formattedValue.length - 5;
-      inputRef.current?.setSelectionRange(numberLength, numberLength);
+      // Восстанавливаем позицию курсора
+      inputRef.current?.setSelectionRange(cursorPosition, cursorPosition);
     }, 0);
   };
 
@@ -71,10 +88,18 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
 
     updateContribution(parsedValue);
 
+    // setTimeout(() => {
+    //   const formattedValue = `${parsedValue} %`; // Форматируем значение с процентом
+    //   const numberLength = formattedValue.length - 2; // Длина числа без %
+    //   inputRef2.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+    // }, 0);
+
+    // Сохраняем позицию курсора
+    const cursorPosition = e.target.selectionStart;
+
     setTimeout(() => {
-      const formattedValue = `${parsedValue} %`; // Форматируем значение с процентом
-      const numberLength = formattedValue.length - 2; // Длина числа без %
-      inputRef2.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+      // Восстанавливаем позицию курсора
+      inputRef2.current?.setSelectionRange(cursorPosition, cursorPosition);
     }, 0);
   };
 
@@ -88,10 +113,18 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
 
     updateTerm(parsedValue); // Обновляем состояние термина
 
+    // setTimeout(() => {
+    //   const formattedValue = `${parsedValue} месяцев`; // Форматируем значение с "месяцев"
+    //   const numberLength = formattedValue.length - 8; // Длина числа без " месяцев"
+    //   inputRef3.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+    // }, 0);
+
+    // Сохраняем позицию курсора
+    const cursorPosition = e.target.selectionStart;
+
     setTimeout(() => {
-      const formattedValue = `${parsedValue} месяцев`; // Форматируем значение с "месяцев"
-      const numberLength = formattedValue.length - 8; // Длина числа без " месяцев"
-      inputRef3.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+      // Восстанавливаем позицию курсора
+      inputRef3.current?.setSelectionRange(cursorPosition, cursorPosition);
     }, 0);
   };
 
@@ -105,10 +138,18 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
 
     updatePercent(parsedValue);
 
+    // setTimeout(() => {
+    //   const formattedValue = `${parsedValue} %`; // Форматируем значение с %
+    //   const numberLength = formattedValue.length - 2; // Длина числа без %
+    //   inputRef4.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+    // }, 0);
+
+    // Сохраняем позицию курсора
+    const cursorPosition = e.target.selectionStart;
+
     setTimeout(() => {
-      const formattedValue = `${parsedValue} %`; // Форматируем значение с %
-      const numberLength = formattedValue.length - 2; // Длина числа без %
-      inputRef4.current?.setSelectionRange(numberLength, numberLength); // Установка курсора после числа
+      // Восстанавливаем позицию курсора
+      inputRef4.current?.setSelectionRange(cursorPosition, cursorPosition);
     }, 0);
   };
 
@@ -138,6 +179,7 @@ const LeasingCalculation = ({ className }: { className?: string }) => {
         </div>
 
         <Input
+          // onFocus={handleInputFocus}
           onBlur={(e) => {
             if (parsePrice(e.target.value) < PRICE_MIN) {
               updatePrice(PRICE_MIN);
