@@ -30,7 +30,7 @@ const AdvantagesScrollSlider = () => {
   return (
     <div
       ref={isMobile ? null : ref}
-      className="custom-scrollbar swiper w-[81vw] max-desktop:w-[100vw] max-mobile:w-full"
+      className="custom-scrollbar swiper relative w-[81vw] overflow-visible max-desktop:w-[100vw] max-mobile:w-full"
     >
       <div className="swiper-wrapper max-mobile:flex-col max-mobile:items-center max-mobile:gap-[20px]">
         {data &&
