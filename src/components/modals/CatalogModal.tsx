@@ -27,21 +27,21 @@ const CatalogModal = () => {
 
   return (
     <Dialog open={open} onOpenChange={onClickCatalogModal}>
-      <DialogContent className="flex h-[725px] w-full max-w-[482px] flex-col justify-between rounded-[2px] border-none p-[20px] max-mobile:h-[583px] max-mobile:max-w-[320px] max-mobile:gap-[15px] max-mobile:rounded-[4px] max-mobile:p-[12px]">
+      <DialogContent className="mt-[20px] flex h-[725px] w-full max-w-[482px] flex-col justify-between rounded-[2px] border-none p-[20px] max-mobile:h-[583px] max-mobile:max-w-[320px] max-mobile:gap-[15px] max-mobile:rounded-[4px] max-mobile:p-[12px]">
         <div>
-          <DialogHeader className="flex flex-row gap-[18px] space-y-0 pb-[16px] max-mobile:gap-[12px]">
+          <DialogHeader className="flex flex-row gap-[18px] space-y-0 pb-[16px] max-mobile:gap-[10px]">
             <div>
               <Image
                 src={pathImage(selectedItem.mainImage.id)}
                 alt={selectedItem.title}
                 width={!isMobile ? 170 : 120}
-                height={!isMobile ? 127 : 90}
-                className="max-h-[127px] max-w-[170px] object-cover max-mobile:max-h-[90px] max-mobile:max-w-[120px]"
+                height={!isMobile ? 127 : 100}
+                className="max-h-[127px] max-w-[170px] object-cover max-mobile:h-[100px] max-mobile:max-w-[120px]"
               />
             </div>
 
-            <div className="flex flex-col items-start justify-between gap-[6px]">
-              <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[2px]">
+            <div className="flex flex-col items-start justify-between gap-[6px] max-mobile:w-[142px]">
+              <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[4px]">
                 <DialogTitle className="heading-three text-start text-[20px] font-medium leading-[24px] max-mobile:text-[16px] max-mobile:leading-[18px]">
                   {selectedItem.title}
                 </DialogTitle>
@@ -51,7 +51,7 @@ const CatalogModal = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[2px]">
+              <div className="flex flex-col items-start gap-[6px] max-mobile:gap-[1px]">
                 {selectedItem.nds && (
                   <div className="text-[12px] leading-[14px] text-[#5A5A5A]">
                     Цена с НДС {selectedItem.nds}%
@@ -69,7 +69,7 @@ const CatalogModal = () => {
           </DialogHeader>
 
           <div className="rounded-[2px] bg-[#F5F5F5] py-[2px] pl-[20px] pr-[4px] max-mobile:pl-4">
-            <div className="custom-scrollbar__catalog h-[440px] overflow-y-scroll pr-[12px] max-mobile:h-[345px] max-mobile:pr-[8px]">
+            <div className="custom-scrollbar__catalog h-[440px] overflow-y-scroll pr-[12px] max-mobile:h-[340px] max-mobile:pr-[8px]">
               {/* Виртуальные паддинги сверху */}
               <div className="sticky top-0 h-[18px] w-full bg-[#F5F5F5] max-mobile:h-[16px]"></div>
 

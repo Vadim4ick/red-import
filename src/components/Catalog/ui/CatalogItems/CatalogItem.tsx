@@ -124,10 +124,10 @@ const CatalogItem = ({ item }: { item: GoodsFragment }) => {
                     duration: 0.5, // Increase duration for smoother transitions
                     ease: "easeInOut", // Use easeInOut for smoother start and end
                   }}
-                  className="overflow-hidden"
+                  className="w-full overflow-hidden max-mobile:flex max-mobile:flex-col max-mobile:items-center"
                 >
                   <>
-                    <div className="rounded-[2px] bg-[#F5F5F5] p-[16px]">
+                    <div className="w-full rounded-[2px] bg-[#F5F5F5] p-[16px]">
                       <div className="pb-[12px]">
                         <div className="flex w-full flex-col gap-2">
                           <ReactMarkdown
@@ -205,7 +205,7 @@ const CatalogItem = ({ item }: { item: GoodsFragment }) => {
                     </div>
 
                     {item.guarant && (
-                      <p className="px-[44px] text-center text-[14px] leading-[16px] max-mobile:py-4">
+                      <p className="text-center text-[14px] leading-[16px] max-mobile:max-w-[220px] max-mobile:py-4">
                         {item.guarant}
                       </p>
                     )}

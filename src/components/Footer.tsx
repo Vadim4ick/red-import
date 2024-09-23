@@ -44,7 +44,7 @@ const Footer = () => {
               <br className="mobile:hidden" /> «РЭД ИМПОРТ»
             </p>
 
-            <div className="flex gap-[15px] max-mobile:flex-col max-mobile:items-center max-mobile:justify-center max-mobile:gap-1.5">
+            <div className="flex gap-[15px] max-mobile:flex-col max-mobile:items-center max-mobile:justify-center max-mobile:gap-0">
               <p className="leading-[19px] max-mobile:text-center max-mobile:text-[12px] max-mobile:leading-[16px]">
                 ОГРН 1036601472016
               </p>
@@ -55,8 +55,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex items-end justify-between pt-[59px] max-mobile:-mx-[20px] max-mobile:mt-[20px] max-mobile:flex-col max-mobile:items-start max-mobile:justify-center max-mobile:gap-3 max-mobile:bg-[#242424] max-mobile:px-[20px] max-mobile:py-[20px]">
-          <div className="flex flex-col gap-3 text-[14px] leading-[14px] text-[#6F6F6F] max-mobile:flex-col-reverse max-mobile:text-[12px] max-mobile:leading-[12px]">
+        <div className="flex items-end justify-between pt-[59px] max-mobile:-mx-[20px] max-mobile:mt-[26px] max-mobile:flex-col max-mobile:items-start max-mobile:justify-center max-mobile:gap-3 max-mobile:bg-[#242424] max-mobile:px-[20px] max-mobile:py-[20px]">
+          <div className="flex flex-col gap-3 text-[14px] leading-[14px] text-[#6F6F6F] max-mobile:flex-col-reverse max-mobile:gap-[6px] max-mobile:text-[12px] max-mobile:leading-[12px]">
             <a href="#">Публичная оферта</a>
             <a href="#">Пользовательское соглашение</a>
           </div>

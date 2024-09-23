@@ -91,7 +91,7 @@ const Filters = () => {
       <div className="flex flex-col">
         <h3 className="heading-three pb-[9px]">Год выпуска</h3>
 
-        <div className="flex items-center gap-[3px] pb-[13px]">
+        <div className="flex items-center gap-[3px] pb-[17px]">
           <Input
             value={years.from || ""}
             type="tel"
