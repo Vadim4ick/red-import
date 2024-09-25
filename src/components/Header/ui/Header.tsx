@@ -9,9 +9,12 @@ import { Phone } from "lucide-react";
 import Link from "next/link";
 import { Burger } from "./Burger";
 import { toggleBidOpen } from "@/store/bidModal";
+import { useNavbarHeader } from "@/shared/hooks/useNavbarHeader";
 
 const Header = () => {
   const isMobile = useMedia(768);
+
+  const { asideMenu } = useNavbarHeader();
 
   return (
     <header className="fixed z-[100] w-[100vw] border-b border-b-[#E8E8E8] bg-white">
@@ -20,6 +23,17 @@ const Header = () => {
           <Link href={"/"}>
             <Logo className="max-h-[28px] max-w-[166px] max-mobile:max-h-[24px] max-mobile:max-w-[141px]" />
           </Link>
+
+          <ul className="flex items-center gap-[24px] max-desktop:gap-[10px] max-tablet:hidden">
+            {!isMobile &&
+              asideMenu.map((el) => {
+                return (
+                  <li key={el.name}>
+                    <button onClick={el.fn}>{el.name}</button>
+                  </li>
+                );
+              })}
+          </ul>
 
           {!isMobile ? (
             <div className="flex items-center gap-4">
