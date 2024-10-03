@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useMedia } from "@/shared/hooks/useMedia";
 import { GetSuccessfulCasesQuery } from "@/graphql/__generated__";
 import { pathImage } from "@/shared/lib/utils";
 
@@ -8,17 +7,16 @@ const CasesItem = ({
 }: {
   item: GetSuccessfulCasesQuery["successfulCases"][0];
 }) => {
-  const isMobile = useMedia(768);
-
   return (
     <article className="swiper-slide flex w-[350px] flex-shrink-0 flex-grow-0 flex-col gap-[20px] max-mobile:w-full max-mobile:items-start max-mobile:gap-3">
-      <Image
-        src={pathImage(item.img.id)}
-        alt="image"
-        width={isMobile ? 320 : 348}
-        height={isMobile ? 426 : 401}
-        className="bg-black max-mobile:w-full"
-      />
+      <div className="relative h-[196px] max-mobile:w-full">
+        <Image
+          src={pathImage(item.img.id)}
+          alt="image"
+          fill
+          className="w-[350px] bg-black object-cover max-mobile:w-full"
+        />
+      </div>
 
       <p className="text-[17px] font-light leading-[24px] text-[#5A5A5A] max-mobile:max-w-[320px]">
         {item.title}
