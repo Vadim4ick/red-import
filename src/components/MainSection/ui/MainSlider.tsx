@@ -211,7 +211,7 @@ const MainSlider = () => {
         </div>
 
         <div className="absolute left-[7px] top-0 -translate-y-full rounded-t-[6px] bg-[#181818] px-[57px] py-[7px] uppercase leading-[19px] text-white max-mobile:left-[20px] max-mobile:px-[32px] max-mobile:text-[14px] max-mobile:leading-[16px]">
-          В НАЛИЧИИ
+          Уже В НАЛИЧИИ
         </div>
       </div>
     </ContainerSlider>

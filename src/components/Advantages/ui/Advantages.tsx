@@ -10,6 +10,7 @@ const Advantages = () => {
 
   return (
     <motion.section
+      data-observe="true"
       id="advantages"
       className="overflow-hidden bg-white pb-[104px] pt-[88px] max-mobile:pb-[64px] max-mobile:pt-[32px]"
       ref={ref}

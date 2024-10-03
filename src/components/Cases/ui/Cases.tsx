@@ -35,6 +35,7 @@ const Cases = () => {
 
   return (
     <motion.section
+      data-observe="true"
       id="cases"
       ref={refMotion}
       {...motionConfigAnimate}

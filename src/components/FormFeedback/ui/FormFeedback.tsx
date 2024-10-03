@@ -4,10 +4,12 @@ import { FormFeedbackForm } from "./FormFeedbackForm";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { motionConfigAnimate } from "@/shared/const/motion";
+import { useGetSectionFormSendQuery } from "@/graphql/__generated__";
 
 const FormFeedback = () => {
   const ref = useRef(null);
   const inView = useInView(ref);
+  const { data, isLoading } = useGetSectionFormSendQuery();
 
   return (
     <motion.section
@@ -22,15 +24,17 @@ const FormFeedback = () => {
         <div className="flex justify-between gap-2 bg-[#EDEDED] pb-[28px] pl-[68px] pr-[98px] pt-[44px] max-desktop:px-[45px] max-mobile:flex-col max-mobile:items-center max-mobile:gap-[24px] max-mobile:px-[20px] max-mobile:pb-[64px] max-mobile:pt-[32px]">
           <div className="flex max-w-[596px] flex-col justify-between gap-[36px]">
             <div className="flex flex-col gap-[24px] max-mobile:gap-[48px]">
-              <h2 className="heading-two max-mobile:max-w-[246px]">
-                Нужна помощь в выборе спецтехники?
-              </h2>
+              {data?.sectionFormSend && (
+                <h2 className="heading-two max-mobile:max-w-[246px]">
+                  {data.sectionFormSend.title}
+                </h2>
+              )}
 
-              <p className="max-w-[491px] leading-[19px] text-[#5A5A5A] max-tablet:hidden">
-                Оставьте свои контактные данные, и наш менеджер свяжется с вами
-                в ближайшее время. Мы всегда готовы помочь и ответить на любые
-                ваши вопросы.
-              </p>
+              {data?.sectionFormSend && (
+                <p className="max-w-[491px] leading-[19px] text-[#5A5A5A] max-tablet:hidden">
+                  {data.sectionFormSend.description}
+                </p>
+              )}
             </div>
 
             <div className="max-mobileSmall:flex max-mobileSmall:justify-center">

@@ -11,6 +11,7 @@ const Catalog = () => {
 
   return (
     <motion.section
+      data-observe="true"
       id="catalog"
       className="bg-[#F5F5F5] pb-[96px] pt-[64px] max-mobile:pb-[64px] max-mobile:pt-[32px]"
       ref={ref}

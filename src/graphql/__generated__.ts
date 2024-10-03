@@ -59,6 +59,10 @@ export type Query = {
   readonly mainSlider_aggregated: ReadonlyArray<MainSlider_Aggregated>;
   readonly mainSlider_by_id: Maybe<MainSlider>;
   readonly mainSlider_by_version: Maybe<Version_MainSlider>;
+  readonly sectionFormSend: Maybe<SectionFormSend>;
+  readonly sectionFormSend_by_version: Maybe<Version_SectionFormSend>;
+  readonly sectionMainSlider: Maybe<SectionMainSlider>;
+  readonly sectionMainSlider_by_version: Maybe<Version_SectionMainSlider>;
   readonly settingsCalculation: ReadonlyArray<SettingsCalculation>;
   readonly settingsCalculation_aggregated: ReadonlyArray<SettingsCalculation_Aggregated>;
   readonly settingsCalculation_by_id: Maybe<SettingsCalculation>;
@@ -169,6 +173,26 @@ export type QueryMainSlider_By_VersionArgs = {
 };
 
 
+export type QuerySectionFormSendArgs = {
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QuerySectionFormSend_By_VersionArgs = {
+  version: Scalars['String']['input'];
+};
+
+
+export type QuerySectionMainSliderArgs = {
+  version: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QuerySectionMainSlider_By_VersionArgs = {
+  version: Scalars['String']['input'];
+};
+
+
 export type QuerySettingsCalculationArgs = {
   filter: InputMaybe<SettingsCalculation_Filter>;
   limit: InputMaybe<Scalars['Int']['input']>;
@@ -240,6 +264,8 @@ export type Subscription = {
   readonly directus_files_mutated: Maybe<Directus_Files_Mutated>;
   readonly goods_mutated: Maybe<Goods_Mutated>;
   readonly mainSlider_mutated: Maybe<MainSlider_Mutated>;
+  readonly sectionFormSend_mutated: Maybe<SectionFormSend_Mutated>;
+  readonly sectionMainSlider_mutated: Maybe<SectionMainSlider_Mutated>;
   readonly settingsCalculation_mutated: Maybe<SettingsCalculation_Mutated>;
   readonly successfulCases_mutated: Maybe<SuccessfulCases_Mutated>;
 };
@@ -261,6 +287,16 @@ export type SubscriptionGoods_MutatedArgs = {
 
 
 export type SubscriptionMainSlider_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionSectionFormSend_MutatedArgs = {
+  event: InputMaybe<EventEnum>;
+};
+
+
+export type SubscriptionSectionMainSlider_MutatedArgs = {
   event: InputMaybe<EventEnum>;
 };
 
@@ -646,6 +682,34 @@ export type Number_Filter_Operators = {
   readonly _null: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type SectionFormSend = {
+  readonly __typename?: 'sectionFormSend';
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+export type SectionFormSend_Mutated = {
+  readonly __typename?: 'sectionFormSend_mutated';
+  readonly data: Maybe<SectionFormSend>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
+export type SectionMainSlider = {
+  readonly __typename?: 'sectionMainSlider';
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+export type SectionMainSlider_Mutated = {
+  readonly __typename?: 'sectionMainSlider_mutated';
+  readonly data: Maybe<SectionMainSlider>;
+  readonly event: Maybe<EventEnum>;
+  readonly key: Scalars['ID']['output'];
+};
+
 export type SettingsCalculation = {
   readonly __typename?: 'settingsCalculation';
   readonly id: Scalars['ID']['output'];
@@ -821,6 +885,20 @@ export type Version_MainSlider = {
   readonly img: Maybe<Scalars['JSON']['output']>;
 };
 
+export type Version_SectionFormSend = {
+  readonly __typename?: 'version_sectionFormSend';
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
+export type Version_SectionMainSlider = {
+  readonly __typename?: 'version_sectionMainSlider';
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
+};
+
 export type Version_SettingsCalculation = {
   readonly __typename?: 'version_settingsCalculation';
   readonly id: Scalars['ID']['output'];
@@ -868,6 +946,16 @@ export type GetSuccessfulCasesQuery = { readonly __typename?: 'Query', readonly 
 export type GoodsFragment = { readonly __typename?: 'goods', readonly id: string, readonly title: string, readonly subtitle: string, readonly price: number, readonly nds: number, readonly year: number, readonly guarant: string, readonly brand: string, readonly description: string, readonly dopDescription: string, readonly mainImage: { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number } };
 
 export type MediaFragmentFragment = { readonly __typename?: 'directus_files', readonly id: string, readonly width: number, readonly height: number };
+
+export type GetSectionFormSendQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSectionFormSendQuery = { readonly __typename?: 'Query', readonly sectionFormSend: { readonly __typename?: 'sectionFormSend', readonly id: string, readonly title: string, readonly description: string } };
+
+export type GetSectionMainSliderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSectionMainSliderQuery = { readonly __typename?: 'Query', readonly sectionMainSlider: { readonly __typename?: 'sectionMainSlider', readonly id: string, readonly title: string, readonly description: string } };
 
 
 export const MediaFragmentFragmentDoc = `
@@ -1131,3 +1219,93 @@ useInfiniteGetSuccessfulCasesQuery.getKey = (variables?: GetSuccessfulCasesQuery
 
 
 useGetSuccessfulCasesQuery.fetcher = (variables?: GetSuccessfulCasesQueryVariables) => fetcher<GetSuccessfulCasesQuery, GetSuccessfulCasesQueryVariables>(GetSuccessfulCasesDocument, variables);
+
+export const GetSectionFormSendDocument = `
+    query GetSectionFormSend {
+  sectionFormSend {
+    id
+    title
+    description
+  }
+}
+    `;
+
+export const useGetSectionFormSendQuery = <
+      TData = GetSectionFormSendQuery,
+      TError = unknown
+    >(
+      variables?: GetSectionFormSendQueryVariables,
+      options?: UseQueryOptions<GetSectionFormSendQuery, TError, TData>
+    ) => {
+    
+    return useQuery<GetSectionFormSendQuery, TError, TData>(
+      variables === undefined ? ['GetSectionFormSend'] : ['GetSectionFormSend', variables],
+      fetcher<GetSectionFormSendQuery, GetSectionFormSendQueryVariables>(GetSectionFormSendDocument, variables),
+      options
+    )};
+
+useGetSectionFormSendQuery.getKey = (variables?: GetSectionFormSendQueryVariables) => variables === undefined ? ['GetSectionFormSend'] : ['GetSectionFormSend', variables];
+
+export const useInfiniteGetSectionFormSendQuery = <
+      TData = GetSectionFormSendQuery,
+      TError = unknown
+    >(
+      variables?: GetSectionFormSendQueryVariables,
+      options?: UseInfiniteQueryOptions<GetSectionFormSendQuery, TError, TData>
+    ) => {
+    
+    return useInfiniteQuery<GetSectionFormSendQuery, TError, TData>(
+      variables === undefined ? ['GetSectionFormSend.infinite'] : ['GetSectionFormSend.infinite', variables],
+      (metaData) => fetcher<GetSectionFormSendQuery, GetSectionFormSendQueryVariables>(GetSectionFormSendDocument, {...variables, ...(metaData.pageParam ?? {})})(),
+      options
+    )};
+
+useInfiniteGetSectionFormSendQuery.getKey = (variables?: GetSectionFormSendQueryVariables) => variables === undefined ? ['GetSectionFormSend.infinite'] : ['GetSectionFormSend.infinite', variables];
+
+
+useGetSectionFormSendQuery.fetcher = (variables?: GetSectionFormSendQueryVariables) => fetcher<GetSectionFormSendQuery, GetSectionFormSendQueryVariables>(GetSectionFormSendDocument, variables);
+
+export const GetSectionMainSliderDocument = `
+    query GetSectionMainSlider {
+  sectionMainSlider {
+    id
+    title
+    description
+  }
+}
+    `;
+
+export const useGetSectionMainSliderQuery = <
+      TData = GetSectionMainSliderQuery,
+      TError = unknown
+    >(
+      variables?: GetSectionMainSliderQueryVariables,
+      options?: UseQueryOptions<GetSectionMainSliderQuery, TError, TData>
+    ) => {
+    
+    return useQuery<GetSectionMainSliderQuery, TError, TData>(
+      variables === undefined ? ['GetSectionMainSlider'] : ['GetSectionMainSlider', variables],
+      fetcher<GetSectionMainSliderQuery, GetSectionMainSliderQueryVariables>(GetSectionMainSliderDocument, variables),
+      options
+    )};
+
+useGetSectionMainSliderQuery.getKey = (variables?: GetSectionMainSliderQueryVariables) => variables === undefined ? ['GetSectionMainSlider'] : ['GetSectionMainSlider', variables];
+
+export const useInfiniteGetSectionMainSliderQuery = <
+      TData = GetSectionMainSliderQuery,
+      TError = unknown
+    >(
+      variables?: GetSectionMainSliderQueryVariables,
+      options?: UseInfiniteQueryOptions<GetSectionMainSliderQuery, TError, TData>
+    ) => {
+    
+    return useInfiniteQuery<GetSectionMainSliderQuery, TError, TData>(
+      variables === undefined ? ['GetSectionMainSlider.infinite'] : ['GetSectionMainSlider.infinite', variables],
+      (metaData) => fetcher<GetSectionMainSliderQuery, GetSectionMainSliderQueryVariables>(GetSectionMainSliderDocument, {...variables, ...(metaData.pageParam ?? {})})(),
+      options
+    )};
+
+useInfiniteGetSectionMainSliderQuery.getKey = (variables?: GetSectionMainSliderQueryVariables) => variables === undefined ? ['GetSectionMainSlider.infinite'] : ['GetSectionMainSlider.infinite', variables];
+
+
+useGetSectionMainSliderQuery.fetcher = (variables?: GetSectionMainSliderQueryVariables) => fetcher<GetSectionMainSliderQuery, GetSectionMainSliderQueryVariables>(GetSectionMainSliderDocument, variables);

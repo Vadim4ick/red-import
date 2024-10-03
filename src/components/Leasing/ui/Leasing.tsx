@@ -11,6 +11,7 @@ const Leasing = () => {
 
   return (
     <motion.section
+      data-observe="true"
       id="leasing"
       ref={ref}
       {...motionConfigAnimate}

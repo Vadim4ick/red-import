@@ -23,9 +23,14 @@ const Footer = () => {
             <div className="flex items-center gap-[6px]">
               <Phone className="size-5 fill-white text-white" />
 
-              <p className="whitespace-nowrap text-[14px] font-medium leading-[18px] text-white max-mobile:text-[12px] max-mobile:leading-[20px]">
-                {phoneNumber}
-              </p>
+              <div className="flex flex-col gap-[2px]">
+                <p className="whitespace-nowrap text-[14px] font-medium leading-[18px] text-white max-mobile:text-[12px] max-mobile:leading-[20px]">
+                  +7 (980) 422-12-06
+                </p>
+                <p className="whitespace-nowrap text-[14px] font-medium leading-[18px] text-white max-mobile:text-[12px] max-mobile:leading-[20px]">
+                  +7 (495) 621-33-31
+                </p>
+              </div>
             </div>
 
             <Button

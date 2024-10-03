@@ -1,0 +1,7 @@
+query GetSectionMainSlider {
+  sectionMainSlider {
+    id
+    title
+    description
+  }
+}

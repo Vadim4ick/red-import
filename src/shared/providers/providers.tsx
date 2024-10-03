@@ -27,7 +27,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CatalogModalProvider>{children}</CatalogModalProvider>;
+      <CatalogModalProvider>{children}</CatalogModalProvider>
     </QueryClientProvider>
   );
 };

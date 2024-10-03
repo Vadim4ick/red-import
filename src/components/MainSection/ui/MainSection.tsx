@@ -1,24 +1,37 @@
 import { Container } from "@/shared/ui/container";
 import { MainSlider } from "./MainSlider";
+import { useGetSectionMainSliderQuery } from "@/graphql/__generated__";
+import ReactMarkdown from "react-markdown";
 
 const MainSection = () => {
+  const { data, isLoading } = useGetSectionMainSliderQuery();
   return (
-    <section className="pt-[61px] max-mobile:pt-[32px]">
+    <section className="pt-[64px] max-mobile:pt-[32px]">
       <Container>
-        <div className="flex flex-col gap-6 pb-[90px] max-mobile:gap-4 max-mobile:pb-[62px]">
-          <h1 className="max-w-[600px] text-[48px] font-medium leading-[48px] max-mobile:text-[27px] max-mobile:leading-[27px]">
-            Надежная спецтехника для вашего бизнеса
-          </h1>
+        <div className="flex flex-col gap-6 pb-[69px] max-mobile:gap-4 max-mobile:pb-[62px]">
+          {data?.sectionMainSlider && (
+            <h1 className="max-w-[600px] text-[48px] font-medium leading-[48px] max-mobile:text-[27px] max-mobile:leading-[27px]">
+              {data.sectionMainSlider.title}
+            </h1>
+          )}
 
-          <div className="flex flex-col">
-            <p className="text-[18px] font-light leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px] max-mobile:text-[#6C6C6C]">
-              <span>Импортируем, доставляем, обеспечиваем качество.</span>{" "}
-              <br className="max-mobile:hidden" />
-              <span>
-                Спецтехника напрямую от производителей по лучшим ценам!
-              </span>
-            </p>
-          </div>
+          <ReactMarkdown
+            components={{
+              li: ({ children }) => {
+                return <li>{children}</li>;
+              },
+
+              ul: ({ children }) => {
+                return (
+                  <ul className="text-[18px] font-light leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px] max-mobile:text-[#6C6C6C]">
+                    {children}
+                  </ul>
+                );
+              },
+            }}
+          >
+            {data?.sectionMainSlider.description}
+          </ReactMarkdown>
         </div>
       </Container>
 

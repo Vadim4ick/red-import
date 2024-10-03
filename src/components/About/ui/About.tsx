@@ -10,6 +10,7 @@ const About = () => {
 
   return (
     <motion.section
+      data-observe="true"
       id="about"
       className="bg-white pb-[96px] pt-[88px] max-tablet:pt-[32px] max-mobile:pb-[64px]"
       ref={ref}
