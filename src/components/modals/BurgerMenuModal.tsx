@@ -1,6 +1,5 @@
 "use client";
 
-import { phoneNumber } from "@/shared/const";
 import { useBurgerMenu } from "@/shared/hooks/useBurgerMenu";
 import { Arrow } from "@/shared/icons/Arrow";
 import { Phone } from "@/shared/icons/Phone";
@@ -54,9 +53,15 @@ const BurgerMenuModal = () => {
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-[6px]">
             <Phone className="size-[16px] fill-buttonColor text-buttonColor" />
-            <p className="text-[12px] font-medium leading-[14px]">
-              {phoneNumber}
-            </p>
+
+            <div className="flex flex-col gap-[2px]">
+              <p className="text-[12px] font-medium leading-[14px]">
+                +7 (980) 422-12-06
+              </p>
+              <p className="text-[12px] font-medium leading-[14px]">
+                +7 (495) 621-33-31
+              </p>
+            </div>
           </div>
           <Button
             onClick={() => {

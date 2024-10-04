@@ -1,9 +1,7 @@
 "use client";
 
-import { phoneNumber } from "@/shared/const";
 import { Creatin } from "@/shared/icons/Creatin";
 import { Logo } from "@/shared/icons/Logo";
-// import { onest } from "@/shared/style/fonts";
 import { Button } from "@/shared/ui/button";
 import { Container } from "@/shared/ui/container";
 import { toggleBidOpen } from "@/store/bidModal";

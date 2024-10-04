@@ -23,7 +23,7 @@ const MainSection = () => {
 
               ul: ({ children }) => {
                 return (
-                  <ul className="text-[18px] font-light leading-[22px] max-mobile:text-[16px] max-mobile:leading-[19px] max-mobile:text-[#6C6C6C]">
+                  <ul className="text-[18px] font-light leading-[22px] max-mobile:max-w-[290px] max-mobile:text-[16px] max-mobile:leading-[19px] max-mobile:text-[#6C6C6C]">
                     {children}
                   </ul>
                 );
