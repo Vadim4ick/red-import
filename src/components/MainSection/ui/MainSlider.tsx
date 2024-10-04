@@ -66,6 +66,7 @@ const MainSlider = () => {
           slidesPerView={1}
           modules={[Navigation]}
           onSlideChange={handleSlideChange}
+          autoHeight={true}
           onSwiper={handleSwiperInit}
           navigation={{
             nextEl: "#mainSlider-next",
@@ -76,7 +77,7 @@ const MainSlider = () => {
           {data &&
             data.mainSlider.map((slide) => {
               return (
-                <SwiperSlide key={slide.id}>
+                <SwiperSlide key={slide.id} className="h-full">
                   <article className="rounded:rounded-t-[6px] relative grid h-full bg-white pl-[57px] max-tablet:pl-[20px] mobile:grid-cols-[352px_1fr]">
                     <div className="pb-[49px] pt-[30px] max-mobile:pb-[22.5px] max-mobile:pt-[34px]">
                       <div className="flex flex-col gap-[7px] max-mobile:gap-0.5">
