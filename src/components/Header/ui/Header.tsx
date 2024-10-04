@@ -53,7 +53,7 @@ const Header = () => {
         </div>
       </Container>
 
-      <div className="flex h-[36px] items-center border-t border-t-[#E8E8E8]">
+      <div className="flex h-[36px] items-center border-t border-t-[#E8E8E8] max-tablet:hidden">
         <Container className="w-full">
           <ul className="flex gap-[24px] max-desktop:gap-[10px] max-tablet:hidden">
             {!isMobile &&

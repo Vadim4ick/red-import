@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 const MainSection = () => {
   const { data, isLoading } = useGetSectionMainSliderQuery();
   return (
-    <section className="pt-[64px] max-mobile:pt-[32px]">
+    <section className="pt-[100px] max-tablet:pt-[64px] max-mobile:pt-[32px]">
       <Container>
         <div className="flex flex-col gap-6 pb-[69px] max-mobile:gap-4 max-mobile:pb-[62px]">
           {data?.sectionMainSlider && (
