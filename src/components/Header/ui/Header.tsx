@@ -22,7 +22,7 @@ const Header = () => {
       <Container>
         <div className="flex h-[var(--header-height)] items-center justify-between">
           <Link href={"/"}>
-            <Logo className="max-h-[28px] max-w-[166px] max-mobile:max-h-[24px] max-mobile:max-w-[141px]" />
+            <Logo className="max-h-[28px] max-w-[162px] max-mobile:max-h-[24px] max-mobile:max-w-[139px]" />
           </Link>
 
           {!isMobile ? (

@@ -21,7 +21,7 @@ const Advantages = () => {
     >
       <Container className="relative max-mobile:px-0 mobile:ml-auto">
         <h2 className="heading-two max-mobile:px-[20px]">
-          Почему выбирают <span className="text-buttonColor">Red </span>Import?
+          Почему выбирают <span className="text-buttonColor">Red </span> Import?
         </h2>
 
         <div className="pt-[64px] max-mobile:pt-[32px]">

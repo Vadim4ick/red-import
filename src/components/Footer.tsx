@@ -14,7 +14,10 @@ const Footer = () => {
       <Container>
         <div className="flex items-center justify-between gap-8 max-mobile:flex-col">
           <Link href={"/"}>
-            <Logo variant="footer" className="max-w-full" />
+            <Logo
+              variant="footer"
+              className="h-[55px] w-[357px] max-mobile:w-full"
+            />
           </Link>
 
           <div className="flex items-center gap-4 max-mobile:gap-[31px]">
